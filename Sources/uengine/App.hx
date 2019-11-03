@@ -1,6 +1,5 @@
 package uengine;
 
-import uengine.data.ObjectData.ObjectType;
 import kha.graphics2.Graphics;
 using kha.graphics2.GraphicsExtension;
 import kha.Color;
@@ -9,6 +8,7 @@ import kha.Scheduler;
 import kha.Framebuffer;
 
 // import uengine.Script;
+import uengine.data.WindowData;
 
 class App {
 
@@ -18,11 +18,13 @@ class App {
     static var onRender:Array<Graphics->Void> = [];
 
     public function new(scene:String) {
-        Scene.parseToScene(scene);
-        System.start({title: Main.name, width: Main.width, height: Main.height}, function (_) {
-            Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
-            System.notifyOnFrames(function (frames) { render(frames); });
-            Scene.createScriptInstance();
+        Window.parseWindow(function (){
+            Scene.parseToScene(scene);
+            System.start({title: Main.title, width: Window.window.width, height: Window.window.height}, function (_) {
+                Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
+                System.notifyOnFrames(function (frames) { render(frames); });
+                Scene.createScriptInstance();
+            });
         });
     }
 
