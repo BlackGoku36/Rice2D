@@ -5,9 +5,9 @@ class Transform{
     public var object:Object;
 
     public function new() {
-        
+
     }
-    
+
     public function getCenter() {
         var x = object.raw.x - (object.raw.width / 2);
         var y = object.raw.y - (object.raw.height / 2);

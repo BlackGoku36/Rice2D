@@ -8,5 +8,5 @@ class Script {
     public function notifyOnUpdate(func: Void->Void) {
         App.notifyOnUpdate(func);
     }
-    
+
 }

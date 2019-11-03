@@ -10,7 +10,7 @@ typedef WindowData = {
 class Window {
 
     public static var window:WindowData;
-    
+
     public static function loadWindow(done: Void->Void){
         kha.Assets.loadBlobFromPath("window.json", function (b:kha.Blob){
             window = haxe.Json.parse(b.toString());

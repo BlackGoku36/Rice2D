@@ -15,7 +15,7 @@ import uengine.Transform;
 class App {
 
     static var onResets:Array<Void->Void> = null;
-	static var onEndFrames:Array<Void->Void> = null;
+    static var onEndFrames:Array<Void->Void> = null;
     static var onUpdate:Array<Void->Void> = [];
     static var onRender:Array<Graphics->Void> = [];
 
@@ -73,7 +73,7 @@ class App {
         if (onEndFrames == null) onEndFrames = [];
         onEndFrames.push(func);
     }
-    
+
     public static function notifyOnUpdate(func:Void->Void) {
         onUpdate.push(func);
     }
