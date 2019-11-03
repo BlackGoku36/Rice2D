@@ -10,6 +10,7 @@ import kha.Scheduler;
 import kha.Framebuffer;
 
 import uengine.data.WindowData;
+import uengine.Transform;
 
 class App {
 
@@ -48,9 +49,10 @@ class App {
         g.begin(true, Color.Red);
         for (object in Scene.sceneData.objects){
             g.color = Color.fromBytes(object.color[0], object.color[1], object.color[2], object.color[3]);
+            var center = Transform.getObjectCenter(object);
             switch (object.type){
-                case Rect: g.drawRect(object.x-(object.width/2), object.y-(object.height/2), object.width, object.height, 3);
-                case FillRect: g.fillRect(object.x-(object.width/2), object.y-(object.height/2), object.width, object.height);
+                case Rect: g.drawRect(center.x, center.y, object.width, object.height, 3);
+                case FillRect: g.fillRect(center.x, center.y, object.width, object.height);
                 case Circle: g.drawCircle(object.x, object.y, 10);
                 case FillCircle: g.fillCircle(object.x, object.y, 10);
                 case _:
