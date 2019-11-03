@@ -15,10 +15,14 @@ class Scene {
     public static function parseToScene(scene:String){
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob){
             sceneData = haxe.Json.parse(b.toString());
+        }, function(err: kha.AssetError){
+            trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
         });
     }
 
     public static function createScriptInstance(){
+        if(Scene.sceneData == null) return;
+
         for (object in sceneData.objects){
             if(object.scripts == null) return;
             for (script in object.scripts){

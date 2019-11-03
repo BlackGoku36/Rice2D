@@ -7,7 +7,6 @@ import kha.System;
 import kha.Scheduler;
 import kha.Framebuffer;
 
-// import uengine.Script;
 import uengine.data.WindowData;
 
 class App {
@@ -18,7 +17,7 @@ class App {
     static var onRender:Array<Graphics->Void> = [];
 
     public function new(scene:String) {
-        Window.parseWindow(function (){
+        Window.loadWindow(function (){
             Scene.parseToScene(scene);
             System.start({title: Main.title, width: Window.window.width, height: Window.window.height}, function (_) {
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
@@ -29,12 +28,15 @@ class App {
     }
 
     function update() {
-        for (update in onUpdate) update();
+        if(Scene.sceneData == null) return;
 
+        for (update in onUpdate) update();
         if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
     }
 
     function render(frames: Array<Framebuffer>):Void {
+        if(Scene.sceneData == null) return;
+
         var g = frames[0].g2;
         var col = g.color;
         g.begin(true, Color.Red);
