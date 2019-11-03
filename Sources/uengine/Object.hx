@@ -8,7 +8,7 @@ class Object {
         if(object.scripts == null) object.scripts = [];
 
         object.scripts.push(name);
-        var scr = Type.resolveClass("src."+name);
+        var scr = Type.resolveClass("scripts."+name);
         if (scr == null) return;
         var cls:Script = Type.createInstance(scr, []);
         cls.object = object;

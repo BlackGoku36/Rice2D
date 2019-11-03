@@ -13,7 +13,7 @@ class Scene {
     }
 
     public static function parseToScene(scene:String){
-        kha.Assets.loadBlobFromPath(scene, function (b:kha.Blob){
+        kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob){
             sceneData = haxe.Json.parse(b.toString());
         });
     }
@@ -22,7 +22,7 @@ class Scene {
         for (object in sceneData.objects){
             if(object.scripts == null) return;
             for (script in object.scripts){
-                var scr = Type.resolveClass("src."+script);
+                var scr = Type.resolveClass("scripts."+script);
                 if (scr == null) return;
                 var cls:Script = Type.createInstance(scr, []);
                 cls.object = object;
