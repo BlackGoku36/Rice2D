@@ -1,5 +1,7 @@
 package uengine;
 
+import kha.WindowOptions.WindowFeatures;
+import kha.WindowMode;
 import kha.graphics2.Graphics;
 using kha.graphics2.GraphicsExtension;
 import kha.Color;
@@ -19,7 +21,11 @@ class App {
     public function new(scene:String) {
         Window.loadWindow(function (){
             Scene.parseToScene(scene);
-            System.start({title: Main.title, width: Window.window.width, height: Window.window.height}, function (_) {
+
+            var windowMode:WindowMode = WindowMode.Fullscreen;
+            Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
+
+            System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                 System.notifyOnFrames(function (frames) { render(frames); });
                 Scene.createScriptInstance();
