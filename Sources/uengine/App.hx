@@ -21,15 +21,14 @@ class App {
 
     public function new(scene:String) {
         Window.loadWindow(function (){
-            Scene.parseToScene(scene);
 
             var windowMode:WindowMode = WindowMode.Fullscreen;
             Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
+                Scene.parseToScene(scene);
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                 System.notifyOnFrames(function (frames) { render(frames); });
-                Scene.createScriptInstance();
             });
         });
     }
@@ -47,14 +46,14 @@ class App {
         var g = frames[0].g2;
         var col = g.color;
         g.begin(true, Color.Red);
-        for (object in Scene.sceneData.objects){
-            g.color = Color.fromBytes(object.color[0], object.color[1], object.color[2], object.color[3]);
-            var center = Transform.getObjectCenter(object);
-            switch (object.type){
-                case Rect: g.drawRect(center.x, center.y, object.width, object.height, 3);
-                case FillRect: g.fillRect(center.x, center.y, object.width, object.height);
-                case Circle: g.drawCircle(object.x, object.y, 10);
-                case FillCircle: g.fillCircle(object.x, object.y, 10);
+        for (object in Scene.objects){
+            g.color = Color.fromBytes(object.raw.color[0], object.raw.color[1], object.raw.color[2], object.raw.color[3]);
+            var center = object.transform.getCenter();
+            switch (object.raw.type){
+                case Rect: g.drawRect(center.x, center.y, object.raw.width, object.raw.height, 3);
+                case FillRect: g.fillRect(center.x, center.y, object.raw.width, object.raw.height);
+                case Circle: g.drawCircle(object.raw.x, object.raw.y, 10);
+                case FillCircle: g.fillCircle(object.raw.x, object.raw.y, 10);
                 case _:
             }
         }

@@ -1,8 +1,5 @@
 package uengine.system;
 
-import haxe.display.Position;
-import haxe.macro.Context;
-
 class Input {
     public static var occupied = false;
     static var registered = false;

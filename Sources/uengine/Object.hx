@@ -4,13 +4,23 @@ import uengine.data.ObjectData;
 
 class Object {
 
-    public static function addScript(name:String, object:ObjectData) {
-        if(object.scripts == null) object.scripts = [];
+    public var name = "";
+    public var raw:ObjectData = null;
+    public var transform:Transform = null;
 
-        object.scripts.push(name);
-        var scr = Type.resolveClass("scripts."+name);
+    public function new() {
+        transform = new Transform();
+        transform.object = this;
+    }
+
+    public function addScript(className:String) {
+        if(this.raw.scripts == null) this.raw.scripts = [];
+
+        var scr = Type.resolveClass("scripts."+className);
         if (scr == null) return;
         var cls:Script = Type.createInstance(scr, []);
-        cls.object = object;
+        cls.object = this;
+        this.raw.scripts.push(className);
+
     }
 }
