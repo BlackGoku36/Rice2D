@@ -8,6 +8,16 @@ class Scene {
 
     public static var objects:Array<Object> = [];
 
+    public static function addObject(name:String, data:ObjectData) {
+        var obj = new Object();
+        obj.name = name;
+        obj.raw = data;
+        createScriptInstance(obj, data);
+        objects.push(
+            obj
+        );
+    }
+
     public static function getObject(name:String):Object {
         var obj:Object = null;
         for (object in objects) if(object.name == name) obj = object;

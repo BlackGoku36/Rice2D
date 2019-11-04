@@ -47,7 +47,11 @@ class App {
         var col = g.color;
         g.begin(true, Color.Red);
         for (object in Scene.objects){
-            g.color = Color.fromBytes(object.raw.color[0], object.raw.color[1], object.raw.color[2], object.raw.color[3]);
+            if (object.raw.color == null){
+                g.color = Color.Black;
+            }else{
+                g.color = Color.fromBytes(object.raw.color[0], object.raw.color[1], object.raw.color[2], object.raw.color[3]);
+            }
             var center = object.transform.getCenter();
             switch (object.raw.type){
                 case Rect: g.drawRect(center.x, center.y, object.raw.width, object.raw.height, 3);
