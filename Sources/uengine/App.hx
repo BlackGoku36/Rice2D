@@ -56,8 +56,8 @@ class App {
             switch (object.raw.type){
                 case Rect: g.drawRect(center.x, center.y, object.raw.width, object.raw.height, 3);
                 case FillRect: g.fillRect(center.x, center.y, object.raw.width, object.raw.height);
-                case Circle: g.drawCircle(object.raw.x, object.raw.y, 10);
-                case FillCircle: g.fillCircle(object.raw.x, object.raw.y, 10);
+                case Circle: g.drawCircle(object.raw.x, object.raw.y, object.raw.width/2);
+                case FillCircle: g.fillCircle(object.raw.x, object.raw.y, object.raw.width/2);
                 case _:
             }
         }
