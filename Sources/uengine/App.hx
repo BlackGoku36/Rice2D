@@ -1,5 +1,6 @@
 package uengine;
 
+import kha.math.FastMatrix3;
 import kha.WindowOptions.WindowFeatures;
 import kha.WindowMode;
 import kha.graphics2.Graphics;
@@ -45,8 +46,9 @@ class App {
 
         var g = frames[0].g2;
         var col = g.color;
-        g.begin(true, Color.Red);
+        g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
         for (object in Scene.objects){
+            if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.raw.x, object.raw.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.raw.x, -object.raw.y)));
             if (object.raw.color == null){
                 g.color = Color.Black;
             }else{
@@ -60,6 +62,7 @@ class App {
                 case FillCircle: g.fillCircle(object.raw.x, object.raw.y, object.raw.width/2);
                 case _:
             }
+            if (object.rotation != 0) g.popTransformation();
         }
         g.color = col;
         for (render in onRender){

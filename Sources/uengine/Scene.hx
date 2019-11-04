@@ -8,14 +8,13 @@ class Scene {
 
     public static var objects:Array<Object> = [];
 
-    public static function addObject(name:String, data:ObjectData) {
+    public static function addObject(data:ObjectData, done: Object->Void) {
         var obj = new Object();
-        obj.name = name;
+        obj.name = data.name;
         obj.raw = data;
         createScriptInstance(obj, data);
-        objects.push(
-            obj
-        );
+        objects.push(obj);
+        done(obj);
     }
 
     public static function getObject(name:String):Object {

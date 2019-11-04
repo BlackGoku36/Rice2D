@@ -1,5 +1,6 @@
 package uengine;
 
+import kha.math.Vector2;
 import uengine.data.ObjectData;
 
 class Object {
@@ -7,6 +8,7 @@ class Object {
     public var name = "";
     public var raw:ObjectData = null;
     public var transform:Transform = null;
+    public var rotation = 0.0;
 
     public function new() {
         transform = new Transform();
