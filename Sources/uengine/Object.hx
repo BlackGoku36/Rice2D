@@ -9,7 +9,7 @@ class Object {
     public var raw:ObjectData = null;
     public var transform:Transform = null;
     public var rotation = 0.0;
-    public var image:kha.Image;
+    public var image:kha.Image = null;
     public var animation:Animation = Animation.create(0);
 
     public function new() {

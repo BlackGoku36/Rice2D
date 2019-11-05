@@ -61,7 +61,11 @@ class App {
                 case Circle: g.drawCircle(object.raw.x, object.raw.y, object.raw.width/2);
                 case FillCircle: g.fillCircle(object.raw.x, object.raw.y, object.raw.width/2);
                 case Sprite:
-                    g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.raw.width) % object.image.width, Math.floor(object.animation.get() * object.raw.width / object.image.width) * object.raw.height, object.raw.width, object.raw.height, Math.round(center.x), Math.round(center.y), object.raw.width, object.raw.height);
+                    g.color = col;
+                    if(object.image != null){
+                        g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.raw.width) % object.image.width, Math.floor(object.animation.get() * object.raw.width / object.image.width) * object.raw.height, object.raw.width, object.raw.height, Math.round(center.x), Math.round(center.y), object.raw.width, object.raw.height);
+                    }
+                    g.color = Color.fromBytes(object.raw.color[0], object.raw.color[1], object.raw.color[2], object.raw.color[3]);
                 case _:
             }
             if (object.rotation != 0) g.popTransformation();

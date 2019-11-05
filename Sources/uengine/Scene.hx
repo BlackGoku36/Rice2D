@@ -13,6 +13,7 @@ class Scene {
         obj.name = data.name;
         obj.raw = data;
         createScriptInstance(obj, data);
+        if(data.type == Sprite) setObjectSprite(data.spriteS, obj);
         objects.push(obj);
         done(obj);
     }
@@ -27,20 +28,13 @@ class Scene {
         kha.Assets.loadImageFromPath(ref, true, function (img){
             obj.image = img;
         });
-    } 
+    }
 
     public static function parseToScene(scene:String){
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob){
             sceneData = haxe.Json.parse(b.toString());
             for (object in sceneData.objects){
-                var obj = new Object();
-                obj.name = object.name;
-                obj.raw = object;
-                createScriptInstance(obj, object);
-                if(object.type == Sprite) setObjectSprite(object.spriteS, obj);
-                objects.push(
-                    obj
-                );
+                addObject(object, function (obj){});
             }
         }, function(err: kha.AssetError){
             trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
