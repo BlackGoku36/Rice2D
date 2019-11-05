@@ -16,7 +16,6 @@ class App {
     static var onResets:Array<Void->Void> = null;
     static var onEndFrames:Array<Void->Void> = null;
     static var onUpdate:Array<Void->Void> = [];
-    static var onRender:Array<Graphics->Void> = [];
 
     public function new(scene:String) {
         Window.loadWindow(function (){
@@ -69,9 +68,6 @@ class App {
             if (object.rotation != 0) g.popTransformation();
         }
         g.color = col;
-        for (render in onRender){
-            render(g);
-        }
         g.end();
     }
 
@@ -89,7 +85,4 @@ class App {
         onUpdate.push(func);
     }
 
-    public static function notifyOnRender(func:Graphics->Void){
-        onRender.push(func);
-    }
 }
