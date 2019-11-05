@@ -39,6 +39,7 @@ class Scene {
                 createScriptInstance(obj, object);
                 if(object.type == Sprite){
                     getBlobImage(object.spriteS, obj);
+                    obj.animation = Animation.create(0);
                     trace(obj.image);
                 }
                 objects.push(
