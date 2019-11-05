@@ -9,13 +9,13 @@ class Transform{
     }
 
     public function getCenter() {
-        var x = object.raw.x - (object.raw.width / 2);
-        var y = object.raw.y - (object.raw.height / 2);
+        var x = object.props.x - (object.props.width / 2);
+        var y = object.props.y - (object.props.height / 2);
         return { x : x, y : y}
     }
 
     public function translate(x:Float, y:Float, s:Float) {
-        object.raw.x += x * s;
-        object.raw.y += y * s;
+        object.props.x += x * s;
+        object.props.y += y * s;
     }
 }

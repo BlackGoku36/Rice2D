@@ -11,7 +11,7 @@ class Scene {
     public static function addObject(data:ObjectData, done: Object->Void) {
         var obj = new Object();
         obj.name = data.name;
-        obj.raw = data;
+        obj.props = data;
         createScriptInstance(obj, data);
         if(data.type == Sprite) setObjectSprite(data.spriteS, obj);
         objects.push(obj);

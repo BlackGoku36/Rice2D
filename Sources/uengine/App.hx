@@ -46,24 +46,24 @@ class App {
         var col = g.color;
         g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
         for (object in Scene.objects){
-            if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.raw.x, object.raw.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.raw.x, -object.raw.y)));
-            if (object.raw.color == null){
+            if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
+            if (object.props.color == null){
                 g.color = Color.Black;
             }else{
-                g.color = Color.fromBytes(object.raw.color[0], object.raw.color[1], object.raw.color[2], object.raw.color[3]);
+                g.color = Color.fromBytes(object.props.color[0], object.props.color[1], object.props.color[2], object.props.color[3]);
             }
             var center = object.transform.getCenter();
-            switch (object.raw.type){
-                case Rect: g.drawRect(center.x, center.y, object.raw.width, object.raw.height, 3);
-                case FillRect: g.fillRect(center.x, center.y, object.raw.width, object.raw.height);
-                case Circle: g.drawCircle(object.raw.x, object.raw.y, object.raw.width/2);
-                case FillCircle: g.fillCircle(object.raw.x, object.raw.y, object.raw.width/2);
+            switch (object.props.type){
+                case Rect: g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+                case FillRect: g.fillRect(center.x, center.y, object.props.width, object.props.height);
+                case Circle: g.drawCircle(object.props.x, object.props.y, object.props.width/2);
+                case FillCircle: g.fillCircle(object.props.x, object.props.y, object.props.width/2);
                 case Sprite:
                     g.color = col;
                     if(object.image != null){
-                        g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.raw.width) % object.image.width, Math.floor(object.animation.get() * object.raw.width / object.image.width) * object.raw.height, object.raw.width, object.raw.height, Math.round(center.x), Math.round(center.y), object.raw.width, object.raw.height);
+                        g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.props.width) % object.image.width, Math.floor(object.animation.get() * object.props.width / object.image.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
                     }
-                    g.color = Color.fromBytes(object.raw.color[0], object.raw.color[1], object.raw.color[2], object.raw.color[3]);
+                    g.color = Color.fromBytes(object.props.color[0], object.props.color[1], object.props.color[2], object.props.color[3]);
                 case _:
             }
             if (object.rotation != 0) g.popTransformation();
