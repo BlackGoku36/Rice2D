@@ -23,6 +23,12 @@ class Scene {
         return obj;
     }
 
+    public static function getBlobImage(ref:String, obj:Object) {
+        kha.Assets.loadImageFromPath(ref, true, function (img){
+            obj.image = img;
+        });
+    }
+
     public static function parseToScene(scene:String){
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob){
             sceneData = haxe.Json.parse(b.toString());
@@ -31,6 +37,10 @@ class Scene {
                 obj.name = object.name;
                 obj.raw = object;
                 createScriptInstance(obj, object);
+                if(object.type == Sprite){
+                    getBlobImage(object.spriteS, obj);
+                    trace(obj.image);
+                }
                 objects.push(
                     obj
                 );

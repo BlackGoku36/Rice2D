@@ -60,6 +60,7 @@ class App {
                 case FillRect: g.fillRect(center.x, center.y, object.raw.width, object.raw.height);
                 case Circle: g.drawCircle(object.raw.x, object.raw.y, object.raw.width/2);
                 case FillCircle: g.fillCircle(object.raw.x, object.raw.y, object.raw.width/2);
+                case Sprite: g.drawImage(object.image, 5, 5);
                 case _:
             }
             if (object.rotation != 0) g.popTransformation();

@@ -9,6 +9,7 @@ class Object {
     public var raw:ObjectData = null;
     public var transform:Transform = null;
     public var rotation = 0.0;
+    public var image:kha.Image;
 
     public function new() {
         transform = new Transform();
