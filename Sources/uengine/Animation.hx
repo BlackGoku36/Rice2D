@@ -43,7 +43,7 @@ class Animation {
 		if (index < indices.length) this.index = index;
 	}
 	
-	public function next(): Bool {
+	public function update(): Bool {
 		++count;
 		if (count % speeddiv == 0) {
 			++index;

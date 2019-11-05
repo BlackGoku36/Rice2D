@@ -26,6 +26,8 @@ class Scene {
     public static function getBlobImage(ref:String, obj:Object) {
         kha.Assets.loadImageFromPath(ref, true, function (img){
             obj.image = img;
+            obj.h = img.height;
+            obj.w = img.width;
         });
     }
 
@@ -39,8 +41,9 @@ class Scene {
                 createScriptInstance(obj, object);
                 if(object.type == Sprite){
                     getBlobImage(object.spriteS, obj);
-                    obj.animation = Animation.create(0);
-                    trace(obj.image);
+                    // obj.setAnimation(Animation.create(0));
+                    // obj.animation = Animation.create(0);
+                    // trace(obj.image);
                 }
                 objects.push(
                     obj

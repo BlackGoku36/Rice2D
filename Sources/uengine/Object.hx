@@ -10,7 +10,9 @@ class Object {
     public var transform:Transform = null;
     public var rotation = 0.0;
     public var image:kha.Image;
-    public var animation:Animation;
+    public var animation:Animation = Animation.create(0);
+    public var h = 0.0;
+    public var w = 0.0;
 
     public function new() {
         transform = new Transform();
@@ -27,4 +29,8 @@ class Object {
         this.raw.scripts.push(className);
 
     }
+
+    public function setAnimation(animationn: Animation): Void {
+		animation.take(animationn);
+	}
 }
