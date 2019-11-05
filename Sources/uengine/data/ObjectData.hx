@@ -19,5 +19,5 @@ typedef ObjectData = {
     var FillCircle = 3;
     var Triangle = 4;//TODO: Add triangel support
     var FillTriangle = 5;//TODO: Add triangel support
-    var Sprite = 6;//TODO: Add sprite support
+    var Sprite = 6;
 }

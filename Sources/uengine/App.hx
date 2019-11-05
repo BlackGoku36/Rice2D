@@ -1,7 +1,6 @@
 package uengine;
 
 import kha.math.FastMatrix3;
-import kha.WindowOptions.WindowFeatures;
 import kha.WindowMode;
 import kha.graphics2.Graphics;
 using kha.graphics2.GraphicsExtension;
@@ -11,7 +10,6 @@ import kha.Scheduler;
 import kha.Framebuffer;
 
 import uengine.data.WindowData;
-import uengine.Transform;
 
 class App {
 
