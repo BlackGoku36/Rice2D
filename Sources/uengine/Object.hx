@@ -11,8 +11,6 @@ class Object {
     public var rotation = 0.0;
     public var image:kha.Image;
     public var animation:Animation = Animation.create(0);
-    public var h = 0.0;
-    public var w = 0.0;
 
     public function new() {
         transform = new Transform();
@@ -31,6 +29,6 @@ class Object {
     }
 
     public function setAnimation(animationn: Animation): Void {
-		animation.take(animationn);
-	}
+        animation.take(animationn);
+    }
 }

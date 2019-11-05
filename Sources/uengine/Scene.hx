@@ -23,13 +23,11 @@ class Scene {
         return obj;
     }
 
-    public static function getBlobImage(ref:String, obj:Object) {
+    public static function setObjectSprite(ref:String, obj:Object) {
         kha.Assets.loadImageFromPath(ref, true, function (img){
             obj.image = img;
-            obj.h = img.height;
-            obj.w = img.width;
         });
-    }
+    } 
 
     public static function parseToScene(scene:String){
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob){
@@ -39,12 +37,7 @@ class Scene {
                 obj.name = object.name;
                 obj.raw = object;
                 createScriptInstance(obj, object);
-                if(object.type == Sprite){
-                    getBlobImage(object.spriteS, obj);
-                    // obj.setAnimation(Animation.create(0));
-                    // obj.animation = Animation.create(0);
-                    // trace(obj.image);
-                }
+                if(object.type == Sprite) setObjectSprite(object.spriteS, obj);
                 objects.push(
                     obj
                 );
