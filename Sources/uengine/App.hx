@@ -17,8 +17,19 @@ class App {
     static var onEndFrames:Array<Void->Void> = null;
     static var onUpdate:Array<Void->Void> = [];
 
+    private var deltaTime:Float = 0.0;
+    private var totalFrames:Int = 0;
+    private var elapsedTime:Float = 0.0;
+    private var previousTime:Float = 0.0;
+    private var fps:Int = 0;
+    private var font:kha.Font;
+
     public function new(scene:String) {
         Window.loadWindow(function (){
+
+            kha.Assets.loadFontFromPath("mainfont.ttf", function (f){
+                font = f;
+            });
 
             var windowMode:WindowMode = WindowMode.Fullscreen;
             Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
@@ -40,6 +51,17 @@ class App {
 
     function render(frames: Array<Framebuffer>):Void {
         if(Scene.sceneData == null) return;
+
+        var currentTime:Float = Scheduler.realTime();
+        deltaTime = (currentTime - previousTime);
+        
+        elapsedTime += deltaTime;
+        if (elapsedTime >= 1.0) {
+            fps = totalFrames;
+            totalFrames = 0;
+            elapsedTime = 0;
+        }
+        totalFrames++;
 
         var g = frames[0].g2;
         var col = g.color;
@@ -68,7 +90,14 @@ class App {
             if (object.rotation != 0) g.popTransformation();
         }
         g.color = col;
+        g.font = font;
+        g.fontSize = 16;
+        g.color = Color.fromFloats(0.2, 0.2, 0.2);
+        g.fillRect(0, 0, Window.window.width, 20);
+       g.color = Color.White;
+        g.drawString("fps: " + fps, 10, 2);
         g.end();
+        previousTime = currentTime;
     }
 
     public static function notifyOnReset(func:Void->Void) {
