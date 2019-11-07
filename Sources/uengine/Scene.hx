@@ -32,12 +32,14 @@ class Scene {
         }
     }
 
-    public static function parseToScene(scene:String){
-        kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob){
+    public static function parseToScene(scene:String) {
+        kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
             for(asset in sceneData.assets){
                 kha.Assets.loadImageFromPath(asset, true, function (img){
                     assets.push([asset => img]);
+                }, function(err: kha.AssetError) {
+                    trace(err.error+'. Make sure $asset exist in "Assets" folder and there is not typo.\n');
                 });
             }
             for (object in sceneData.objects){
@@ -46,12 +48,12 @@ class Scene {
                     obj.addScript(createScriptInstance(script));
                 }
             }
-        }, function(err: kha.AssetError){
+        }, function(err: kha.AssetError) {
             trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
         });
     }
 
-    public static function createScriptInstance(script:String):Dynamic{
+    public static function createScriptInstance(script:String):Dynamic {
         var scr = Type.resolveClass("scripts."+script);
         if (scr == null) return null;
         return Type.createInstance(scr, []);
