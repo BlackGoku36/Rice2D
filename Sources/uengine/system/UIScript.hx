@@ -1,6 +1,7 @@
 package uengine.system;
 
 #if u_ui
+    import zui.Zui.Handle;
     import zui.Canvas.TCanvas;
     import zui.Canvas.TElement;
 #end
@@ -35,6 +36,12 @@ class UIScript {
         var canvas = getCanvas(canvasRef);
         for (elem in canvas.elements) elem.visible = visible;
     }
+
+    @:access(zui.Canvas)
+	@:access(zui.Handle)
+	public function getHandle(canvasRef:String, name:String):Handle {
+		return zui.Canvas.h.children[getElement(canvasRef, name).id];
+	}
 
     #end
 }
