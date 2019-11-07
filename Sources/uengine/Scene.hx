@@ -10,6 +10,10 @@ class Scene {
 
     public static var assets:Array<Map<String,kha.Image>> = [];
 
+    #if u_ui
+        public static var canvas:zui.Canvas.TCanvas;
+    #end
+
     public static function addObject(data:ObjectData):Object {
         var obj = new Object();
         obj.name = data.name;
@@ -48,10 +52,24 @@ class Scene {
                     obj.addScript(createScriptInstance(script));
                 }
             }
+            #if u_ui
+                parseToCanvas(sceneData.canvasRef);
+            #end
+
         }, function(err: kha.AssetError) {
             trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
         });
     }
+
+    #if u_ui
+        static function parseToCanvas(canvasRef:String) {
+            kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
+                canvas = haxe.Json.parse(b.toString());
+            }, function(err: kha.AssetError) {
+                trace(err.error+'. Make sure $canvasRef.json exist in "Assets" folder and there is not typo when referencing from scene.\n');
+            });
+        }
+    #end
 
     public static function createScriptInstance(script:String):Dynamic {
         var scr = Type.resolveClass("scripts."+script);

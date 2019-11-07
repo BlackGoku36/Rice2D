@@ -4,4 +4,5 @@ typedef SceneData = {
     public var name: String;
     public var objects: Array<ObjectData>;
     public var assets: Array<String>;
+    @:optional public var canvasRef: String;
 }

@@ -4,9 +4,7 @@ class Transform{
 
     public var object:Object;
 
-    public function new() {
-
-    }
+    public function new() {}
 
     public function getCenter() {
         var x = object.props.x - (object.props.width / 2);

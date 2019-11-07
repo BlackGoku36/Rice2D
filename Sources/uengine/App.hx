@@ -1,5 +1,10 @@
 package uengine;
 
+#if u_ui
+    import zui.Zui;
+    import zui.Canvas;
+#end
+
 import kha.math.FastMatrix3;
 import kha.WindowMode;
 import kha.graphics2.Graphics;
@@ -16,13 +21,19 @@ class App {
     static var onResets:Array<Void->Void> = null;
     static var onEndFrames:Array<Void->Void> = null;
     static var onUpdate:Array<Void->Void> = [];
-
-    private var deltaTime:Float = 0.0;
-    private var totalFrames:Int = 0;
-    private var elapsedTime:Float = 0.0;
-    private var previousTime:Float = 0.0;
-    private var fps:Int = 0;
     private var font:kha.Font;
+
+    #if fps
+        private var deltaTime:Float = 0.0;
+        private var totalFrames:Int = 0;
+        private var elapsedTime:Float = 0.0;
+        private var previousTime:Float = 0.0;
+        private var fps:Int = 0;
+    #end
+
+    #if u_ui
+        var ui: Zui;
+    #end
 
     public function new(scene:String) {
         Window.loadWindow(function () {
@@ -36,6 +47,9 @@ class App {
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 Scene.parseToScene(scene);
+                #if u_ui
+                    ui = new Zui({font: font});
+                #end
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                 System.notifyOnFrames(function (frames) { render(frames); });
             });
@@ -52,16 +66,18 @@ class App {
     function render(frames: Array<Framebuffer>):Void {
         if(Scene.sceneData == null) return;
 
-        var currentTime:Float = Scheduler.realTime();
-        deltaTime = (currentTime - previousTime);
+        #if fps
+            var currentTime:Float = Scheduler.realTime();
+            deltaTime = (currentTime - previousTime);
 
-        elapsedTime += deltaTime;
-        if (elapsedTime >= 1.0) {
-            fps = totalFrames;
-            totalFrames = 0;
-            elapsedTime = 0;
-        }
-        totalFrames++;
+            elapsedTime += deltaTime;
+            if (elapsedTime >= 1.0) {
+                fps = totalFrames;
+                totalFrames = 0;
+                elapsedTime = 0;
+            }
+            totalFrames++;
+        #end
 
         var g = frames[0].g2;
         var col = g.color;
@@ -88,16 +104,32 @@ class App {
                 case _:
             }
             if (object.rotation != 0) g.popTransformation();
+            #if u_debug
+                g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+            #end
         }
+        #if u_ui
+            if (Scene.canvas != null){
+                var events = Canvas.draw(ui, Scene.canvas, g);
+                for (e in events) {
+				    var all = uengine.system.Event.get(e);
+				    if (all != null) for (entry in all) entry.onEvent();
+			    }
+            }
+        #end
         g.color = col;
-        g.font = font;
-        g.fontSize = 16;
-        g.color = Color.fromFloats(0.2, 0.2, 0.2);
-        g.fillRect(0, 0, Window.window.width, 20);
-        g.color = Color.White;
-        g.drawString("fps: " + fps, 10, 2);
+        #if fps
+            g.font = font;
+            g.fontSize = 16;
+            g.color = Color.fromFloats(0.2, 0.2, 0.2);
+            g.fillRect(0, 0, Window.window.width, 20);
+            g.color = Color.White;
+            g.drawString("fps: " + fps, 10, 2);
+        #end
         g.end();
-        previousTime = currentTime;
+        #if fps
+            previousTime = currentTime;
+        #end
     }
 
     public static function notifyOnReset(func:Void->Void) {

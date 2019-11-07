@@ -8,7 +8,6 @@ typedef WindowData = {
 }
 
 class Window {
-
     public static var window:WindowData;
 
     public static function loadWindow(done: Void->Void) {
