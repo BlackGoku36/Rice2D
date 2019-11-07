@@ -10,7 +10,6 @@ class Object {
     public var rotation = 0.0;
     public var image:kha.Image = null;
     public var animation:Animation = Animation.create(0);
-    public var scripts:Array<Script> = [];
 
     public function new() {
         transform = new Transform();
@@ -18,7 +17,6 @@ class Object {
     }
 
     public function addScript(script:Script) {
-        scripts.push(script);
         script.object = this;
     }
 

@@ -54,7 +54,7 @@ class App {
 
         var currentTime:Float = Scheduler.realTime();
         deltaTime = (currentTime - previousTime);
-        
+
         elapsedTime += deltaTime;
         if (elapsedTime >= 1.0) {
             fps = totalFrames;
@@ -94,7 +94,7 @@ class App {
         g.fontSize = 16;
         g.color = Color.fromFloats(0.2, 0.2, 0.2);
         g.fillRect(0, 0, Window.window.width, 20);
-       g.color = Color.White;
+        g.color = Color.White;
         g.drawString("fps: " + fps, 10, 2);
         g.end();
         previousTime = currentTime;

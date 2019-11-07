@@ -13,7 +13,7 @@ class Scene {
     public static function addObject(data:ObjectData):Object {
         var obj = new Object();
         obj.name = data.name;
-        obj.props = data;  
+        obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(createScriptInstance(script));
         if(obj.props.type == Sprite) setObjectSprite(obj.props.spriteRef, obj);
         objects.push(obj);
