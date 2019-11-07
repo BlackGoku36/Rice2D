@@ -1,7 +1,7 @@
 package uengine.data;
 
 typedef ObjectData = {
-    public var name:String;
+    public var name: String;
     public var x: Float;
     public var y: Float;
     public var height: Int;

@@ -25,9 +25,9 @@ class App {
     private var font:kha.Font;
 
     public function new(scene:String) {
-        Window.loadWindow(function (){
+        Window.loadWindow(function () {
 
-            kha.Assets.loadFontFromPath("mainfont.ttf", function (f){
+            kha.Assets.loadFontFromPath("mainfont.ttf", function (f) {
                 font = f;
             });
 
@@ -105,7 +105,7 @@ class App {
         onResets.push(func);
     }
 
-    public static function notifyOnEndFrame(func:Void->Void){
+    public static function notifyOnEndFrame(func:Void->Void) {
         if (onEndFrames == null) onEndFrames = [];
         onEndFrames.push(func);
     }
