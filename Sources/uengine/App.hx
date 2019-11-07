@@ -109,12 +109,14 @@ class App {
             #end
         }
         #if u_ui
-            if (Scene.canvas != null){
-                var events = Canvas.draw(ui, Scene.canvas, g);
-                for (e in events) {
-				    var all = uengine.system.Event.get(e);
-				    if (all != null) for (entry in all) entry.onEvent();
-			    }
+            if (Scene.canvases != null){
+                for (canvas in Scene.canvases){
+                    var events = Canvas.draw(ui, canvas, g);
+                    for (e in events) {
+                        var all = uengine.system.Event.get(e);
+                        if (all != null) for (entry in all) entry.onEvent();
+                    }
+                }
             }
         #end
         g.color = col;

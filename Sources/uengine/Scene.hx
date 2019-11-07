@@ -1,5 +1,6 @@
 package uengine;
 
+import zui.Canvas.TCanvas;
 import uengine.data.ObjectData;
 import uengine.data.SceneData;
 
@@ -11,7 +12,7 @@ class Scene {
     public static var assets:Array<Map<String,kha.Image>> = [];
 
     #if u_ui
-        public static var canvas:zui.Canvas.TCanvas;
+        public static var canvases: Array<zui.Canvas.TCanvas> = [];
     #end
 
     public static function addObject(data:ObjectData):Object {
@@ -64,7 +65,8 @@ class Scene {
     #if u_ui
         static function parseToCanvas(canvasRef:String) {
             kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
-                canvas = haxe.Json.parse(b.toString());
+                var newCanvas:TCanvas = haxe.Json.parse(b.toString());
+                canvases.push(newCanvas);
             }, function(err: kha.AssetError) {
                 trace(err.error+'. Make sure $canvasRef.json exist in "Assets" folder and there is not typo when referencing from scene.\n');
             });
