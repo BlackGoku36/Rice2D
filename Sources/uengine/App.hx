@@ -1,5 +1,6 @@
 package uengine;
 
+import uengine.system.Camera;
 #if u_ui
     import zui.Themes;
     import zui.Zui;
@@ -23,6 +24,7 @@ class App {
     static var onEndFrames:Array<Void->Void> = null;
     static var onUpdate:Array<Void->Void> = [];
     private var font:kha.Font;
+    public static var camera:uengine.system.Camera;
 
     #if fps
         private var deltaTime:Float = 0.0;
@@ -51,6 +53,7 @@ class App {
                 #if u_ui
                     ui = new Zui({font: font, theme: Themes.light});
                 #end
+                camera = new Camera();
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                 System.notifyOnFrames(function (frames) { render(frames); });
             });
@@ -83,6 +86,7 @@ class App {
         var g = frames[0].g2;
         var col = g.color;
         g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
+        camera.set(g);
         for (object in Scene.objects){
             if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
             if (object.props.color == null){
@@ -109,6 +113,7 @@ class App {
                 g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
             #end
         }
+        camera.unset(g);
         #if u_ui
             if (Scene.canvases != null){
                 for (canvas in Scene.canvases){
