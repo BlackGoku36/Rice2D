@@ -1,6 +1,7 @@
 package uengine;
 
 #if u_ui
+    import zui.Themes;
     import zui.Zui;
     import zui.Canvas;
 #end
@@ -48,7 +49,7 @@ class App {
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 Scene.parseToScene(scene);
                 #if u_ui
-                    ui = new Zui({font: font});
+                    ui = new Zui({font: font, theme: Themes.light});
                 #end
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                 System.notifyOnFrames(function (frames) { render(frames); });

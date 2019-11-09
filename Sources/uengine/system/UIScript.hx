@@ -39,7 +39,7 @@ class UIScript {
 
     @:access(zui.Canvas)
 	@:access(zui.Handle)
-	public function getHandle(canvasRef:String, name:String):Handle {
+	public static function getHandle(canvasRef:String, name:String):Handle {
 		return zui.Canvas.h.children[getElement(canvasRef, name).id];
 	}
 
