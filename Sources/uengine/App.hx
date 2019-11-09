@@ -53,9 +53,9 @@ class App {
                 #if u_ui
                     ui = new Zui({font: font, theme: Themes.light});
                 #end
-                camera = new Camera();
                 Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                 System.notifyOnFrames(function (frames) { render(frames); });
+                camera = new Camera();
             });
         });
     }
@@ -88,29 +88,30 @@ class App {
         g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
         camera.set(g);
         for (object in Scene.objects){
-            if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
-            if (object.props.color == null){
-                g.color = Color.Black;
-            }else{
-                g.color = Color.fromBytes(object.props.color[0], object.props.color[1], object.props.color[2], object.props.color[3]);
-            }
-            var center = object.transform.getCenter();
-            switch (object.props.type){
-                case Rect: g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
-                case FillRect: g.fillRect(center.x, center.y, object.props.width, object.props.height);
-                case Circle: g.drawCircle(object.props.x, object.props.y, object.props.width/2);
-                case FillCircle: g.fillCircle(object.props.x, object.props.y, object.props.width/2);
-                case Sprite:
-                    g.color = col;
-                    if(object.image != null){
-                        g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.props.width) % object.image.width, Math.floor(object.animation.get() * object.props.width / object.image.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
-                    }
+            if(object.props.culled){
+                if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
+                if (object.props.color == null){
+                    g.color = Color.Black;
+                }else{
                     g.color = Color.fromBytes(object.props.color[0], object.props.color[1], object.props.color[2], object.props.color[3]);
-                case _:
+                }
+                switch (object.props.type){
+                    case Rect: g.drawRect(object.props.x, object.props.y, object.props.width, object.props.height, 3);
+                    case FillRect: g.fillRect(object.props.x, object.props.y, object.props.width, object.props.height);
+                    case Circle: g.drawCircle(object.props.x, object.props.y, object.props.width/2);
+                    case FillCircle: g.fillCircle(object.props.x, object.props.y, object.props.width/2);
+                    case Sprite:
+                        g.color = col;
+                        if(object.image != null){
+                            g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.props.width) % object.image.width, Math.floor(object.animation.get() * object.props.width / object.image.width) * object.props.height, object.props.width, object.props.height, Math.round(object.props.x), Math.round(object.props.y), object.props.width, object.props.height);
+                        }
+                        g.color = Color.fromBytes(object.props.color[0], object.props.color[1], object.props.color[2], object.props.color[3]);
+                    case _:
+                }
+                if (object.rotation != 0) g.popTransformation();
             }
-            if (object.rotation != 0) g.popTransformation();
             #if u_debug
-                g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+                g.drawRect(object.props.x, object.props.y, object.props.width, object.props.height, 3);
             #end
         }
         camera.unset(g);

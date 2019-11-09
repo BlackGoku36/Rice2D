@@ -7,6 +7,7 @@ typedef ObjectData = {
     public var height: Int;
     public var width: Int;
     public var type: ObjectType;
+    @:optional public var culled: Bool;
     @:optional public var spriteRef: String;
     @:optional public var color: Array<Int>;
     @:optional public var scripts: Array<String>;

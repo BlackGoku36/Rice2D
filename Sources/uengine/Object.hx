@@ -23,4 +23,5 @@ class Object {
     public function setAnimation(animationn: Animation): Void {
         animation.take(animationn);
     }
+
 }
