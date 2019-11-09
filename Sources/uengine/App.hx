@@ -23,6 +23,8 @@ class App {
     static var onResets:Array<Void->Void> = null;
     static var onEndFrames:Array<Void->Void> = null;
     static var onUpdate:Array<Void->Void> = [];
+    static var onRender:Array<Graphics->Void> = [];
+
     private var font:kha.Font;
     public static var camera:uengine.system.Camera;
 
@@ -87,6 +89,9 @@ class App {
         var col = g.color;
         g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
         camera.set(g);
+
+        for (render in onRender) render(g);
+
         for (object in Scene.objects){
             var center = object.transform.getCenter();
             if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
@@ -100,6 +105,7 @@ class App {
 
             if (object.rotation != 0) g.popTransformation();
         }
+
         camera.unset(g);
         #if u_ui
             if (Scene.canvases != null){
@@ -139,6 +145,10 @@ class App {
 
     public static function notifyOnUpdate(func:Void->Void) {
         onUpdate.push(func);
+    }
+
+    public static function notifyOnRender(func:Graphics->Void) {
+        onRender.push(func);
     }
 
 }

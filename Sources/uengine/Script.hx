@@ -11,4 +11,8 @@ class Script {
         App.notifyOnUpdate(func);
     }
 
+    public function notifyOnRender(func: kha.graphics2.Graphics->Void) {
+        App.notifyOnRender(func);
+    }
+
 }
