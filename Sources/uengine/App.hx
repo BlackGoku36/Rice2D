@@ -100,6 +100,11 @@ class App {
                 g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.props.width) % object.image.width, Math.floor(object.animation.get() * object.props.width / object.image.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
             }
             #if u_debug
+                g.font = font;
+                g.color = Color.fromFloats(0.2, 0.2, 0.2);
+                g.fillRect(center.x, center.y, object.props.width, 20);
+                g.color = Color.White;
+                g.drawString(" X: " + object.props.x+", Y: "+object.props.y+", W: "+object.props.width+", H: "+object.props.height+", R: "+object.rotation*Math.PI/180+" C", center.x, center.y+3);
                 g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
             #end
 
@@ -120,7 +125,6 @@ class App {
         #end
         g.color = col;
         #if fps
-            g.font = font;
             g.fontSize = 16;
             g.color = Color.fromFloats(0.2, 0.2, 0.2);
             g.fillRect(0, 0, Window.window.width, 20);
