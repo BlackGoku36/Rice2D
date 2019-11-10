@@ -28,15 +28,16 @@ class App {
     static var onResets:Array<Void->Void> = null;
     static var onEndFrames:Array<Void->Void> = null;
 
-    private var font:kha.Font;
+    var font:kha.Font;
+
     public static var camera:uengine.system.Camera;
 
     #if fps
-        private var deltaTime:Float = 0.0;
-        private var totalFrames:Int = 0;
-        private var elapsedTime:Float = 0.0;
-        private var previousTime:Float = 0.0;
-        private var fps:Int = 0;
+        var deltaTime:Float = 0.0;
+        var totalFrames:Int = 0;
+        var elapsedTime:Float = 0.0;
+        var previousTime:Float = 0.0;
+        var fps:Int = 0;
     #end
 
     #if u_ui

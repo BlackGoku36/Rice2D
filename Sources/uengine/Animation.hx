@@ -2,10 +2,10 @@ package uengine;
 
 class Animation {
 
-	private var indices: Array<Int>;
-	private var speeddiv: Int;
-	private var count: Int;
-	private var index: Int;
+	var indices: Array<Int>;
+	var speeddiv: Int;
+	var count: Int;
+	var index: Int;
 
 	public static function create(index: Int) {
 		var indices = [index];
