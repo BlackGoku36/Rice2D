@@ -1,11 +1,9 @@
 package uengine;
 
-import uengine.data.ObjectData;
-
 class Object {
 
     public var name = "";
-    public var props:ObjectData = null;
+    public var props: uengine.data.ObjectData = null;
     public var transform:Transform = null;
     public var rotation = 0.0;
     public var sprite:kha.Image;

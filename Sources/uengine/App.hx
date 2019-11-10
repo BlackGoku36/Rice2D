@@ -1,22 +1,24 @@
 package uengine;
 
-import uengine.system.Camera;
+//Kha
+import kha.Color;
+import kha.Framebuffer;
+import kha.Scheduler;
+import kha.System;
+import kha.WindowMode;
+import kha.graphics2.Graphics;
+import kha.math.FastMatrix3;
+
+//Zui
 #if u_ui
     import zui.Themes;
     import zui.Zui;
     import zui.Canvas;
 #end
 
-import kha.math.FastMatrix3;
-import kha.WindowMode;
-import kha.graphics2.Graphics;
-using kha.graphics2.GraphicsExtension;
-import kha.Color;
-import kha.System;
-import kha.Scheduler;
-import kha.Framebuffer;
-
+//Engine
 import uengine.data.WindowData;
+import uengine.system.Camera;
 
 class App {
 

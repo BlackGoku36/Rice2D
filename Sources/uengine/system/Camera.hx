@@ -1,6 +1,6 @@
 package uengine.system;
 
-import kha.Window;
+//Kha
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 

@@ -1,8 +1,11 @@
 package uengine;
 
+//Zui
 import zui.Canvas.TCanvas;
-import uengine.data.ObjectData;
+
+//Engine
 import uengine.data.SceneData;
+import uengine.data.ObjectData;
 
 class Scene {
     public static var sceneData:SceneData;
@@ -62,8 +65,6 @@ class Scene {
             trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
         });
     }
-
-
 
     #if u_ui
         static function parseToCanvas(canvasRef:String) {
