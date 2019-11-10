@@ -20,10 +20,11 @@ import uengine.data.WindowData;
 
 class App {
 
-    static var onResets:Array<Void->Void> = null;
-    static var onEndFrames:Array<Void->Void> = null;
+    static var onInit:Array<Void->Void> = [];
     static var onUpdate:Array<Void->Void> = [];
     static var onRender:Array<Graphics->Void> = [];
+    static var onResets:Array<Void->Void> = null;
+    static var onEndFrames:Array<Void->Void> = null;
 
     private var font:kha.Font;
     public static var camera:uengine.system.Camera;
@@ -65,6 +66,11 @@ class App {
 
     function update() {
         if(Scene.sceneData == null) return;
+
+        if(onInit.length > 0){
+            for (init in onInit) init();
+            onInit.splice(0, onInit.length);
+        }
 
         for (update in onUpdate) update();
         if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
@@ -139,6 +145,18 @@ class App {
         #end
     }
 
+    public static function notifyOnInit(init:Void->Void) {
+        onInit.push(init);
+    }
+
+    public static function notifyOnUpdate(update:Void->Void) {
+        onUpdate.push(update);
+    }
+
+    public static function notifyOnRender(render:Graphics->Void) {
+        onRender.push(render);
+    }
+
     public static function notifyOnReset(func:Void->Void) {
         if (onResets == null) onResets = [];
         onResets.push(func);
@@ -149,12 +167,5 @@ class App {
         onEndFrames.push(func);
     }
 
-    public static function notifyOnUpdate(func:Void->Void) {
-        onUpdate.push(func);
-    }
-
-    public static function notifyOnRender(func:Graphics->Void) {
-        onRender.push(func);
-    }
 
 }

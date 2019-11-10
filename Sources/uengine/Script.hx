@@ -7,12 +7,16 @@ class Script {
 
     public function new() {}
 
-    public function notifyOnUpdate(func: Void->Void) {
-        App.notifyOnUpdate(func);
+    public function notifyOnInit(init:Void->Void) {
+        App.notifyOnInit(init);
     }
 
-    public function notifyOnRender(func: kha.graphics2.Graphics->Void) {
-        App.notifyOnRender(func);
+    public function notifyOnUpdate(update: Void->Void) {
+        App.notifyOnUpdate(update);
+    }
+
+    public function notifyOnRender(render: kha.graphics2.Graphics->Void) {
+        App.notifyOnRender(render);
     }
 
 }
