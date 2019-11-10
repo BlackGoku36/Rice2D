@@ -51,13 +51,14 @@ class App {
             Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
-                Scene.parseToScene(scene);
-                #if u_ui
-                    ui = new Zui({font: font, theme: Themes.light});
-                #end
-                Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
-                System.notifyOnFrames(function (frames) { render(frames); });
-                camera = new Camera();
+                Scene.parseToScene(scene, function (){
+                    #if u_ui
+                        ui = new Zui({font: font, theme: Themes.light});
+                    #end
+                    Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
+                    System.notifyOnFrames(function (frames) { render(frames); });
+                    camera = new Camera();
+                });
             });
         });
     }
@@ -96,8 +97,8 @@ class App {
             var center = object.transform.getCenter();
             if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
 
-            if(object.image != null){
-                g.drawScaledSubImage(object.image, Std.int(object.animation.get() * object.props.width) % object.image.width, Math.floor(object.animation.get() * object.props.width / object.image.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
+            if(object.sprite != null){
+                g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
             }
             #if u_debug
                 g.font = font;
@@ -125,6 +126,7 @@ class App {
         #end
         g.color = col;
         #if fps
+            g.font = font;
             g.fontSize = 16;
             g.color = Color.fromFloats(0.2, 0.2, 0.2);
             g.fillRect(0, 0, Window.window.width, 20);

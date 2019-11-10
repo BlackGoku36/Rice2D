@@ -20,7 +20,7 @@ class Scene {
         obj.name = data.name;
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(createScriptInstance(script));
-        setObjectSprite(obj.props.spriteRef, obj);
+        setObjectSprite(data.spriteRef, obj);
         objects.push(obj);
         return obj;
     }
@@ -31,38 +31,38 @@ class Scene {
         return obj;
     }
 
-    public static function getImage(ref:String) {
-        kha.Assets.loadImageFromPath(ref, true, function (img){
-            assets.push([ref => img]);
-            trace("a"+assets);
-        }, function(err: kha.AssetError) {
-            trace(err.error+'. Make sure $ref exist in "Assets" folder and there is not typo.\n');
-        });
-    }
     public static function setObjectSprite(ref:String, obj:Object) {
         for (i in assets){
-            if(i.exists(ref)) obj.image = i.get(ref);
+            if(i.exists(ref)) obj.sprite = i.get(ref);
         }
     }
 
-    public static function parseToScene(scene:String) {
+    public static function loadAssets(sceneData: SceneData, done:Void->Void) {
+        for (asset in sceneData.assets){
+            kha.Assets.loadImageFromPath(asset, true, function (img){
+                assets.push([asset => img]);
+                if(assets.length == sceneData.assets.length) done();
+            }, function(err: kha.AssetError) {
+                trace(err.error+'. Make sure $asset exist in "Assets" folder and there is not typo.\n');
+            });
+        }
+    }
+
+    public static function parseToScene(scene:String, done:Void->Void) {
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
-            for(asset in sceneData.assets){
-                getImage(asset);
-                trace(assets);
-            }
-            for (object in sceneData.objects){
-                var obj = addObject(object);
-            }
+            loadAssets(sceneData, function (){
+                for (object in sceneData.objects) addObject(object);
+            });
             #if u_ui
                 parseToCanvas(sceneData.canvasRef);
             #end
-
+            done();
         }, function(err: kha.AssetError) {
             trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
         });
     }
+
 
 
     #if u_ui

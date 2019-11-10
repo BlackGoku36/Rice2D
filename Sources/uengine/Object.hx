@@ -8,7 +8,7 @@ class Object {
     public var props:ObjectData = null;
     public var transform:Transform = null;
     public var rotation = 0.0;
-    public var image:kha.Image = null;
+    public var sprite:kha.Image;
     public var animation:Animation = Animation.create(0);
 
     public function new() {
@@ -22,6 +22,10 @@ class Object {
 
     public function setAnimation(animationn: Animation): Void {
         animation.take(animationn);
+    }
+
+    public function setSprite(sprite: kha.Image) {
+        this.sprite = sprite;
     }
 
 }
