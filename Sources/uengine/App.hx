@@ -1,6 +1,7 @@
 package uengine;
 
 //Kha
+import uengine.system.Debug;
 import kha.Color;
 import kha.Framebuffer;
 import kha.Scheduler;
@@ -8,13 +9,6 @@ import kha.System;
 import kha.WindowMode;
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
-
-//Zui
-#if u_ui
-    import zui.Themes;
-    import zui.Zui;
-    import zui.Canvas;
-#end
 
 //Engine
 import uengine.data.WindowData;
@@ -32,16 +26,14 @@ class App {
 
     public static var camera:uengine.system.Camera;
 
-    #if fps
+
+    #if u_debug
+        static var debug:uengine.system.Debug;
         var deltaTime:Float = 0.0;
         var totalFrames:Int = 0;
         var elapsedTime:Float = 0.0;
         var previousTime:Float = 0.0;
-        var fps:Int = 0;
-    #end
-
-    #if u_ui
-        var ui: Zui;
+        public static var fps:Int = 0;
     #end
 
     public function new(scene:String) {
@@ -56,8 +48,8 @@ class App {
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 Scene.parseToScene(scene, function (){
-                    #if u_ui
-                        ui = new Zui({font: font, theme: Themes.light});
+                    #if u_debug
+                        debug = new Debug(font);
                     #end
                     Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
                     System.notifyOnFrames(function (frames) { render(frames); });
@@ -82,7 +74,7 @@ class App {
     function render(frames: Array<Framebuffer>):Void {
         if(Scene.sceneData == null) return;
 
-        #if fps
+        #if u_debug
             var currentTime:Float = Scheduler.realTime();
             deltaTime = (currentTime - previousTime);
 
@@ -110,12 +102,15 @@ class App {
                 g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
             }
             #if u_debug
-                g.font = font;
-                g.color = Color.fromFloats(0.2, 0.2, 0.2);
-                g.fillRect(center.x, center.y, object.props.width, 20);
-                g.color = Color.White;
-                g.drawString(" X: " + object.props.x+", Y: "+object.props.y+", W: "+object.props.width+", H: "+object.props.height+", R: "+object.rotation*Math.PI/180+" C", center.x, center.y+3);
-                g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+                if(object.selected){
+                    g.font = font;
+                    g.fontSize = 16;
+                    g.color = Color.fromFloats(0.2, 0.2, 0.2);
+                    g.fillRect(center.x, center.y, object.props.width, 20);
+                    g.color = Color.White;
+                    g.drawString(" X: " + object.props.x+", Y: "+object.props.y+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.rotation*180/Math.PI)+" Deg", center.x, center.y+3);
+                    g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+                }
             #end
 
             if (object.rotation != 0) g.popTransformation();
@@ -134,16 +129,10 @@ class App {
             }
         #end
         g.color = col;
-        #if fps
-            g.font = font;
-            g.fontSize = 16;
-            g.color = Color.fromFloats(0.2, 0.2, 0.2);
-            g.fillRect(0, 0, Window.window.width, 20);
-            g.color = Color.White;
-            g.drawString("fps: " + fps+", Objects: "+Scene.objects.length, 10, 2);
-        #end
         g.end();
-        #if fps
+
+        #if u_debug
+            debug.render(g);
             previousTime = currentTime;
         #end
     }
