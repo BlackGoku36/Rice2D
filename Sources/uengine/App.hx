@@ -92,9 +92,10 @@ class App {
         var col = g.color;
         g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
 
+        camera.set(g);
+
         for (layer in Scene.layer){
-            if (Scene.layer.get("m") == layer) camera.set(g);
-            else if (Scene.layer.get("m") != layer && camera.active) camera.unset(g);
+            if (Scene.layer.get("fg") == layer) camera.unset(g);
 
             for (object in layer){
                 var center = object.transform.getCenter();
@@ -120,8 +121,6 @@ class App {
                 if (object.rotation != 0) g.popTransformation();
             }
         }
-
-        // camera.set(g);
 
         // for (render in onRender) render(g);
         if(camera.active) camera.unset(g);
