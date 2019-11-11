@@ -64,6 +64,7 @@ class Debug {
                             object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
                             object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
                             object.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
+                            object.visibile = ui.check(Id.handle({selected: true}), "Visible");
                         }
                     }
                 }

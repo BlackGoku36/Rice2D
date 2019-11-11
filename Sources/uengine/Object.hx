@@ -8,6 +8,7 @@ class Object {
     public var rotation = 0.0;
     public var sprite:kha.Image;
     public var animation:Animation = Animation.create(0);
+    public var visibile = true;
     public var selected = false;
 
     public function new() {
