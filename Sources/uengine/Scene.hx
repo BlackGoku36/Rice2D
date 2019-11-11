@@ -1,8 +1,5 @@
 package uengine;
 
-//Zui
-import zui.Canvas.TCanvas;
-
 //Engine
 import uengine.data.SceneData;
 import uengine.data.ObjectData;
