@@ -8,6 +8,7 @@ class Object {
     public var rotation = 0.0;
     public var sprite:kha.Image;
     public var animation:Animation = Animation.create(0);
+    public var scripts:Array<Script> = [];
     public var visibile = true;
     public var selected = false;
 
@@ -17,6 +18,7 @@ class Object {
     }
 
     public function addScript(script:Script) {
+        scripts.push(script);
         script.object = this;
     }
 
@@ -26,6 +28,28 @@ class Object {
 
     public function setSprite(sprite: kha.Image) {
         this.sprite = sprite;
+    }
+
+    @:access(uengine.Script)
+    public function removeScript(script: Script) {
+
+        if(script._update != null){
+            for (update in script._update) App.removeUpdate(update);
+            script._update = null;
+        }
+
+        if(script._render != null){
+            for (render in script._render) App.removeRender(render);
+            script._render = null;
+        }
+
+        if(script._remove != null){
+            for (remove in script._remove) remove();
+            script._remove = null;
+        }
+
+        scripts.remove(script);
+
     }
 
 }

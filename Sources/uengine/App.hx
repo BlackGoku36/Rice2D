@@ -66,8 +66,9 @@ class App {
             for (init in onInit) init();
             onInit.splice(0, onInit.length);
         }
-
-        for (update in onUpdate) update();
+        if(onUpdate.length > 0){
+            for (update in onUpdate) update();
+        }
         if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
     }
 
@@ -147,8 +148,16 @@ class App {
         onUpdate.push(update);
     }
 
+    public static function removeUpdate(update:Void->Void) {
+        onUpdate.remove(update);
+    }
+
     public static function notifyOnRender(render:Graphics->Void) {
         onRender.push(render);
+    }
+
+    public static function removeRender(render:Graphics->Void) {
+        onRender.remove(render);
     }
 
     public static function notifyOnReset(func:Void->Void) {
