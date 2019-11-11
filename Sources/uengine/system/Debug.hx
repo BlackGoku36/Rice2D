@@ -11,7 +11,7 @@ package uengine.system;
 class Debug {
     #if u_debug
     var ui: Zui;
-    var width:Int = 240;
+    var width:Int = 250;
     var height:Int = 600;
     var hwin = Id.handle();
 
@@ -63,7 +63,7 @@ class Debug {
                             object.props.y = Std.parseFloat(ui.textInput(Id.handle({text:object.props.y+""}), "Y"));
                             object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
                             object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
-                            object.rotation = ui.slider(Id.handle({value: 0.0}), "UI Scale", 0, 6.283185, false, Align.Left);
+                            object.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
                         }
                     }
                 }
