@@ -6,6 +6,7 @@ typedef ObjectData = {
     public var y: Float;
     public var height: Int;
     public var width: Int;
+    public var layer: String;
     @:optional public var culled: Bool;
     @:optional public var spriteRef: String;
     @:optional public var color: Array<Int>;
