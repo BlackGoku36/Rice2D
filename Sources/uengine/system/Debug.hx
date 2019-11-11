@@ -42,31 +42,34 @@ class Debug {
             if (ui.tab(htab, "X")){}
 
             if(ui.tab(htab, "Outliner")){
-                // ui.text("Objects: "+ Scene.objects.length);
-                // ui.text("Assets: "+Scene.assets.length);
+                ui.text("Foreground: "+ Scene.foreground.length);
+                ui.text("Middle: "+ Scene.middle.length);
+                ui.text("Background: "+ Scene.background.length);
+                ui.text("Assets: "+Scene.assets.length);
 
                 if(ui.panel(Id.handle(), "Scene")){
 
                     ui.indent();
-                    // for (object in Scene.objects){
-                    //     ui.row([8/10, 1/10, 1/10]);
-                    //     ui.text(object.name);
-                    //     if(ui.button("O")) object.selected = true;
-                    //     if(ui.button("X")) object.selected = false;
-                    // }
+                    for (layer in Scene.layer){
+                        for (object in layer) if(object.selected){
+                        ui.row([8/10, 1/10, 1/10]);
+                        ui.text(object.name);
+                        if(ui.button("O")) object.selected = true;
+                        if(ui.button("X")) object.selected = false;
+                    }
                     ui.unindent();
                 }
                 if(ui.panel(Id.handle(), "Properties")){
-                    // for (object in Scene.objects){
-                    //     if(object.selected){
-                    //         object.props.x = Std.parseFloat(ui.textInput(Id.handle({text:object.props.x+""}), "X"));
-                    //         object.props.y = Std.parseFloat(ui.textInput(Id.handle({text:object.props.y+""}), "Y"));
-                    //         object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
-                    //         object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
-                    //         object.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
-                    //         object.visibile = ui.check(Id.handle({selected: true}), "Visible");
-                    //     }
-                    // }
+                    for (layer in Scene.layer){
+                        for (object in layer) if(object.selected){
+                            object.props.x = Std.parseFloat(ui.textInput(Id.handle({text:object.props.x+""}), "X"));
+                            object.props.y = Std.parseFloat(ui.textInput(Id.handle({text:object.props.y+""}), "Y"));
+                            object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
+                            object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
+                            object.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
+                            object.visibile = ui.check(Id.handle({selected: true}), "Visible");
+                        }
+                    }
                 }
             }
 

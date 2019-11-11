@@ -30,16 +30,14 @@ class Scene {
         else if(data.layer == "fg") foreground.push(obj);
         else middle.push(obj);
 
-        trace(layer);
-        // objects.push(obj);
         return obj;
     }
 
-    // public static function getObject(name:String):Object {
-    //     var obj:Object = null;
-    //     for (object in objects) if(object.name == name) obj = object;
-    //     return obj;
-    // }
+    public static function getObject(name:String, layer:Array<Object>):Object {
+        var obj:Object = null;
+        for (object in layer) if(object.name == name) obj = object;
+        return obj;
+    }
 
     public static function setObjectSprite(ref:String, obj:Object) {
         for (i in assets){
