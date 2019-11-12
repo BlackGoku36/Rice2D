@@ -25,7 +25,7 @@ class UIScript {
         for (canva in Scene.canvases) if (canva.name == name) canvas = canva;
         return canvas;
     }
-    
+
     public static function getElement(canvasRef:String, name:String): TElement {
         var element:TElement = null;
         var canvas = getCanvas(canvasRef);
@@ -39,10 +39,10 @@ class UIScript {
     }
 
     @:access(zui.Canvas)
-	@:access(zui.Handle)
-	public static function getHandle(canvasRef:String, name:String):Handle {
-		return zui.Canvas.h.children[getElement(canvasRef, name).id];
-	}
+    @:access(zui.Handle)
+    public static function getHandle(canvasRef:String, name:String):Handle {
+        return zui.Canvas.h.children[getElement(canvasRef, name).id];
+    }
 
     #end
 }

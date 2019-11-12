@@ -25,7 +25,7 @@ class Scene {
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(createScriptInstance(script));
         setObjectSprite(data.spriteRef, obj);
-        
+
         if(data.layer == "bg") background.push(obj);
         else if(data.layer == "fg") foreground.push(obj);
         else middle.push(obj);

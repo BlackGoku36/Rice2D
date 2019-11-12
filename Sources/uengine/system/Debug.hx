@@ -16,8 +16,8 @@ class Debug {
     var hwin = Id.handle();
 
 
-	static var haxeTrace:Dynamic->haxe.PosInfos->Void = null;
-	static var lastTraces:Array<String> = [''];
+    static var haxeTrace:Dynamic->haxe.PosInfos->Void = null;
+    static var lastTraces:Array<String> = [''];
 
     public function new(zfont:Font) {
         ui = new Zui({font: zfont});
@@ -28,10 +28,10 @@ class Debug {
     }
 
     static function consoleTrace(v:Dynamic, ?inf:haxe.PosInfos) {
-		lastTraces.unshift(Std.string(v));
-		if (lastTraces.length > 10) lastTraces.pop();
-		haxeTrace(v, inf);
-	}
+        lastTraces.unshift(Std.string(v));
+        if (lastTraces.length > 10) lastTraces.pop();
+        haxeTrace(v, inf);
+    }
 
     public function render(g:Graphics) {
         ui.begin(g);
@@ -52,10 +52,11 @@ class Debug {
                     ui.indent();
                     for (layer in Scene.layer){
                         for (object in layer) if(object.selected){
-                        ui.row([8/10, 1/10, 1/10]);
-                        ui.text(object.name);
-                        if(ui.button("O")) object.selected = true;
-                        if(ui.button("X")) object.selected = false;
+                            ui.row([8/10, 1/10, 1/10]);
+                            ui.text(object.name);
+                            if(ui.button("O")) object.selected = true;
+                            if(ui.button("X")) object.selected = false;
+                        }
                     }
                     ui.unindent();
                 }
@@ -79,16 +80,16 @@ class Debug {
 
             if (ui.tab(htab, lastTraces[0] == '' ? 'Console' : lastTraces[0].substr(0, 20))) {
 
-				if (ui.panel(Id.handle({selected: true}), 'Log')) {
-					ui.indent();
-					if (ui.button("Clear")) {
-						lastTraces[0] = '';
-						lastTraces.splice(1, lastTraces.length - 1);
-					}
-					for (t in lastTraces) ui.text(t);
-					ui.unindent();
-				}
-			}
+                if (ui.panel(Id.handle({selected: true}), 'Log')) {
+                    ui.indent();
+                    if (ui.button("Clear")) {
+                        lastTraces[0] = '';
+                        lastTraces.splice(1, lastTraces.length - 1);
+                    }
+                    for (t in lastTraces) ui.text(t);
+                    ui.unindent();
+                }
+            }
 
             if (ui.tab(htab, "Prefs")){
                 var hscale = Id.handle({value: 1.0});

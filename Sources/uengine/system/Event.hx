@@ -1,8 +1,8 @@
 
- /**
- * This event is taken from https://github.com/armory3d/armory/blob/master/Sources/armory/system/Event.hx
- * Lubos Lenco is original author.
- */
+	/**
+	* This event is taken from https://github.com/armory3d/armory/blob/master/Sources/armory/system/Event.hx
+	* Lubos Lenco is original author.
+	*/
 
 package uengine.system;
 
