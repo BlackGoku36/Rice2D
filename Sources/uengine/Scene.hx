@@ -7,11 +7,7 @@ import uengine.data.ObjectData;
 class Scene {
     public static var sceneData:SceneData;
 
-    // public static var objects:Array<Object> = [];
-    public static var foreground: Array<Object> = [];
-    public static var middle: Array<Object> = [];
-    public static var background: Array<Object> = [];
-    public static var layer:Map<String, Array<Object>> = ["bg" => background, "m" => middle, "fg" => foreground];
+    public static var objects:Array<Object> = [];
 
     public static var assets:Array<Map<String,kha.Image>> = [];
 
@@ -26,9 +22,7 @@ class Scene {
         if(data.scripts != null) for (script in data.scripts) obj.addScript(createScriptInstance(script));
         setObjectSprite(data.spriteRef, obj);
 
-        if(data.layer == "bg") background.push(obj);
-        else if(data.layer == "fg") foreground.push(obj);
-        else middle.push(obj);
+        objects.push(obj);
 
         return obj;
     }

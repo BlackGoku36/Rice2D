@@ -94,36 +94,33 @@ class App {
 
         camera.set(g);
 
-        for (layer in Scene.layer){
-            if (Scene.layer.get("fg") == layer) camera.unset(g);
+        for (object in Scene.objects){
+            var center = object.transform.getCenter();
+            if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
 
-            for (object in layer){
-                var center = object.transform.getCenter();
-                if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
-
-                if(object.sprite != null){
-                    if(object.visibile){
-                        g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
-                    }
+            if(object.sprite != null){
+                if(object.visibile){
+                    g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
                 }
-                #if u_debug
-                    if(object.selected){
-                        g.font = font;
-                        g.fontSize = 16;
-                        g.color = Color.fromFloats(0.2, 0.2, 0.2);
-                        g.fillRect(center.x, center.y, object.props.width, 20);
-                        g.color = Color.White;
-                        g.drawString(" X: " + object.props.x+", Y: "+object.props.y+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.rotation*180/Math.PI)+" Deg", center.x, center.y+3);
-                        g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
-                    }
-                #end
-
-                if (object.rotation != 0) g.popTransformation();
             }
+            #if u_debug
+                if(object.selected){
+                    g.font = font;
+                    g.fontSize = 16;
+                    g.color = Color.fromFloats(0.2, 0.2, 0.2);
+                    g.fillRect(center.x, center.y, object.props.width, 20);
+                    g.color = Color.White;
+                    g.drawString(" X: " + object.props.x+", Y: "+object.props.y+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.rotation*180/Math.PI)+" Deg", center.x, center.y+3);
+                    g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+                }
+            #end
+
+            if (object.rotation != 0) g.popTransformation();
         }
 
-        // for (render in onRender) render(g);
-        if(camera.active) camera.unset(g);
+
+        for (render in onRender) render(g);
+        camera.unset(g);
         #if u_ui
             if (Scene.canvases != null){
                 for (canvas in Scene.canvases){
