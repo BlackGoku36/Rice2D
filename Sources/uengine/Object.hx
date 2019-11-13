@@ -12,6 +12,10 @@ class Object {
     public var visibile = true;
     public var selected = false;
 
+    #if u_physics
+    public var body: echo.Body;
+    #end
+
     public function new() {
         transform = new Transform();
         transform.object = this;

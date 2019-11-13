@@ -7,8 +7,20 @@ class Transform{
     public function new() {}
 
     public function getCenter() {
-        var x = object.props.x - (object.props.width / 2);
-        var y = object.props.y - (object.props.height / 2);
+        var x:Float;
+        var y:Float;
+        #if u_physics
+        if(object.body.mass != 0){
+            x = object.body.x - (object.props.rigidBodyData.shape.width / 2);
+            y = object.body.y - (object.props.rigidBodyData.shape.height / 2);
+        }else{
+            x = object.props.x - (object.props.width / 2);
+            y = object.props.y - (object.props.height / 2);            
+        }
+        #else
+            x = object.props.x - (object.props.width / 2);
+            y = object.props.y - (object.props.height / 2);
+        #end
         return { x : x, y : y}
     }
 

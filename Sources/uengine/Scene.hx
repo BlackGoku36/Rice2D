@@ -7,6 +7,10 @@ import uengine.data.ObjectData;
 class Scene {
     public static var sceneData:SceneData;
 
+    #if u_physics
+    public static var world: echo.World;
+    #end
+
     public static var objects:Array<Object> = [];
 
     public static var assets:Array<Map<String,kha.Image>> = [];
@@ -21,7 +25,15 @@ class Scene {
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(createScriptInstance(script));
         setObjectSprite(data.spriteRef, obj);
-
+        #if u_physics
+        if(data.rigidBodyData != null){
+            if(data.rigidBodyData.x == null) data.rigidBodyData.x = data.x;
+            if(data.rigidBodyData.y == null) data.rigidBodyData.x = data.x;
+            if(data.rigidBodyData.shape.width == null) data.rigidBodyData.shape.width = data.width;
+            if(data.rigidBodyData.shape.height == null) data.rigidBodyData.shape.height = data.height;
+            obj.body = world.add(new Body(data.rigidBodyData));
+        }
+        #end
         objects.push(obj);
 
         return obj;
@@ -58,6 +70,15 @@ class Scene {
             });
             #if u_ui
                 parseToCanvas(sceneData.canvasRef);
+            #end
+            #if u_physics
+                world = echo.Echo.start({
+                    width: 1440, // Affects the bounds that collision checks.
+                    height: 900, // Affects the bounds for collision checks.
+                    gravity_y: 50, // Force of Gravity on the Y axis. Also available on for the X axis.
+                    iterations: 3 // Sets the number of iterations each time the World steps.
+                });
+                world.listen();
             #end
             done();
         }, function(err: kha.AssetError) {

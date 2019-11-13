@@ -26,7 +26,6 @@ class App {
 
     public static var camera:uengine.system.Camera;
 
-
     #if u_debug
         static var debug:uengine.system.Debug;
         var deltaTime:Float = 0.0;
@@ -62,6 +61,13 @@ class App {
     function update() {
         if(Scene.sceneData == null) return;
 
+        #if u_physics
+        Scene.world.step(16/1000);
+            #if u_debug
+            echo.util.Debug.log(Scene.world);
+            #end
+        #end
+
         if(onInit.length > 0){
             for (init in onInit) init();
             onInit.splice(0, onInit.length);
@@ -90,7 +96,7 @@ class App {
 
         var g = frames[0].g2;
         var col = g.color;
-        g.begin(true, Color.fromFloats(0.6, 0.6, 0.6));
+        g.begin(true, Color.fromBytes(100, 155, 255));
 
         camera.set(g);
 
