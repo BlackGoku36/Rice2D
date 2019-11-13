@@ -31,7 +31,7 @@ class Scene {
             if(data.rigidBodyData.y == null) data.rigidBodyData.x = data.x;
             if(data.rigidBodyData.shape.width == null) data.rigidBodyData.shape.width = data.width;
             if(data.rigidBodyData.shape.height == null) data.rigidBodyData.shape.height = data.height;
-            obj.body = world.add(new Body(data.rigidBodyData));
+            obj.body = world.add(new echo.Body(data.rigidBodyData));
         }
         #end
         objects.push(obj);
@@ -72,12 +72,7 @@ class Scene {
                 parseToCanvas(sceneData.canvasRef);
             #end
             #if u_physics
-                world = echo.Echo.start({
-                    width: 1440, // Affects the bounds that collision checks.
-                    height: 900, // Affects the bounds for collision checks.
-                    gravity_y: 50, // Force of Gravity on the Y axis. Also available on for the X axis.
-                    iterations: 3 // Sets the number of iterations each time the World steps.
-                });
+                world = echo.Echo.start(sceneData.physicsWorld);
                 world.listen();
             #end
             done();
