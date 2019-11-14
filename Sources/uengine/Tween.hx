@@ -19,7 +19,7 @@ class Tween {
 	}
 
 	public function update(){
-		var xy = { x: tween.end.x, y: tween.end.y, rot: tween.rotS, col:[0, 0, 0, 0]};
+		var xy = { x: tween.start.x, y: tween.start.y, rot: tween.rotS, col:tween.colourS};
 		if (!tween.done && !tween.paused){
 			tween.deltaTime += 1 / 60;
 			if (tween.deltaTime >= tween.duration){
