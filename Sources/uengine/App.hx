@@ -16,23 +16,23 @@ import uengine.system.Camera;
 
 class App {
 
-    static var onInit:Array<Void->Void> = [];
-    static var onUpdate:Array<Void->Void> = [];
-    static var onRender:Array<Graphics->Void> = [];
-    static var onResets:Array<Void->Void> = null;
-    static var onEndFrames:Array<Void->Void> = null;
+    static var onInit: Array<Void->Void> = [];
+    static var onUpdate: Array<Void->Void> = [];
+    static var onRender: Array<Graphics->Void> = [];
+    static var onResets: Array<Void->Void> = null;
+    static var onEndFrames: Array<Void->Void> = null;
 
-    var font:kha.Font;
+    var font: kha.Font;
 
-    public static var camera:uengine.system.Camera;
+    public static var camera: uengine.system.Camera;
 
     #if u_debug
-        static var debug:uengine.system.Debug;
-        var deltaTime:Float = 0.0;
-        var totalFrames:Int = 0;
-        var elapsedTime:Float = 0.0;
-        var previousTime:Float = 0.0;
-        public static var fps:Int = 0;
+        static var debug: uengine.system.Debug;
+        var deltaTime: Float = 0.0;
+        var totalFrames: Int = 0;
+        var elapsedTime: Float = 0.0;
+        var previousTime: Float = 0.0;
+        public static var fps: Int = 0;
     #end
 
     public function new(scene:String) {

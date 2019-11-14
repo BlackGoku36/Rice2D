@@ -4,9 +4,9 @@ class Tween {
 
 	var tween: uengine.data.TweenData;
 
-	static inline var DEFAULT_OVERSHOOT:Float = 1.70158;
+	static inline var DEFAULT_OVERSHOOT: Float = 1.70158;
 
-	static var eases:Array<Float->Float> = [easeLinear, easeSineIn, easeSineOut, easeSineInOut, easeQuadIn,
+	static var eases: Array<Float->Float> = [easeLinear, easeSineIn, easeSineOut, easeSineInOut, easeQuadIn,
 											easeQuadOut, easeQuadInOut, easeCubicIn, easeCubicOut, easeCubicInOut,
 											easeQuartIn, easeQuartOut, easeQuartInOut, easeQuintIn, easeQuintOut,
 											easeQuintInOut, easeExpoIn, easeExpoOut, easeExpoInOut, easeCircIn,

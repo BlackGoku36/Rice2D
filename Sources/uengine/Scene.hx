@@ -5,15 +5,15 @@ import uengine.data.SceneData;
 import uengine.data.ObjectData;
 
 class Scene {
-    public static var sceneData:SceneData;
+    public static var sceneData: SceneData;
 
     #if u_physics
     public static var physics_world: echo.World;
     #end
 
-    public static var objects:Array<Object> = [];
+    public static var objects: Array<Object> = [];
 
-    public static var assets:Array<Map<String,kha.Image>> = [];
+    public static var assets: Array<Map<String,kha.Image>> = [];
 
     #if u_ui
         public static var canvases: Array<zui.Canvas.TCanvas> = [];

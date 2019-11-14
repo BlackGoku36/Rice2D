@@ -4,11 +4,11 @@ class Object {
 
     public var name = "";
     public var props: uengine.data.ObjectData = null;
-    public var transform:Transform = null;
+    public var transform: Transform = null;
     public var rotation = 0.0;
-    public var sprite:kha.Image;
-    public var animation:Animation = Animation.create(0);
-    public var scripts:Array<Script> = [];
+    public var sprite: kha.Image;
+    public var animation: Animation = Animation.create(0);
+    public var scripts: Array<Script> = [];
     public var visibile = true;
     public var selected = false;
 

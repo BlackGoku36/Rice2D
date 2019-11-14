@@ -11,13 +11,13 @@ package uengine.system;
 class Debug {
     #if u_debug
     var ui: Zui;
-    var width:Int = 250;
-    var height:Int = 600;
+    var width: Int = 250;
+    var height: Int = 600;
     var hwin = Id.handle();
 
 
-    static var haxeTrace:Dynamic->haxe.PosInfos->Void = null;
-    static var lastTraces:Array<String> = [''];
+    static var haxeTrace: Dynamic->haxe.PosInfos->Void = null;
+    static var lastTraces: Array<String> = [''];
 
     public function new(zfont:Font) {
         ui = new Zui({font: zfont});

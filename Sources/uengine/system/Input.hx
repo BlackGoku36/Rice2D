@@ -4,7 +4,7 @@ class Input {
     public static var occupied = false;
     static var registered = false;
     static var mouse: Mouse;
-    static var keyboard:Keyboard;
+    static var keyboard: Keyboard;
 
     public static function reset() {
         occupied = false;

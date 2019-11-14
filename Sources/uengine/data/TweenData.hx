@@ -4,22 +4,22 @@ package uengine.data;
 import kha.math.Vector2;
 
 typedef TweenData = {
-    var start: Vector2;
-    var end: Vector2;
-    var duration: Float;
-    var ease: Null<EaseType>;
-    var onDone: Void->Void;
-    @:optional var rotS: Float;
-    @:optional var rotE: Float;
-    @:optional var colourS: Array<Int>;
-    @:optional var colourE: Array<Int>;
-    @:optional var paused:Bool;
-    @:optional var deltaTime: Float;
-    @:optional var done: Bool;
+	var start: Vector2;
+	var end: Vector2;
+	var duration: Float;
+	var ease: Null<EaseType>;
+	var onDone: Void->Void;
+	@:optional var rotS: Float;
+	@:optional var rotE: Float;
+	@:optional var colourS: Array<Int>;
+	@:optional var colourE: Array<Int>;
+	@:optional var paused:Bool;
+	@:optional var deltaTime: Float;
+	@:optional var done: Bool;
 }
 
 @:enum abstract EaseType(Int) from Int to Int {
-    var Linear = 0;
+	var Linear = 0;
 	var SineIn = 1;
 	var SineOut = 2;
 	var SineInOut = 3;
