@@ -23,7 +23,7 @@ class Scene {
         var obj = new Object();
         obj.name = data.name;
         obj.props = data;
-        if(data.scripts != null) for (script in data.scripts) obj.addScript(createScriptInstance(script));
+        if(data.scripts != null) for (script in data.scripts) obj.addScript(script.name, createScriptInstance(script.scriptRef));
         setObjectSprite(data.spriteRef, obj);
         #if u_physics
         if(data.rigidBodyData != null){

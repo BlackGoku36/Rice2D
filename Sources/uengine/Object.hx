@@ -21,9 +21,16 @@ class Object {
         transform.object = this;
     }
 
-    public function addScript(script:Script) {
+    public function addScript(scriptRef:String, script:Script) {
         scripts.push(script);
         script.object = this;
+        script.name = scriptRef;
+    }
+
+    public function getScript(scriptRef: String): Script {
+        var scr:Script = null;
+        for (script in scripts) if (script.name == scriptRef) scr = script;
+        return scr;
     }
 
     public function setAnimation(animationn: Animation): Void {

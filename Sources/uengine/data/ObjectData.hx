@@ -10,7 +10,7 @@ typedef ObjectData = {
     @:optional public var culled: Bool;
     @:optional public var spriteRef: String;
     @:optional public var color: Array<Int>;
-    @:optional public var scripts: Array<String>;
+    @:optional public var scripts: Array<ScriptData>;
 }
 
 @:enum abstract ObjectType(Int) from Int to Int {
