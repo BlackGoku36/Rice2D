@@ -1,9 +1,0 @@
-[submodule "Sources/uengine/Lib/zui"]
-	path = Sources/uengine/Lib/zui
-	url = https://github.com/armory3d/zui
-[submodule "Sources/uengine/Lib/echo"]
-	path = Sources/uengine/Lib/echo
-	url = https://github.com/AustinEast/echo/
-[submodule "Sources/uengine/Lib/hxmath"]
-	path = Sources/uengine/Lib/hxmath
-	url = https://github.com/tbrosman/hxmath
