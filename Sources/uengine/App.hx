@@ -62,9 +62,9 @@ class App {
         if(Scene.sceneData == null) return;
 
         #if u_physics
-        Scene.world.step(16/1000);
+        Scene.physics_world.step(16/1000);
             #if u_debug
-            echo.util.Debug.log(Scene.world);
+            echo.util.Debug.log(Scene.physics_world);
             #end
         #end
 

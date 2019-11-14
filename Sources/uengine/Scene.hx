@@ -8,7 +8,7 @@ class Scene {
     public static var sceneData:SceneData;
 
     #if u_physics
-    public static var world: echo.World;
+    public static var physics_world: echo.World;
     #end
 
     public static var objects:Array<Object> = [];
@@ -31,7 +31,7 @@ class Scene {
             if(data.rigidBodyData.y == null) data.rigidBodyData.x = data.x;
             if(data.rigidBodyData.shape.width == null) data.rigidBodyData.shape.width = data.width;
             if(data.rigidBodyData.shape.height == null) data.rigidBodyData.shape.height = data.height;
-            obj.body = world.add(new echo.Body(data.rigidBodyData));
+            obj.body = physics_world.add(new echo.Body(data.rigidBodyData));
         }
         #end
         objects.push(obj);
@@ -72,8 +72,8 @@ class Scene {
                 parseToCanvas(sceneData.canvasRef);
             #end
             #if u_physics
-                world = echo.Echo.start(sceneData.physicsWorld);
-                world.listen();
+                physics_world = echo.Echo.start(sceneData.physicsWorld);
+                physics_world.listen();
             #end
             done();
         }, function(err: kha.AssetError) {

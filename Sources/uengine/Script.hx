@@ -3,7 +3,7 @@ package uengine;
 class Script {
 
     public var object: uengine.Object;
-    public var name:String = "";
+    public var name: String = "";
 
     var _init: Array<Void->Void> = null;
     var _update: Array<Void->Void> = null;
