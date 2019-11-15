@@ -1,8 +1,8 @@
-package uengine;
+package magnum2d;
 
 class Tween {
 
-	var tween: uengine.data.TweenData;
+	var tween: magnum2d.data.TweenData;
 
 	static inline var DEFAULT_OVERSHOOT: Float = 1.70158;
 
@@ -12,7 +12,7 @@ class Tween {
 											easeQuintInOut, easeExpoIn, easeExpoOut, easeExpoInOut, easeCircIn,
 											easeCircOut, easeCircInOut, easeBackIn, easeBackOut, easeBackInOut];
 
-	public function new(tweenData: uengine.data.TweenData) {
+	public function new(tweenData: magnum2d.data.TweenData) {
 		tween = tweenData;
 		tween.deltaTime = 0;
 		tween.done = false;

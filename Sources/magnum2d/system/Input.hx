@@ -1,4 +1,4 @@
-package uengine.system;
+package magnum2d.system;
 
 class Input {
     public static var occupied = false;

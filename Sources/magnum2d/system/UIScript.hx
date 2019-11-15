@@ -1,4 +1,4 @@
-package uengine.system;
+package magnum2d.system;
 
 //Zui
 #if u_ui

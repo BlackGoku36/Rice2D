@@ -4,7 +4,7 @@
 	* Lubos Lenco is original author.
 	*/
 
-package uengine.system;
+package magnum2d.system;
 
 class Event {
 

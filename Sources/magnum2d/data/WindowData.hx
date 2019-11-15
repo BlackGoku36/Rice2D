@@ -1,4 +1,4 @@
-package uengine.data;
+package magnum2d.data;
 
 typedef WindowData = {
     var name: String;

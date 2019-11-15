@@ -1,4 +1,4 @@
-package uengine.system;
+package magnum2d.system;
 
 #if u_debug
     import kha.Window;

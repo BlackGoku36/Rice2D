@@ -1,4 +1,4 @@
-package uengine.data;
+package magnum2d.data;
 
 //Kha
 import kha.math.Vector2;

@@ -1,8 +1,8 @@
-package uengine;
+package magnum2d;
 
 class Script {
 
-    public var object: uengine.Object;
+    public var object: magnum2d.Object;
     public var name: String = "";
 
     var _init: Array<Void->Void> = null;

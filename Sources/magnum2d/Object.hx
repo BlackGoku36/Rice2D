@@ -1,9 +1,9 @@
-package uengine;
+package magnum2d;
 
 class Object {
 
     public var name = "";
-    public var props: uengine.data.ObjectData = null;
+    public var props: magnum2d.data.ObjectData = null;
     public var transform: Transform = null;
     public var rotation = 0.0;
     public var sprite: kha.Image;
@@ -41,7 +41,7 @@ class Object {
         this.sprite = sprite;
     }
 
-    @:access(uengine.Script)
+    @:access(magnum2d.Script)
     public function removeScript(script: Script) {
 
         if(script._update != null){

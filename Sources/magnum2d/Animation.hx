@@ -1,4 +1,4 @@
-package uengine;
+package magnum2d;
 
 class Animation {
 

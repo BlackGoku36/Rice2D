@@ -1,7 +1,7 @@
-package uengine;
+package magnum2d;
 
 //Kha
-import uengine.system.Debug;
+import magnum2d.system.Debug;
 import kha.Color;
 import kha.Framebuffer;
 import kha.Scheduler;
@@ -11,8 +11,8 @@ import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 
 //Engine
-import uengine.data.WindowData;
-import uengine.system.Camera;
+import magnum2d.data.WindowData;
+import magnum2d.system.Camera;
 
 class App {
 
@@ -24,10 +24,10 @@ class App {
 
     var font: kha.Font;
 
-    public static var camera: uengine.system.Camera;
+    public static var camera: magnum2d.system.Camera;
 
     #if u_debug
-        static var debug: uengine.system.Debug;
+        static var debug: magnum2d.system.Debug;
         var deltaTime: Float = 0.0;
         var totalFrames: Int = 0;
         var elapsedTime: Float = 0.0;
@@ -132,7 +132,7 @@ class App {
                 for (canvas in Scene.canvases){
                     var events = Canvas.draw(ui, canvas, g);
                     for (e in events) {
-                        var all = uengine.system.Event.get(e);
+                        var all = magnum2dnum2d.system.Event.get(e);
                         if (all != null) for (entry in all) entry.onEvent();
                     }
                 }

@@ -1,4 +1,4 @@
-package uengine.system;
+package magnum2d.system;
 
 //Kha
 import kha.graphics2.Graphics;

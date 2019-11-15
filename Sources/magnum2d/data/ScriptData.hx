@@ -1,4 +1,4 @@
-package uengine.data;
+package magnum2d.data;
 
 typedef ScriptData = {
     var name: String;

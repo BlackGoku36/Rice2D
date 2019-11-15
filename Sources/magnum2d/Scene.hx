@@ -1,8 +1,8 @@
-package uengine;
+package magnum2d;
 
 //Engine
-import uengine.data.SceneData;
-import uengine.data.ObjectData;
+import magnum2d.data.SceneData;
+import magnum2d.data.ObjectData;
 
 class Scene {
     public static var sceneData: SceneData;
@@ -93,7 +93,7 @@ class Scene {
     #end
 
     public static function createScriptInstance(script:String):Dynamic {
-        var scr = Type.resolveClass("scripts."+script);
+        var scr = Type.resolveClass("mag."+script);
         if (scr == null) return null;
         return Type.createInstance(scr, []);
     }
