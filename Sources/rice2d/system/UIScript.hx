@@ -1,7 +1,7 @@
-package magnum2d.system;
+package rice2d.system;
 
 //Zui
-#if mag_ui
+#if rice_ui
     import zui.Zui.Handle;
     import zui.Canvas.TCanvas;
     import zui.Canvas.TElement;
@@ -9,7 +9,7 @@ package magnum2d.system;
 
 class UIScript {
 
-    #if mag_ui
+    #if rice_ui
 
     public static function addElement(canvasRef: String, elem:TElement) {
         var canvas = getCanvas(canvasRef);

@@ -4,7 +4,7 @@
 	* Lubos Lenco is original author.
 	*/
 
-package magnum2d.system;
+package rice2d.system;
 
 class Event {
 

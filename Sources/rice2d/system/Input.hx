@@ -1,4 +1,4 @@
-package magnum2d.system;
+package rice2d.system;
 
 class Input {
     public static var occupied = false;

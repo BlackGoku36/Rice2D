@@ -1,9 +1,9 @@
-package magnum2d;
+package rice2d;
 
 class Object {
 
     public var name = "";
-    public var props: magnum2d.data.ObjectData = null;
+    public var props: rice2d.data.ObjectData = null;
     public var transform: Transform = null;
     public var rotation = 0.0;
     public var sprite: kha.Image;
@@ -12,7 +12,7 @@ class Object {
     public var visibile = true;
     public var selected = false;
 
-    #if mag_physics
+    #if rice_physics
     public var body: echo.Body;
     #end
 
@@ -41,7 +41,7 @@ class Object {
         this.sprite = sprite;
     }
 
-    @:access(magnum2d.Script)
+    @:access(rice2d.Script)
     public function removeScript(script: Script) {
 
         if(script._update != null){

@@ -1,4 +1,4 @@
-package magnum2d;
+package rice2d;
 
 class Animation {
 

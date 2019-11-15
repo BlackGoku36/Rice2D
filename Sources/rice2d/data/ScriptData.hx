@@ -1,4 +1,4 @@
-package magnum2d.data;
+package rice2d.data;
 
 typedef ScriptData = {
     var name: String;

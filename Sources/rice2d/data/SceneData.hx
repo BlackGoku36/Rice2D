@@ -1,4 +1,4 @@
-package magnum2d.data;
+package rice2d.data;
 
 typedef SceneData = {
     public var name: String;

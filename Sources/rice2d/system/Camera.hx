@@ -1,4 +1,4 @@
-package magnum2d.system;
+package rice2d.system;
 
 //Kha
 import kha.graphics2.Graphics;

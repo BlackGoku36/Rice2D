@@ -1,16 +1,16 @@
-package magnum2d;
+package rice2d;
 
 //Zui
 import zui.Canvas.TCanvas;
 
 //Engine
-import magnum2d.data.SceneData;
-import magnum2d.data.ObjectData;
+import rice2d.data.SceneData;
+import rice2d.data.ObjectData;
 
 class Scene {
     public static var sceneData: SceneData;
 
-    #if mag_physics
+    #if rice_physics
     public static var physics_world: echo.World;
     #end
 
@@ -18,7 +18,7 @@ class Scene {
 
     public static var assets: Array<Map<String,kha.Image>> = [];
 
-    #if mag_ui
+    #if rice_ui
         public static var canvases: Array<zui.Canvas.TCanvas> = [];
     #end
 
@@ -28,7 +28,7 @@ class Scene {
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(script.name, createScriptInstance(script.scriptRef));
         setObjectSprite(data.spriteRef, obj);
-        #if mag_physics
+        #if rice_physics
         if(data.rigidBodyData != null){
             if(data.rigidBodyData.x == null) data.rigidBodyData.x = data.x;
             if(data.rigidBodyData.y == null) data.rigidBodyData.x = data.x;
@@ -71,10 +71,10 @@ class Scene {
             loadAssets(sceneData, function (){
                 for (object in sceneData.objects) addObject(object);
             });
-            #if mag_ui
+            #if rice_ui
                 parseToCanvas(sceneData.canvasRef);
             #end
-            #if mag_physics
+            #if rice_physics
                 physics_world = echo.Echo.start(sceneData.physicsWorld);
                 physics_world.listen();
             #end
@@ -84,7 +84,7 @@ class Scene {
         });
     }
 
-    #if mag_ui
+    #if rice_ui
         static function parseToCanvas(canvasRef:String) {
             kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
                 var newCanvas:TCanvas = haxe.Json.parse(b.toString());
@@ -96,7 +96,7 @@ class Scene {
     #end
 
     public static function createScriptInstance(script:String):Dynamic {
-        var scr = Type.resolveClass("mag."+script);
+        var scr = Type.resolveClass("rice."+script);
         if (scr == null) return null;
         return Type.createInstance(scr, []);
     }

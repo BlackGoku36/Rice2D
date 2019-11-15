@@ -1,4 +1,4 @@
-package magnum2d;
+package rice2d;
 
 //Kha
 import kha.Color;
@@ -13,9 +13,9 @@ import kha.math.FastMatrix3;
 import zui.Zui;
 
 //Engine
-import magnum2d.data.WindowData;
-import magnum2d.system.Camera;
-import magnum2d.system.Debug;
+import rice2d.data.WindowData;
+import rice2d.system.Camera;
+import rice2d.system.Debug;
 
 class App {
 
@@ -27,10 +27,10 @@ class App {
 
     var font: kha.Font;
 
-    public static var camera: magnum2d.system.Camera;
+    public static var camera: rice2d.system.Camera;
 
-    #if mag_debug
-        static var debug: magnum2d.system.Debug;
+    #if rice_debug
+        static var debug: rice2d.system.Debug;
         var deltaTime: Float = 0.0;
         var totalFrames: Int = 0;
         var elapsedTime: Float = 0.0;
@@ -50,7 +50,7 @@ class App {
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 Scene.parseToScene(scene, function (){
-                    #if mag_debug
+                    #if rice_debug
                         debug = new Debug(font);
                     #end
                     Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
@@ -64,7 +64,7 @@ class App {
     function update() {
         if(Scene.sceneData == null) return;
 
-        #if mag_physics
+        #if rice_physics
         Scene.physics_world.step(16/1000);
         #end
 
@@ -81,7 +81,7 @@ class App {
     function render(frames: Array<Framebuffer>):Void {
         if(Scene.sceneData == null) return;
 
-        #if mag_debug
+        #if rice_debug
             var currentTime:Float = Scheduler.realTime();
             deltaTime = (currentTime - previousTime);
 
@@ -109,7 +109,7 @@ class App {
                     g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
                 }
             }
-            #if mag_debug
+            #if rice_debug
                 if(object.selected){
                     g.font = font;
                     g.fontSize = 16;
@@ -127,13 +127,13 @@ class App {
 
         for (render in onRender) render(g);
         camera.unset(g);
-        #if mag_ui
+        #if rice_ui
             var ui: Zui = new Zui({font: font});
             if (Scene.canvases != null){
                 for (canvas in Scene.canvases){
                     var events = zui.Canvas.draw(ui, canvas, g);
                     for (e in events) {
-                        var all = magnum2d.system.Event.get(e);
+                        var all = rice2d.system.Event.get(e);
                         if (all != null) for (entry in all) entry.onEvent();
                     }
                 }
@@ -142,7 +142,7 @@ class App {
         g.color = col;
         g.end();
 
-        #if mag_debug
+        #if rice_debug
             debug.render(g);
             previousTime = currentTime;
         #end

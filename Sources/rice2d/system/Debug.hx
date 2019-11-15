@@ -1,6 +1,6 @@
-package magnum2d.system;
+package rice2d.system;
 
-#if mag_debug
+#if rice_debug
     import kha.Window;
     import kha.graphics2.Graphics;
     import zui.Id;
@@ -9,7 +9,7 @@ package magnum2d.system;
 #end
 
 class Debug {
-    #if mag_debug
+    #if rice_debug
     var ui: Zui;
     var width: Int = 250;
     var height: Int = 600;
