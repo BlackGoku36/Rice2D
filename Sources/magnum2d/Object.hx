@@ -12,7 +12,7 @@ class Object {
     public var visibile = true;
     public var selected = false;
 
-    #if u_physics
+    #if mag_physics
     public var body: echo.Body;
     #end
 

@@ -25,7 +25,7 @@ class Scene {
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(script.name, createScriptInstance(script.scriptRef));
         setObjectSprite(data.spriteRef, obj);
-        #if u_physics
+        #if mag_physics
         if(data.rigidBodyData != null){
             if(data.rigidBodyData.x == null) data.rigidBodyData.x = data.x;
             if(data.rigidBodyData.y == null) data.rigidBodyData.x = data.x;
@@ -68,10 +68,10 @@ class Scene {
             loadAssets(sceneData, function (){
                 for (object in sceneData.objects) addObject(object);
             });
-            #if u_ui
+            #if mag_ui
                 parseToCanvas(sceneData.canvasRef);
             #end
-            #if u_physics
+            #if mag_physics
                 physics_world = echo.Echo.start(sceneData.physicsWorld);
                 physics_world.listen();
             #end
@@ -81,7 +81,7 @@ class Scene {
         });
     }
 
-    #if u_ui
+    #if mag_ui
         static function parseToCanvas(canvasRef:String) {
             kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
                 var newCanvas:TCanvas = haxe.Json.parse(b.toString());

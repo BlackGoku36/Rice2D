@@ -26,7 +26,7 @@ class App {
 
     public static var camera: magnum2d.system.Camera;
 
-    #if u_debug
+    #if mag_debug
         static var debug: magnum2d.system.Debug;
         var deltaTime: Float = 0.0;
         var totalFrames: Int = 0;
@@ -47,7 +47,7 @@ class App {
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 Scene.parseToScene(scene, function (){
-                    #if u_debug
+                    #if mag_debug
                         debug = new Debug(font);
                     #end
                     Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
@@ -61,9 +61,9 @@ class App {
     function update() {
         if(Scene.sceneData == null) return;
 
-        #if u_physics
+        #if mag_physics
         Scene.physics_world.step(16/1000);
-            #if u_debug
+            #if mag_debug
             echo.util.Debug.log(Scene.physics_world);
             #end
         #end
@@ -81,7 +81,7 @@ class App {
     function render(frames: Array<Framebuffer>):Void {
         if(Scene.sceneData == null) return;
 
-        #if u_debug
+        #if mag_debug
             var currentTime:Float = Scheduler.realTime();
             deltaTime = (currentTime - previousTime);
 
@@ -109,7 +109,7 @@ class App {
                     g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
                 }
             }
-            #if u_debug
+            #if mag_debug
                 if(object.selected){
                     g.font = font;
                     g.fontSize = 16;
@@ -127,7 +127,7 @@ class App {
 
         for (render in onRender) render(g);
         camera.unset(g);
-        #if u_ui
+        #if mag_ui
             if (Scene.canvases != null){
                 for (canvas in Scene.canvases){
                     var events = Canvas.draw(ui, canvas, g);
@@ -141,7 +141,7 @@ class App {
         g.color = col;
         g.end();
 
-        #if u_debug
+        #if mag_debug
             debug.render(g);
             previousTime = currentTime;
         #end
