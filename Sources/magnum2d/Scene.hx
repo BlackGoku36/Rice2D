@@ -7,7 +7,7 @@ import magnum2d.data.ObjectData;
 class Scene {
     public static var sceneData: SceneData;
 
-    #if u_physics
+    #if mag_physics
     public static var physics_world: echo.World;
     #end
 
@@ -15,7 +15,7 @@ class Scene {
 
     public static var assets: Array<Map<String,kha.Image>> = [];
 
-    #if u_ui
+    #if mag_ui
         public static var canvases: Array<zui.Canvas.TCanvas> = [];
     #end
 
