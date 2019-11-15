@@ -63,9 +63,6 @@ class App {
 
         #if mag_physics
         Scene.physics_world.step(16/1000);
-            #if mag_debug
-            echo.util.Debug.log(Scene.physics_world);
-            #end
         #end
 
         if(onInit.length > 0){
