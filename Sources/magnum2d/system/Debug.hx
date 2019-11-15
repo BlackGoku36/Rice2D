@@ -42,7 +42,7 @@ class Debug {
             if (ui.tab(htab, "X")){}
 
             if(ui.tab(htab, "Outliner")){
-                ui.text("Objects: "+ Scene.objects);
+                ui.text("Objects: "+ Scene.objects.length);
                 ui.text("Assets: "+Scene.assets.length);
 
                 if(ui.panel(Id.handle(), "Scene")){
