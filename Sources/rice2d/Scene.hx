@@ -42,9 +42,9 @@ class Scene {
         return obj;
     }
 
-    public static function getObject(name:String, layer:Array<Object>):Object {
+    public static function getObject(name:String):Object {
         var obj:Object = null;
-        for (object in layer) if(object.name == name) obj = object;
+        for (object in objects) if(object.name == name) obj = object;
         return obj;
     }
 

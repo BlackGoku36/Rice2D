@@ -21,6 +21,11 @@ class Object {
         transform.object = this;
     }
 
+    public function remove() {
+        if(scripts != null) for(script in scripts) removeScript(script);
+        Scene.objects.splice(Scene.objects.indexOf(this), 1);
+    }
+
     public function addScript(scriptRef:String, script:Script) {
         scripts.push(script);
         script.object = this;
