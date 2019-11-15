@@ -1,5 +1,8 @@
 package magnum2d;
 
+//Zui
+import zui.Canvas.TCanvas;
+
 //Engine
 import magnum2d.data.SceneData;
 import magnum2d.data.ObjectData;

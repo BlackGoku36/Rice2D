@@ -1,7 +1,6 @@
 package magnum2d;
 
 //Kha
-import magnum2d.system.Debug;
 import kha.Color;
 import kha.Framebuffer;
 import kha.Scheduler;
@@ -10,9 +9,13 @@ import kha.WindowMode;
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 
+//Zui
+import zui.Zui;
+
 //Engine
 import magnum2d.data.WindowData;
 import magnum2d.system.Camera;
+import magnum2d.system.Debug;
 
 class App {
 
@@ -125,11 +128,12 @@ class App {
         for (render in onRender) render(g);
         camera.unset(g);
         #if mag_ui
+            var ui: Zui = new Zui({font: font});
             if (Scene.canvases != null){
                 for (canvas in Scene.canvases){
-                    var events = Canvas.draw(ui, canvas, g);
+                    var events = zui.Canvas.draw(ui, canvas, g);
                     for (e in events) {
-                        var all = magnum2dnum2d.system.Event.get(e);
+                        var all = magnum2d.system.Event.get(e);
                         if (all != null) for (entry in all) entry.onEvent();
                     }
                 }
