@@ -1,3 +1,6 @@
+
+//Borrowed from https://github.com/armory3d/armory/blob/master/Sources/armory/trait/internal/CanvasScript.hx
+
 package rice2d.system;
 
 //Zui

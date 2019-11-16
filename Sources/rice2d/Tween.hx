@@ -68,6 +68,8 @@ class Tween {
 		tween.paused = pause;
 	}
 
+	//Borrowed from Iron's tween (https://github.com/armory3d/iron/blob/master/Sources/iron/system/Tween.hx)
+
 	public static function easeLinear(k:Float):Float { return k; }
 	public static function easeSineIn(k:Float):Float { if(k == 0){ return 0; } else if(k == 1){ return 1; } else { return 1 - Math.cos(k * Math.PI / 2); } }
 	public static function easeSineOut(k:Float):Float { if(k == 0){ return 0; } else if(k == 1){ return 1; } else { return Math.sin(k * (Math.PI * 0.5)); } }

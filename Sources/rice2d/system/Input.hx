@@ -1,3 +1,6 @@
+
+//Borrowed from https://github.com/armory3d/iron/blob/master/Sources/iron/system/Input.hx
+
 package rice2d.system;
 
 class Input {
