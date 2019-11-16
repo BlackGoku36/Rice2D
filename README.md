@@ -1,6 +1,10 @@
+
 <div align="center">
-  <h1>Rice2D 🌾</h1>
+
+<img src="logo.png" width="250">
 </div>
+
+# Rice2D 🌾
 
 ![](https://img.shields.io/badge/Version-2019.11.17-blue)
 ![GitHub](https://img.shields.io/github/license/BlackGoku36/Rice2D)
