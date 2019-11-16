@@ -1,7 +1,8 @@
 
 <div align="center">
 
-<img src="logo.png" width="250">
+<img src="logo3.png" width="250">
+<img src="logo4.png" width="250">
 </div>
 
 # Rice2D 🌾
