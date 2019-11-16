@@ -1,7 +1,7 @@
 {
     "name": "Rice2D",
     "url" : "https://github.com/BlackGoku36/Rice2D",
-    "license": "Zlib",
+    "license": "MIT",
     "tags": ["kha", "2d", "game", "engine", "cross"],
     "description": "Cross-platform data-driven 2d game engine",
     "version": "2019.11.17",
