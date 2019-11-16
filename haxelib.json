@@ -5,6 +5,7 @@
     "tags": ["kha", "2d", "game", "engine", "cross"],
     "description": "Cross-platform data-driven 2d game engine",
     "version": "2019.11.17",
+    "classPath": "Sources",
     "releasenote": "Init 2019.11.17",
     "contributors": ["BlackGoku36"],
     "dependencies": {
