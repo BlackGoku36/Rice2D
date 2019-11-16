@@ -1,0 +1,15 @@
+{
+    "name": "Rice2D",
+    "url" : "https://github.com/BlackGoku36/Rice2D",
+    "license": "Zlib",
+    "tags": ["kha", "2d", "game", "engine", "cross"],
+    "description": "Cross-platform data-driven 2d game engine",
+    "version": "2019.11.17",
+    "releasenote": "Init 2019.11.17",
+    "contributors": ["BlackGoku36"],
+    "dependencies": {
+        "kha": "",
+        "zui": "",
+        "echo": ""
+    }
+  }
