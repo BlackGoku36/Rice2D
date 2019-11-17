@@ -14,6 +14,7 @@ class Debug {
     var width: Int = 250;
     var height: Int = 600;
     var hwin = Id.handle();
+    var propane = Id.handle();
 
 
     static var haxeTrace: Dynamic->haxe.PosInfos->Void = null;
@@ -36,6 +37,7 @@ class Debug {
     public function render(g:Graphics) {
         ui.begin(g);
         hwin.redraws = 1;
+        propane.redraws = 2;
         if (ui.window(hwin, Window.get(0).width-width, 0, width, height, true)) {
             var htab = Id.handle({position: 0});
 
@@ -48,7 +50,7 @@ class Debug {
                 if(ui.panel(Id.handle(), "Scene")){
 
                     ui.indent();
-                        for (object in Scene.objects) if(object.selected){
+                        for (object in Scene.objects){
                             ui.row([8/10, 1/10, 1/10]);
                             ui.text(object.name);
                             if(ui.button("O")) object.selected = true;
@@ -56,17 +58,31 @@ class Debug {
                         }
                     ui.unindent();
                 }
-                if(ui.panel(Id.handle(), "Properties")){
-
+                if(ui.panel(propane, "Properties")){
                     for (object in Scene.objects) if(object.selected){
-                        object.props.x = Std.parseFloat(ui.textInput(Id.handle({text:object.props.x+""}), "X"));
-                        object.props.y = Std.parseFloat(ui.textInput(Id.handle({text:object.props.y+""}), "Y"));
+                        var center = object.transform.getCenter();
+                        if(object.body!=null){
+                            var handlex = Id.handle({text: center.x+""});
+                            var handley = Id.handle({text: center.y+""});
+                            var inputx = ui.textInput(handlex, "X");
+                            var inputy = ui.textInput(handley, "Y");
+                            if(handlex.changed) object.body.x = Std.parseFloat(inputx) + (object.props.rigidBodyData.shape.width / 2);
+                            if(handley.changed) object.body.y = Std.parseFloat(inputy) + (object.props.rigidBodyData.shape.height / 2);
+                        }else{
+                            var handlex = Id.handle({text: center.x+""});
+                            var handley = Id.handle({text: center.y+""});
+                            var inputx = ui.textInput(handlex, "X");
+                            var inputy = ui.textInput(handley, "Y");
+                            if(handlex.changed) object.props.x = Std.parseFloat(inputx) + (object.props.width / 2);
+                            if(handley.changed) object.props.y = Std.parseFloat(inputy) + (object.props.height / 2);
+                        }
                         object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
                         object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
                         object.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
                         object.visibile = ui.check(Id.handle({selected: true}), "Visible");
                     }
                 }
+            
             }
 
             if(ui.tab(htab, "FPS: "+ App.fps)){
