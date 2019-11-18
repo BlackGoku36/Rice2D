@@ -57,7 +57,7 @@ class Particle {
         deltaTime += 1/60;
         if(props.lifeTime > deltaTime){
             x += props.speed * Math.cos(rotataion);
-            y += -props.speed * Math.sin(rotataion) *2;
+            y += -props.speed * Math.sin(rotataion);
         }
     }
 
