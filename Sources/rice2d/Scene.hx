@@ -18,6 +18,8 @@ class Scene {
 
     public static var assets: Array<Map<String,kha.Image>> = [];
 
+    public static var scripts: Array<Script> = [];
+
     #if rice_ui
         public static var canvases: Array<zui.Canvas.TCanvas> = [];
     #end
@@ -71,6 +73,7 @@ class Scene {
             loadAssets(sceneData, function (){
                 for (object in sceneData.objects) addObject(object);
             });
+            if(sceneData.scripts != null) for (script in sceneData.scripts) scripts.push(createScriptInstance(script));
             #if rice_ui
                 parseToCanvas(sceneData.canvasRef);
             #end
@@ -94,6 +97,28 @@ class Scene {
             });
         }
     #end
+
+    @:access(rice2d.Script)
+    public function removeScript(script: Script) {
+
+        if(script._update != null){
+            for (update in script._update) App.removeUpdate(update);
+            script._update = null;
+        }
+
+        if(script._render != null){
+            for (render in script._render) App.removeRender(render);
+            script._render = null;
+        }
+
+        if(script._remove != null){
+            for (remove in script._remove) remove();
+            script._remove = null;
+        }
+
+        scripts.remove(script);
+
+    }
 
     public static function createScriptInstance(script:String):Dynamic {
         var scr = Type.resolveClass("rice."+script);
