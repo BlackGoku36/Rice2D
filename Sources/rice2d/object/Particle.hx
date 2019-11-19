@@ -1,9 +1,12 @@
 package rice2d.object;
 
-import rice2d.tools.Util;
+//Kha
 import kha.Image;
 import kha.graphics2.Graphics;
+
+//Engine
 import rice2d.data.ParticleData;
+import rice2d.tools.Util;
 
 class Emitter {
     public var props: EmitterData;
