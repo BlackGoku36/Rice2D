@@ -55,6 +55,7 @@ class Scene {
 
             Assets.loadFontsFromScene(sceneData.assets.fonts, null);
             Assets.loadSoundsFromScene(sceneData.assets.sounds, null);
+            Assets.loadBlobsFromScene(sceneData.assets.blobs, null);
             Assets.loadImagesFromScene(sceneData.assets.images, function(){
                 for (object in sceneData.objects) addObject(object);
             });

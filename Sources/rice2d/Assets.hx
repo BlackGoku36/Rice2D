@@ -5,12 +5,12 @@ class Assets {
     public static var images: Array<Map<String, kha.Image>> = [];
     public static var fonts: Array<Map<String, kha.Font>> = [];
     public static var sounds: Array<Map<String, kha.Sound>> = [];
-
-    public static var doneLoading:Bool = false;
+    public static var blobs: Array<Map<String, kha.Blob>> = [];
 
     public static var imageDone:Bool = false;
     public static var fontDone:Bool = false;
     public static var soundDone:Bool = false;
+    public static var blobDone:Bool = false;
 
     public static function getImage(imageRef:String) {
         var newImage:kha.Image = null;
@@ -26,6 +26,22 @@ class Assets {
             if(font.exists(fontRef)) newFont = font.get(fontRef);
         }
         return newFont;
+    }
+
+    public static function getSound(soundRef:String) {
+        var newSound:kha.Sound = null;
+        for (sound in sounds){
+            if(sound.exists(soundRef)) newSound = sound.get(soundRef);
+        }
+        return newSound;
+    }
+
+    public static function getBlob(blobRef:String) {
+        var newBlob:kha.Blob = null;
+        for (blob in blobs){
+            if(blob.exists(blobRef)) newBlob = blob.get(blobRef);
+        }
+        return newBlob;
     }
     
     public static function loadImagesFromScene(imagesRef:Array<String>, done: Void->Void){
@@ -60,12 +76,26 @@ class Assets {
         if(soundsRef != null) for (sound in soundsRef){
             kha.Assets.loadSoundFromPath(sound, function (snd){
                 sounds.push([sound.split(".")[0] => snd]);
-                if(fonts.length == soundsRef.length){
+                if(sounds.length == soundsRef.length){
                     soundDone = true;
                     done();
                 }
             }, function (error){
                 throw error + 'Can`t find sound $sound, make sure path is correct and sound is in `Assets` folder';
+            });
+        }
+    }
+
+    public static function loadBlobsFromScene(blobsRef:Array<String>, done:Void->Void){
+        if(blobsRef != null) for (blob in blobsRef){
+            kha.Assets.loadBlobFromPath(blob, function (blb){
+                blobs.push([blob.split(".")[0] => blb]);
+                if(blobs.length == blobsRef.length){
+                    blobDone = true;
+                    done();
+                }
+            }, function (error){
+                throw error + 'Can`t find blob $blob, make sure path is correct and blob is in `Assets` folder';
             });
         }
     }
