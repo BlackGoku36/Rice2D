@@ -17,8 +17,6 @@ class Scene {
 
     public static var objects: Array<Object> = [];
 
-    public static var assets: Array<Map<String,kha.Image>> = [];
-
     public static var scripts: Array<Script> = [];
 
     #if rice_ui
@@ -30,7 +28,7 @@ class Scene {
         obj.name = data.name;
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(script.name, createScriptInstance(script.scriptRef));
-        setObjectSprite(data.spriteRef, obj);
+        obj.sprite = Assets.getImage(data.spriteRef);
         #if rice_physics
         if(data.rigidBodyData != null){
             if(data.rigidBodyData.x == null) data.rigidBodyData.x = data.x;
@@ -51,29 +49,16 @@ class Scene {
         return obj;
     }
 
-    public static function setObjectSprite(ref:String, obj:Object) {
-        for (i in assets){
-            if(i.exists(ref)) obj.sprite = i.get(ref);
-        }
-    }
-
-    public static function loadAssets(sceneData: SceneData, done:Void->Void) {
-        for (asset in sceneData.assets){
-            kha.Assets.loadImageFromPath(asset, true, function (img){
-                assets.push([asset => img]);
-                if(assets.length == sceneData.assets.length) done();
-            }, function(err: kha.AssetError) {
-                trace(err.error+'. Make sure $asset exist in "Assets" folder and there is not typo.\n');
-            });
-        }
-    }
-
     public static function parseToScene(scene:String, done:Void->Void) {
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
-            loadAssets(sceneData, function (){
+
+            Assets.loadFontsFromScene(sceneData.assets.fonts, null);
+            Assets.loadSoundsFromScene(sceneData.assets.sounds, null);
+            Assets.loadImagesFromScene(sceneData.assets.images, function(){
                 for (object in sceneData.objects) addObject(object);
             });
+
             if(sceneData.scripts != null) for (script in sceneData.scripts) scripts.push(createScriptInstance(script));
             #if rice_ui
                 parseToCanvas(sceneData.canvasRef);

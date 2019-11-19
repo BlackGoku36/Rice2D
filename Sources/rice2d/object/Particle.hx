@@ -52,7 +52,7 @@ class Particle {
         deltaTime = 0.0;
         this.x = x;
         this.y = y;
-        this.sprite = getImage(particle.spriteRef);
+        this.sprite = rice2d.Assets.getImage(particle.spriteRef);
         rotataion = rice2d.tools.Util.randomRangeF(particle.rots, particle.rote);
         this.props = particle;
     }
@@ -70,13 +70,5 @@ class Particle {
         if(props.lifeTime > deltaTime){
             g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
         }
-    }
-
-    function getImage(ref:String):Image {
-        var image:Image = null;
-        for (i in Scene.assets){
-            if(i.exists(ref)) image = i.get(ref);
-        }
-        return image;
     }
 }

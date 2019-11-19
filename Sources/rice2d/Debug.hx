@@ -45,7 +45,9 @@ class Debug {
 
             if(ui.tab(htab, "Outliner")){
                 ui.text("Objects: "+ Scene.objects.length);
-                ui.text("Assets: "+Scene.assets.length);
+                ui.text("Image: "+Assets.images.length);
+                ui.text("Fonts: "+Assets.fonts.length);
+                ui.text("Sounds: "+Assets.sounds.length);
 
                 if(ui.panel(Id.handle(), "Scene")){
 
