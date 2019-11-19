@@ -52,21 +52,21 @@ class Scene {
     public static function parseToScene(scene:String, done:Void->Void) {
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
-
-            Assets.loadFontsFromScene(sceneData.assets.fonts, null);
-            Assets.loadSoundsFromScene(sceneData.assets.sounds, null);
-            Assets.loadBlobsFromScene(sceneData.assets.blobs, null);
+            //TODO: Improve Asset loading
+            #if rice_physics
+                physics_world = echo.Echo.start(sceneData.physicsWorld);
+                physics_world.listen();
+            #end
             Assets.loadImagesFromScene(sceneData.assets.images, function(){
                 for (object in sceneData.objects) addObject(object);
             });
+            Assets.loadFontsFromScene(sceneData.assets.fonts, function (){});
+            Assets.loadSoundsFromScene(sceneData.assets.sounds, function (){});
+            Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){});
 
             if(sceneData.scripts != null) for (script in sceneData.scripts) scripts.push(createScriptInstance(script));
             #if rice_ui
                 parseToCanvas(sceneData.canvasRef);
-            #end
-            #if rice_physics
-                physics_world = echo.Echo.start(sceneData.physicsWorld);
-                physics_world.listen();
             #end
             done();
         }, function(err: kha.AssetError) {
