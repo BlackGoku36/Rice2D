@@ -23,6 +23,9 @@ class Object {
 
     public function remove() {
         if(scripts != null) for(script in scripts) removeScript(script);
+        #if rice_physics
+        body.dispose();
+        #end
         Scene.objects.splice(Scene.objects.indexOf(this), 1);
     }
 
