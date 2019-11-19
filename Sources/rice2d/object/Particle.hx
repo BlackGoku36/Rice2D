@@ -1,5 +1,6 @@
 package rice2d.object;
 
+import rice2d.tools.Util;
 import kha.Image;
 import kha.graphics2.Graphics;
 import rice2d.data.ParticleData;
@@ -49,7 +50,7 @@ class Particle {
         this.x = x;
         this.y = y;
         this.sprite = getImage(particle.spriteRef);
-        rotataion = randomRangeFloat(particle.rots, particle.rote);
+        rotataion = rice2d.tools.Util.randomRangeF(particle.rots, particle.rote);
         this.props = particle;
     }
 
@@ -62,14 +63,11 @@ class Particle {
     }
 
     public function render(g:Graphics) {
+        var center = Util.getCenter(x, y, props.width, props.height);
         if(props.lifeTime > deltaTime){
-            g.drawScaledImage(sprite, Math.round(x - (props.width / 2)), Math.round(y - (props.height / 2)), props.width, props.height);
+            g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
         }
     }
-
-    public static function randomRangeFloat(min:Float, max:Float):Float {
-		return Math.random() * (max - min) + min;
-	}
 
     function getImage(ref:String):Image {
         var image:Image = null;
