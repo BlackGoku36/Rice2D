@@ -1,4 +1,4 @@
-package rice2d;
+package rice2d.object;
 
 import kha.Image;
 import kha.graphics2.Graphics;

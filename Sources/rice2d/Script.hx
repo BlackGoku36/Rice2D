@@ -2,7 +2,7 @@ package rice2d;
 
 class Script {
 
-    public var object: rice2d.Object;
+    public var object: rice2d.object.Object;
     public var name: String = "";
 
     var _init: Array<Void->Void> = null;

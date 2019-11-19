@@ -1,4 +1,4 @@
-package rice2d.system;
+package rice2d;
 
 #if rice_debug
     import kha.Window;

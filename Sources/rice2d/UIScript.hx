@@ -1,7 +1,7 @@
 
 //Borrowed from https://github.com/armory3d/armory/blob/master/Sources/armory/trait/internal/CanvasScript.hx
 
-package rice2d.system;
+package rice2d;
 
 //Zui
 #if rice_ui

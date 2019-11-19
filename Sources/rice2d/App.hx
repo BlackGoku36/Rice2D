@@ -15,7 +15,7 @@ import zui.Zui;
 //Engine
 import rice2d.data.WindowData;
 import rice2d.system.Camera;
-import rice2d.system.Debug;
+import rice2d.Debug;
 
 class App {
 
@@ -30,7 +30,7 @@ class App {
     public static var camera: rice2d.system.Camera;
 
     #if rice_debug
-        static var debug: rice2d.system.Debug;
+        static var debug: Debug;
         var deltaTime: Float = 0.0;
         var totalFrames: Int = 0;
         var elapsedTime: Float = 0.0;

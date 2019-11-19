@@ -1,4 +1,4 @@
-package rice2d;
+package rice2d.system;
 
 class Tween {
 

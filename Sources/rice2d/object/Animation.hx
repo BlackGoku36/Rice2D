@@ -1,7 +1,7 @@
 
 //Originally written by Robert Konrad in Kha2D (https://github.com/Kha-Samples/Kha2D/blob/master/Sources/kha2d/Animation.hx)
 
-package rice2d;
+package rice2d.object;
 
 class Animation {
 

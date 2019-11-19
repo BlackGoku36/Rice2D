@@ -6,6 +6,7 @@ import zui.Canvas.TCanvas;
 //Engine
 import rice2d.data.SceneData;
 import rice2d.data.ObjectData;
+import rice2d.object.Object;
 
 class Scene {
     public static var sceneData: SceneData;
