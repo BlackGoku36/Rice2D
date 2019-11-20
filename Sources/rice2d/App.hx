@@ -19,6 +19,8 @@ import rice2d.Debug;
 
 class App {
 
+    static var version = "2019.11.17";
+
     static var onInit: Array<Void->Void> = [];
     static var onUpdate: Array<Void->Void> = [];
     static var onRender: Array<Graphics->Void> = [];

@@ -16,3 +16,7 @@ Documentation is at [Rice2D-Docs (Web)](https://blackgoku36.github.io/Rice2D-Doc
 Check out [VSCode snippet](https://gist.github.com/BlackGoku36/e97d500547be88b3b2de5f2ea560372c)
 
 Check out [empty rice project](https://github.com/BlackGoku36/Rice2D-Empty)
+
+### Versioning
+
+Versioning is based on year.month.day of release (e.g. 2019.11.16)
