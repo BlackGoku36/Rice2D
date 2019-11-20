@@ -16,11 +16,17 @@ class Object {
     public var body: echo.Body;
     #end
 
+    /**
+     * Create new object
+     */
     public function new() {
         transform = new Transform();
         transform.object = this;
     }
 
+    /**
+     * Remove itself
+     */
     public function remove() {
         if(scripts != null) for(script in scripts) removeScript(script);
         #if rice_physics
@@ -29,26 +35,48 @@ class Object {
         Scene.objects.splice(Scene.objects.indexOf(this), 1);
     }
 
-    public function addScript(scriptRef:String, script:Script) {
+    /**
+     * Add script to object
+     * @param name Name of script 
+     * @param script 
+     */
+    public function addScript(name:String, script:Script) {
         scripts.push(script);
         script.object = this;
-        script.name = scriptRef;
+        script.name = name;
     }
 
-    public function getScript(scriptRef: String): Script {
+    /**
+     * Get script
+     * @param name Name of script 
+     * @return Script
+     */
+    public function getScript(name: String): Script {
         var scr:Script = null;
-        for (script in scripts) if (script.name == scriptRef) scr = script;
+        for (script in scripts) if (script.name == name) scr = script;
         return scr;
     }
 
-    public function setAnimation(animationn: Animation): Void {
-        animation.take(animationn);
+    /**
+     * Set object's animation
+     * @param anim 
+     */
+    public function setAnimation(anim: Animation): Void {
+        animation.take(anim);
     }
 
+    /**
+     * Set object's sprite
+     * @param sprite 
+     */
     public function setSprite(sprite: kha.Image) {
         this.sprite = sprite;
     }
 
+    /**
+     * Remove script from object
+     * @param script 
+     */
     @:access(rice2d.Script)
     public function removeScript(script: Script) {
 

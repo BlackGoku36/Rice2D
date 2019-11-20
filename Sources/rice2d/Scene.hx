@@ -23,6 +23,11 @@ class Scene {
         public static var canvases: Array<zui.Canvas.TCanvas> = [];
     #end
 
+    /**
+     * Add object to scene
+     * @param data Object's data
+     * @return Object
+     */
     public static function addObject(data:ObjectData):Object {
         var obj = new Object();
         obj.name = data.name;
@@ -43,12 +48,22 @@ class Scene {
         return obj;
     }
 
+    /**
+     * Get object from scene
+     * @param name Name of object
+     * @return Object
+     */
     public static function getObject(name:String):Object {
         var obj:Object = null;
         for (object in objects) if(object.name == name) obj = object;
         return obj;
     }
 
+    /**
+     * Parse scene from scene's json.
+     * @param scene File name of scene's json.
+     * @param done To execute when done parsing.
+     */
     public static function parseToScene(scene:String, done:Void->Void) {
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
@@ -85,6 +100,10 @@ class Scene {
         }
     #end
 
+    /**
+     * Remove script from scene
+     * @param script
+     */
     @:access(rice2d.Script)
     public function removeScript(script: Script) {
 
@@ -107,7 +126,7 @@ class Scene {
 
     }
 
-    public static function createScriptInstance(script:String):Dynamic {
+    static function createScriptInstance(script:String):Dynamic {
         var scr = Type.resolveClass("rice."+script);
         if (scr == null) return null;
         return Type.createInstance(scr, []);

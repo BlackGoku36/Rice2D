@@ -12,38 +12,66 @@ class Script {
 
     public function new() {}
 
+    /**
+     * Remove script from this object.
+     * @param script
+     */
     public function remove(script: Script) {
         object.removeScript(this);
     }
 
+    /**
+     * Execute funtion 'init' when the Script is initiated.
+     * @param init 
+     */
     public function notifyOnInit(init:Void->Void) {
         if(_init == null) _init = [];
         _init.push(init);
         App.notifyOnInit(init);
     }
 
+    /**
+     * Execute funtion 'update' every frame.
+     * @param update 
+     */
     public function notifyOnUpdate(update: Void->Void) {
         if(_update == null) _update = [];
         _update.push(update);
         App.notifyOnUpdate(update);
     }
 
+    /**
+     * Execute funtion 'update' and remove notifyOnUpdate.
+     * @param update 
+     */
     public function removeUpdate(update: Void->Void) {
         _update.remove(update);
         App.removeUpdate(update);
     }
 
+    /**
+     * Execute function 'render' when frame is rendering.
+     * @param render 
+     */
     public function notifyOnRender(render: kha.graphics2.Graphics->Void) {
         if(_render == null) _render = [];
         _render.push(render);
         App.notifyOnRender(render);
     }
 
+    /**
+     * Execute function 'render' and remove notifyOnRender
+     * @param render 
+     */
     public function removeRender(render: kha.graphics2.Graphics->Void) {
         _render.remove(render);
         App.removeRender(render);
     }
 
+    /**
+     * Execute funtion 'remove' when the Script is removed
+     * @param remove 
+     */
     public function notifyOnRemove(remove:Void->Void) {
         if(_remove == null) _remove = [];
         _remove.push(remove);

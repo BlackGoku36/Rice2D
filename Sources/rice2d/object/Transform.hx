@@ -6,6 +6,9 @@ class Transform{
 
     public function new() {}
 
+    /**
+     * Get object center
+     */
     public function getCenter() {
         var x: Float;
         var y: Float;
@@ -24,6 +27,12 @@ class Transform{
         return { x : x, y : y}
     }
 
+    /**
+     * Translate object
+     * @param x 
+     * @param y 
+     * @param s 
+     */
     public function translate(x:Float, y:Float, s:Float) {
         object.props.x += x * s;
         object.props.y += y * s;

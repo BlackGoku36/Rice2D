@@ -12,12 +12,19 @@ class Tween {
 											easeQuintInOut, easeExpoIn, easeExpoOut, easeExpoInOut, easeCircIn,
 											easeCircOut, easeCircInOut, easeBackIn, easeBackOut, easeBackInOut];
 
+	/**
+	 * Create new tween
+	 * @param tweenData Tween's data
+	 */
 	public function new(tweenData: rice2d.data.TweenData) {
 		tween = tweenData;
 		tween.deltaTime = 0;
 		tween.done = false;
 	}
 
+	/**
+	 * Update tween
+	 */
 	public function update(){
 		var xy = { x: tween.start.x, y: tween.start.y, rot: tween.rotS, col:tween.colourS};
 		if (!tween.done && !tween.paused){
@@ -59,11 +66,18 @@ class Tween {
 		return xy;
 	}
 
+	/**
+	 * Restart tween
+	 */
 	public function restart() {
 	  	tween.done = false;
 		tween.deltaTime = 0;
 	}
 
+	/**
+	 * Pause tween
+	 * @param pause 
+	 */
 	public function pause(pause:Bool) {
 		tween.paused = pause;
 	}

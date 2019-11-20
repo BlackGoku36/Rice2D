@@ -12,11 +12,18 @@ class Emitter {
     public var props: EmitterData;
     var particles: Array<Particle>;
 
+    /**
+     * Create new emitter
+     * @param emitter Emitter's data
+     */
     public function new(emitter:EmitterData) {
         this.props = emitter;
         particles = [];
     }
 
+    /**
+     * Spawn particles
+     */
     public function spawn() {
         for(i in 0...props.amount){
             var newParticle:Particle = new Particle(props.x, props.y,{
@@ -29,10 +36,17 @@ class Emitter {
         }
     }
 
+    /**
+     * Update particles
+     */
     public function update() {
         for (particle in particles) particle.update();
     }
 
+    /**
+     * Render particles
+     * @param g 
+     */
     public function render(g:Graphics) {
         for (particle in particles) particle.render(g);
     }
