@@ -40,7 +40,10 @@ class Emitter {
      * Update particles
      */
     public function update() {
-        for (particle in particles) particle.update();
+        if(particles != null)  for (particle in particles){
+            if(particle.done) particles.remove(particle);
+            particle.update();
+        }
     }
 
     /**
@@ -48,7 +51,7 @@ class Emitter {
      * @param g 
      */
     public function render(g:Graphics) {
-        for (particle in particles) particle.render(g);
+        if(particles != null) for (particle in particles) particle.render(g);
     }
 }
 
@@ -62,6 +65,8 @@ class Particle {
 
     public var sprite:Image;
 
+    public var done:Bool = false;
+
     public function new(x:Float, y:Float, particle:ParticleData) {
         deltaTime = 0.0;
         this.x = x;
@@ -73,16 +78,13 @@ class Particle {
 
     public function update() {
         deltaTime += 1/60;
-        if(props.lifeTime > deltaTime){
-            x += props.speed * Math.cos(rotataion);
-            y += -props.speed * Math.sin(rotataion);
-        }
+        if(props.lifeTime < deltaTime) done = true;
+        x += props.speed * Math.cos(rotataion);
+        y += -props.speed * Math.sin(rotataion);
     }
 
     public function render(g:Graphics) {
         var center = Util.getCenter(x, y, props.width, props.height);
-        if(props.lifeTime > deltaTime){
-            g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
-        }
+        g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
     }
 }
