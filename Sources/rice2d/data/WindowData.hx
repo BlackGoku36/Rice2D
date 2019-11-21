@@ -5,6 +5,7 @@ typedef WindowData = {
     var width: Int;
     var height: Int;
     var windowMode: Int;
+    var clearColor: Array<Int>;
 }
 
 class Window {

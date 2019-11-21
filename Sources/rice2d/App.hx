@@ -98,7 +98,8 @@ class App {
 
         var g = frames[0].g2;
         var col = g.color;
-        g.begin(true, Color.fromBytes(100, 155, 255));
+        var clearColor = Window.window.clearColor;
+        g.begin(true, Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]));
 
         camera.set(g);
 
