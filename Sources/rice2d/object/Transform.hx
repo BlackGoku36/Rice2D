@@ -37,4 +37,9 @@ class Transform{
         object.props.x += x * s;
         object.props.y += y * s;
     }
+
+    public function resize(x:Float = 0.0, y:Float = 0.0) {
+        object.props.width += x;
+        object.props.height += y;
+    }
 }
