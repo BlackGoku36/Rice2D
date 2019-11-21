@@ -38,8 +38,8 @@ class Transform{
         object.props.y += y * s;
     }
 
-    public function resize(x:Float = 0.0, y:Float = 0.0) {
-        object.props.width += x;
-        object.props.height += y;
+    public function resize(width:Float = 0.0, height:Float = 0.0) {
+        object.props.width += width;
+        object.props.height += height;
     }
 }
