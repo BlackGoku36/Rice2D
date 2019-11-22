@@ -33,6 +33,9 @@ class App {
 
     #if rice_debug
         static var debug: Debug;
+        static var startTime:Float;
+        public static var renderTime:Float;
+        public static var updateTime:Float;
         var deltaTime: Float = 0.0;
         var totalFrames: Int = 0;
         var elapsedTime: Float = 0.0;
@@ -78,10 +81,19 @@ class App {
             for (update in onUpdate) update();
         }
         if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
+
+        #if rice_debug
+        debug.update();
+        updateTime = kha.Scheduler.realTime() - startTime;
+        #end
     }
 
     function render(frames: Array<Framebuffer>):Void {
         if(Scene.sceneData == null) return;
+
+        #if rice_debug
+        startTime = kha.Scheduler.realTime();
+        #end
 
         #if rice_debug
             var currentTime:Float = Scheduler.realTime();
@@ -148,6 +160,7 @@ class App {
         #if rice_debug
             debug.render(g);
             previousTime = currentTime;
+		    renderTime = kha.Scheduler.realTime() - startTime;
         #end
     }
 

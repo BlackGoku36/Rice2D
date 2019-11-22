@@ -1,3 +1,6 @@
+
+//Some stuffs borrowed from here https://github.com/armory3d/armory/blob/master/Sources/armory/trait/internal/DebugConsole.hx
+
 package rice2d;
 
 #if rice_debug
@@ -16,6 +19,15 @@ class Debug {
     var hwin = Id.handle();
     var propane = Id.handle();
 
+    var lastTime = 0.0;
+    var frameTime = 0.0;
+	var totalTime = 0.0;
+    var frames = 0;
+
+    var renderTime = 0.0;
+    var renderTimeAvg = 0.0;
+    var updateTime = 0.0;
+    var updateTimeAvg = 0.0;
 
     static var haxeTrace: Dynamic->haxe.PosInfos->Void = null;
     static var lastTraces: Array<String> = [''];
@@ -88,7 +100,15 @@ class Debug {
             }
 
             if(ui.tab(htab, "FPS: "+ App.fps)){
-                ui.text("FPS: "+ App.fps);
+                ui.row([1/3, 2/3]);
+                ui.text('FPS');
+                ui.text(App.fps+"", Align.Right);
+                ui.row([1/3, 2/3]);
+                ui.text('Update');
+				ui.text(Math.round(updateTimeAvg * 10000) / 10 + " ms", Align.Right);
+                ui.row([1/3, 2/3]);
+                ui.text('Render');
+				ui.text(Math.round(renderTimeAvg * 10000) / 10 + " ms", Align.Right);
             }
 
             if (ui.tab(htab, lastTraces[0] == '' ? 'Console' : lastTraces[0].substr(0, 20))) {
@@ -115,6 +135,24 @@ class Debug {
         }
 
         ui.end();
+        totalTime += frameTime;
+        renderTime += App.renderTime;
+        frames++;
+        if(totalTime > 1.0){
+            renderTimeAvg = renderTime / frames;
+            updateTimeAvg = updateTime / frames;
+
+            totalTime = 0.0;
+            renderTime = 0.0;
+            updateTime = 0.0;
+            frames = 0;
+        }
+        frameTime = kha.Scheduler.realTime() - lastTime;
+        lastTime = kha.Scheduler.realTime();
+    }
+
+    public function update() {
+        updateTime += App.updateTime;
     }
     #end
 }
