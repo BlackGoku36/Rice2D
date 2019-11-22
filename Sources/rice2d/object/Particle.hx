@@ -3,6 +3,7 @@ package rice2d.object;
 //Kha
 import kha.Image;
 import kha.graphics2.Graphics;
+using kha.graphics2.GraphicsExtension;
 
 //Engine
 import rice2d.data.ParticleData;
@@ -27,6 +28,7 @@ class Emitter {
     public function spawn() {
         for(i in 0...props.amount){
             var newParticle:Particle = new Particle(props.x, props.y,{
+                type: props.particle.type,
                 width: props.particle.width, height: props.particle.height,
                 lifeTime: props.particle.lifeTime, speed: props.particle.speed,
                 spriteRef: props.particle.spriteRef,
@@ -85,6 +87,11 @@ class Particle {
 
     public function render(g:Graphics) {
         var center = Util.getCenter(x, y, props.width, props.height);
-        g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
+        switch (props.type){
+            case Sprite: g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
+            case Rect: g.fillRect(Math.round(center.x), Math.round(center.y), props.width, props.height);
+            case Triangle: g.fillTriangle(x, y-(props.width/2), x-(props.width/2), y+(props.width/2), x+(props.width/2), y+(props.width/2));
+            case Circle: g.fillCircle(Math.round(center.x), Math.round(center.y), props.width);
+        }
     }
 }
