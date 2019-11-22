@@ -91,7 +91,7 @@ class Assets {
                 if(fonts.length == fontsRef.length){
                     fontDone = true;
                     done();
-                } 
+                }
             }, function (error){
                 throw error + 'Can`t find font $font, make sure path is correct and font is in `Assets` folder';
             });

@@ -48,7 +48,7 @@ class Emitter {
 
     /**
      * Render particles
-     * @param g 
+     * @param g
      */
     public function render(g:Graphics) {
         if(particles != null) for (particle in particles) particle.render(g);

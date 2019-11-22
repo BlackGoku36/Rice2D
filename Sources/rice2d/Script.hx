@@ -22,7 +22,7 @@ class Script {
 
     /**
      * Execute funtion 'init' when the Script is initiated.
-     * @param init 
+     * @param init
      */
     public function notifyOnInit(init:Void->Void) {
         if(_init == null) _init = [];
@@ -32,7 +32,7 @@ class Script {
 
     /**
      * Execute funtion 'update' every frame.
-     * @param update 
+     * @param update
      */
     public function notifyOnUpdate(update: Void->Void) {
         if(_update == null) _update = [];
@@ -42,7 +42,7 @@ class Script {
 
     /**
      * Execute funtion 'update' and remove notifyOnUpdate.
-     * @param update 
+     * @param update
      */
     public function removeUpdate(update: Void->Void) {
         _update.remove(update);
@@ -51,7 +51,7 @@ class Script {
 
     /**
      * Execute function 'render' when frame is rendering.
-     * @param render 
+     * @param render
      */
     public function notifyOnRender(render: kha.graphics2.Graphics->Void) {
         if(_render == null) _render = [];
@@ -61,7 +61,7 @@ class Script {
 
     /**
      * Execute function 'render' and remove notifyOnRender
-     * @param render 
+     * @param render
      */
     public function removeRender(render: kha.graphics2.Graphics->Void) {
         _render.remove(render);
@@ -70,7 +70,7 @@ class Script {
 
     /**
      * Execute funtion 'remove' when the Script is removed
-     * @param remove 
+     * @param remove
      */
     public function notifyOnRemove(remove:Void->Void) {
         if(_remove == null) _remove = [];

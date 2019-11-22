@@ -84,7 +84,7 @@ class Debug {
                         object.visibile = ui.check(Id.handle({selected: true}), "Visible");
                     }
                 }
-            
+
             }
 
             if(ui.tab(htab, "FPS: "+ App.fps)){

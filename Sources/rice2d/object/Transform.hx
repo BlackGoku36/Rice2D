@@ -29,9 +29,9 @@ class Transform{
 
     /**
      * Translate object
-     * @param x 
-     * @param y 
-     * @param s 
+     * @param x
+     * @param y
+     * @param s
      */
     public function translate(x:Float, y:Float, s:Float) {
         object.props.x += x * s;

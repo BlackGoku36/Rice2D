@@ -76,7 +76,7 @@ class Tween {
 
 	/**
 	 * Pause tween
-	 * @param pause 
+	 * @param pause
 	 */
 	public function pause(pause:Bool) {
 		tween.paused = pause;

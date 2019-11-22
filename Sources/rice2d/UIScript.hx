@@ -59,7 +59,7 @@ class UIScript {
     /**
      * Set visibility of canvas
      * @param canvasRef String reference of canvas name
-     * @param visible Whether it should be visible or not. 
+     * @param visible Whether it should be visible or not.
      */
     public static function setCanvasVisibility(canvasRef: String, visible:Bool) {
         var canvas = getCanvas(canvasRef);

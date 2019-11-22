@@ -37,8 +37,8 @@ class Object {
 
     /**
      * Add script to object
-     * @param name Name of script 
-     * @param script 
+     * @param name Name of script
+     * @param script
      */
     public function addScript(name:String, script:Script) {
         scripts.push(script);
@@ -48,7 +48,7 @@ class Object {
 
     /**
      * Get script
-     * @param name Name of script 
+     * @param name Name of script
      * @return Script
      */
     public function getScript(name: String): Script {
@@ -59,7 +59,7 @@ class Object {
 
     /**
      * Set object's animation
-     * @param anim 
+     * @param anim
      */
     public function setAnimation(anim: Animation): Void {
         animation.take(anim);
@@ -67,7 +67,7 @@ class Object {
 
     /**
      * Set object's sprite
-     * @param sprite 
+     * @param sprite
      */
     public function setSprite(sprite: kha.Image) {
         this.sprite = sprite;
@@ -75,7 +75,7 @@ class Object {
 
     /**
      * Remove script from object
-     * @param script 
+     * @param script
      */
     @:access(rice2d.Script)
     public function removeScript(script: Script) {
