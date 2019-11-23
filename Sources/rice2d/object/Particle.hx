@@ -1,6 +1,7 @@
 package rice2d.object;
 
 //Kha
+import kha.Color;
 import kha.Image;
 import kha.graphics2.Graphics;
 using kha.graphics2.GraphicsExtension;
@@ -29,6 +30,7 @@ class Emitter {
         for(i in 0...props.amount){
             var newParticle:Particle = new Particle(props.x, props.y,{
                 type: props.particle.type,
+                color: props.particle.color,
                 width: props.particle.width, height: props.particle.height,
                 lifeTime: props.particle.lifeTime, speed: props.particle.speed,
                 spriteRef: props.particle.spriteRef,
@@ -76,6 +78,7 @@ class Particle {
         this.sprite = rice2d.Assets.getImage(particle.spriteRef);
         rotataion = rice2d.tools.Util.randomRangeF(particle.rots, particle.rote);
         this.props = particle;
+        if(props.height == null) props.height = 1.0;
     }
 
     public function update() {
@@ -87,11 +90,14 @@ class Particle {
 
     public function render(g:Graphics) {
         var center = Util.getCenter(x, y, props.width, props.height);
+        var col = g.color;
+        if(props.color != null) g.color = Color.fromBytes(props.color[0], props.color[1], props.color[2], props.color[3]);
         switch (props.type){
             case Sprite: g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
             case Rect: g.fillRect(Math.round(center.x), Math.round(center.y), props.width, props.height);
             case Triangle: g.fillTriangle(x, y-(props.width/2), x-(props.width/2), y+(props.width/2), x+(props.width/2), y+(props.width/2));
             case Circle: g.fillCircle(Math.round(center.x), Math.round(center.y), props.width);
         }
+        g.color = col;
     }
 }

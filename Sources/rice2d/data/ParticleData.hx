@@ -3,11 +3,12 @@ package rice2d.data;
 typedef ParticleData = {
     var type:ParticleType;
     var width:Float;
-    var height:Float;
+    @:optional var height:Float;
     var speed: Float;
     var lifeTime: Float;
     var rots: Float;
     var rote: Float;
+    @:optional var color: Array<Int>;
     @:optional var spriteRef: String;
 }
 
