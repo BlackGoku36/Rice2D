@@ -54,7 +54,7 @@ class Emitter {
      * Render particles
      * @param g
      */
-    public function render(g:Graphics) {
+    public function render(g:kha.Canvas) {
         if(particles != null) for (particle in particles) particle.render(g);
     }
 }
@@ -88,7 +88,8 @@ class Particle {
         y += -props.speed * Math.sin(rotataion);
     }
 
-    public function render(g:Graphics) {
+    public function render(canvas:kha.Canvas) {
+        var g = canvas.g2;
         var center = Util.getCenter(x, y, props.width, props.height);
         var col = g.color;
         if(props.color != null) g.color = Color.fromBytes(props.color[0], props.color[1], props.color[2], props.color[3]);

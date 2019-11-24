@@ -23,7 +23,7 @@ class App {
 
     static var onInit: Array<Void->Void> = [];
     static var onUpdate: Array<Void->Void> = [];
-    static var onRender: Array<Graphics->Void> = [];
+    static var onRender: Array<kha.Canvas->Void> = [];
     static var onResets: Array<Void->Void> = null;
     static var onEndFrames: Array<Void->Void> = null;
 
@@ -59,7 +59,7 @@ class App {
                         debug = new Debug(font);
                     #end
                     Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
-                    System.notifyOnFrames(function (frames) { render(frames); });
+                    System.notifyOnFrames(function (frames) { render(frames[0]); });
                     camera = new Camera();
                 });
             });
@@ -88,7 +88,7 @@ class App {
         #end
     }
 
-    function render(frames: Array<Framebuffer>):Void {
+    function render(canvas: kha.Canvas):Void {
         if(Scene.sceneData == null) return;
 
         #if rice_debug
@@ -108,7 +108,8 @@ class App {
             totalFrames++;
         #end
 
-        var g = frames[0].g2;
+        var g = canvas.g2;
+
         var col = g.color;
         var clearColor = Window.window.clearColor;
         g.begin(true, Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]));
@@ -140,7 +141,7 @@ class App {
         }
 
 
-        for (render in onRender) render(g);
+        for (render in onRender) render(canvas);
         camera.unset(g);
         #if rice_ui
             var ui: Zui = new Zui({font: font});
@@ -176,11 +177,11 @@ class App {
         onUpdate.remove(update);
     }
 
-    public static function notifyOnRender(render:Graphics->Void) {
+    public static function notifyOnRender(render:kha.Canvas->Void) {
         onRender.push(render);
     }
 
-    public static function removeRender(render:Graphics->Void) {
+    public static function removeRender(render:kha.Canvas->Void) {
         onRender.remove(render);
     }
 

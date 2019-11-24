@@ -7,7 +7,7 @@ class Script {
 
     var _init: Array<Void->Void> = null;
     var _update: Array<Void->Void> = null;
-    var _render: Array<kha.graphics2.Graphics->Void> = null;
+    var _render: Array<kha.Canvas->Void> = null;
     var _remove: Array<Void->Void> = null;
 
     public function new() {}
@@ -53,7 +53,7 @@ class Script {
      * Execute function 'render' when frame is rendering.
      * @param render
      */
-    public function notifyOnRender(render: kha.graphics2.Graphics->Void) {
+    public function notifyOnRender(render: kha.Canvas->Void) {
         if(_render == null) _render = [];
         _render.push(render);
         App.notifyOnRender(render);
@@ -63,7 +63,7 @@ class Script {
      * Execute function 'render' and remove notifyOnRender
      * @param render
      */
-    public function removeRender(render: kha.graphics2.Graphics->Void) {
+    public function removeRender(render: kha.Canvas->Void) {
         _render.remove(render);
         App.removeRender(render);
     }
