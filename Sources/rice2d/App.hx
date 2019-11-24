@@ -161,7 +161,7 @@ class App {
         #if rice_debug
             debug.render(g);
             previousTime = currentTime;
-		    renderTime = kha.Scheduler.realTime() - startTime;
+            renderTime = kha.Scheduler.realTime() - startTime;
         #end
     }
 
