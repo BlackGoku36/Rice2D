@@ -3,6 +3,8 @@
 
 package rice2d.system;
 
+import kha.input.KeyCode;
+
 class Input {
     public static var occupied = false;
     static var registered = false;
@@ -81,16 +83,16 @@ class Mouse {
         endFrame();
     }
 
-    public function down(button: String = "left"){
-        return buttonDown.get(button);
+    public function down(button: Int = 0){
+        return buttonDown.get(buttonCode(button));
     }
 
-    public function started(button: String = "left"){
-        return buttonStarted.get(button);
+    public function started(button: Int = 0){
+        return buttonStarted.get(buttonCode(button));
     }
 
-    public function released(button: String = "left"){
-        return buttonReleased.get(button);
+    public function released(button: Int = 0){
+        return buttonReleased.get(buttonCode(button));
     }
 
     function buttonCode(button: Int): String{
@@ -139,10 +141,10 @@ class Mouse {
 }
 
 class Keyboard {
-    var keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','up','down','left','right','space','return','shift','tab'];
-    var keyDown = new Map<String, Bool>();
-    var keyStarted = new Map<String, Bool>();
-    var keyReleased = new Map<String, Bool>();
+    var keys:Array<KeyCode> = [A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Up,Down,Left,Right,Space,Return,Shift,Tab];
+    var keyDown = new Map<KeyCode, Bool>();
+    var keyStarted = new Map<KeyCode, Bool>();
+    var keyReleased = new Map<KeyCode, Bool>();
 
     var keyFrame = [];
 
@@ -169,71 +171,27 @@ class Keyboard {
         endFrame();
     }
 
-    public function started(key:String) {
+    public function started(key:KeyCode) {
         return keyStarted.get(key);
     }
 
-    public function released(key:String) {
+    public function released(key:KeyCode) {
         return keyReleased.get(key);
     }
 
-    public function down(key:String) {
+    public function down(key:KeyCode) {
         return keyDown.get(key);
     }
 
-    function getKeyCode(keyCode:kha.input.KeyCode):String {
-        var key = "";
-        switch(keyCode){
-            case A: key = "a";
-            case B: key = "b";
-            case C: key = "c";
-            case D: key = "d";
-            case E: key = "e";
-            case F: key = "f";
-            case G: key = "g";
-            case H: key = "h";
-            case I: key = "i";
-            case J: key = "j";
-            case K: key = "k";
-            case L: key = "l";
-            case M: key = "m";
-            case N: key = "n";
-            case O: key = "o";
-            case P: key = "p";
-            case Q: key = "q";
-            case R: key = "r";
-            case S: key = "s";
-            case T: key = "t";
-            case U: key = "u";
-            case V: key = "v";
-            case W: key = "w";
-            case X: key = "x";
-            case Y: key = "y";
-            case Z: key = "z";
-            case Up: key = "up";
-            case Down: key = "down";
-            case Left: key = "left";
-            case Right: key = "right";
-            case Space: key = "space";
-            case Return: key = "return";
-            case Shift: key = "shift";
-            case Tab: key = "tab";
-            case _: throw "Keycode "+ keyCode +" is not yet supported";
-        }
-        return key;
-    }
-
     function downListener(code: kha.input.KeyCode):Void {
-        var key = getKeyCode(code);
-        keyFrame.push(key);
-        keyStarted.set(key, true);
-        keyDown.set(key, true);
+        keyFrame.push(code);
+        keyStarted.set(code, true);
+        keyDown.set(code, true);
 
     }
     function upListener(code: kha.input.KeyCode):Void {
-        var key = getKeyCode(code);
-        keyFrame.push(key);
-        keyReleased.set(key, true);
-        keyDown.set(key, false);
+        keyFrame.push(code);
+        keyReleased.set(code, true);
+        keyDown.set(code, false);
     }
 }
