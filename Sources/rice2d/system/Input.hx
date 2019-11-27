@@ -3,6 +3,9 @@
 
 package rice2d.system;
 
+import kha.System;
+import kha.ScreenCanvas;
+import kha.Scaler;
 import kha.input.KeyCode;
 
 class Input {
@@ -107,16 +110,20 @@ class Mouse {
         var b = buttonCode(button);
         buttonDown.set(b, true);
         buttonStarted.set(b, true);
-        this.x = x;
-        this.y = y;
+        var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        this.x = mouseX;
+        this.y = mouseY;
     }
 
     function upListener(button: Int, x: Int, y: Int):Void{
         var b = buttonCode(button);
         buttonDown.set(b, false);
         buttonReleased.set(b, true);
-        this.x = x;
-        this.y = y;
+        var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        this.x = mouseX;
+        this.y = mouseY;
     }
 
     function moveListner(x: Int, y: Int, movementX: Int, movementY: Int): Void{
@@ -129,8 +136,10 @@ class Mouse {
 
         lastX = x;
         lastY = y;
-        this.x = x;
-        this.y = y;
+        var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        this.x = mouseX;
+        this.y = mouseY;
 
         moved = true;
     }

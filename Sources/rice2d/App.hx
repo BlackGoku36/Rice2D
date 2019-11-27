@@ -21,6 +21,8 @@ class App {
 
     static var version = "2019.11.17";
 
+    public static var backbuffer:kha.Image;
+
     static var onInit: Array<Void->Void> = [];
     static var onUpdate: Array<Void->Void> = [];
     static var onRender: Array<kha.Canvas->Void> = [];
@@ -54,6 +56,7 @@ class App {
             Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
+                backbuffer = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
                 Scene.parseToScene(scene, function (){
                     #if rice_debug
                         debug = new Debug(font);
@@ -108,11 +111,12 @@ class App {
             totalFrames++;
         #end
 
-        var g = canvas.g2;
-
-        var col = g.color;
         var clearColor = Window.window.clearColor;
-        g.begin(true, Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]));
+        var g = backbuffer.g2;
+        g.begin();
+
+        canvas.g2.color = Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+        canvas.g2.fillRect(0, 0, backbuffer.width, backbuffer.height);
 
         camera.set(g);
 
@@ -141,7 +145,7 @@ class App {
         }
 
 
-        for (render in onRender) render(canvas);
+        for (render in onRender) render(backbuffer);
         camera.unset(g);
         #if rice_ui
             var ui: Zui = new Zui({font: font});
@@ -155,11 +159,14 @@ class App {
                 }
             }
         #end
-        g.color = col;
         g.end();
 
+        canvas.g2.begin();
+        kha.Scaler.scale(backbuffer, canvas, System.screenRotation);
+        canvas.g2.end();
+
         #if rice_debug
-            debug.render(g);
+            debug.render(canvas.g2);
             previousTime = currentTime;
             renderTime = kha.Scheduler.realTime() - startTime;
         #end
