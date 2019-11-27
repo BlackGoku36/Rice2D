@@ -127,7 +127,7 @@ class Scene {
     }
 
     static function createScriptInstance(script:String):Dynamic {
-        var scr = Type.resolveClass("rice."+script);
+        var scr = Type.resolveClass("scripts."+script);
         if (scr == null) return null;
         return Type.createInstance(scr, []);
     }
