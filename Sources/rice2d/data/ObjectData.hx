@@ -6,9 +6,9 @@ typedef ObjectData = {
     public var y: Float;
     public var height: Float;
     public var width: Float;
-    @:optional public var rigidBodyData: echo.data.Options.BodyOptions;
-    @:optional public var culled: Bool;
-    @:optional public var spriteRef: String;
-    @:optional public var color: Array<Int>;
-    @:optional public var scripts: Array<ScriptData>;
+    public var ?rigidBodyData: echo.data.Options.BodyOptions;
+    public var ?culled: Bool;
+    public var ?spriteRef: String;
+    public var ?color: Array<Int>;
+    public var ?scripts: Array<ScriptData>;
 }

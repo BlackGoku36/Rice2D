@@ -9,13 +9,13 @@ typedef TweenData = {
 	var duration: Float;
 	var ease: Null<EaseType>;
 	var onDone: Void->Void;
-	@:optional var rotS: Float;
-	@:optional var rotE: Float;
-	@:optional var colourS: Array<Int>;
-	@:optional var colourE: Array<Int>;
-	@:optional var paused:Bool;
-	@:optional var deltaTime: Float;
-	@:optional var done: Bool;
+	var ?rotS: Float;
+	var ?rotE: Float;
+	var ?colourS: Array<Int>;
+	var ?colourE: Array<Int>;
+	var ?paused:Bool;
+	var ?deltaTime: Float;
+	var ?done: Bool;
 }
 
 @:enum abstract EaseType(Int) from Int to Int {
