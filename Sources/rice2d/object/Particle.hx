@@ -90,8 +90,8 @@ class Particle {
         if(props.controlLifetime != null && props.controlLifetime.indexOf(Size) != -1){
             var width = props.width;
             var height = props.height;
-            props.width = lerp(width, 0, deltaTime);
-            props.height = lerp(height, 0, deltaTime);
+            props.width = Util.lerp(width, 0, deltaTime);
+            props.height = Util.lerp(height, 0, deltaTime);
         }
     }
 
@@ -100,7 +100,7 @@ class Particle {
         var center = Util.getCenter(x, y, props.width, props.height);
         var col = g.color;
         var alpha = props.color[3];
-        if(props.controlLifetime != null && props.controlLifetime.indexOf(Alpha) != -1) alpha = Std.int(lerp(props.color[3], 0, deltaTime));
+        if(props.controlLifetime != null && props.controlLifetime.indexOf(Alpha) != -1) alpha = Std.int(Util.lerp(props.color[3], 0, deltaTime));
         if(props.color != null) g.color = Color.fromBytes(props.color[0], props.color[1], props.color[2], alpha);
         switch (props.type){
             case Sprite: g.drawScaledImage(sprite, Math.round(center.x), Math.round(center.y), props.width, props.height);
@@ -109,9 +109,5 @@ class Particle {
             case Circle: g.fillCircle(Math.round(center.x), Math.round(center.y), props.width);
         }
         g.color = col;
-    }
-
-    function lerp(start:Float, end:Float, dt:Float):Float{
-        return (1 - dt) * start + dt * end;
     }
 }

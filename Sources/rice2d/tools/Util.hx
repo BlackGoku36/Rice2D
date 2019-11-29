@@ -13,4 +13,8 @@ class Util {
     public static function randomRangeI(min:Float, max:Float):Int {
         return Math.round( Math.random() * (max - min) + min);
     }
+    
+    public static function lerp(start:Float, end:Float, dt:Float):Float{
+        return (1 - dt) * start + dt * end;
+    }
 }
