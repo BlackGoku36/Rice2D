@@ -10,6 +10,7 @@ typedef ParticleData = {
     var rote: Float;
     var ?color: Array<Int>;
     var ?spriteRef: String;
+    var ?controlLifetime: Array<LifetimeAttribute>;
 }
 
 typedef EmitterData = {
@@ -24,4 +25,9 @@ typedef EmitterData = {
     var Rect = 1;
     var Triangle = 2;
     var Circle = 3;
+}
+
+@:enum abstract LifetimeAttribute(Int) from Int to Int {
+    var Alpha = 0;
+    var Size = 1;
 }
