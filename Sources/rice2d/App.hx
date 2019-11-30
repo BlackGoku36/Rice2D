@@ -9,8 +9,6 @@ import kha.WindowMode;
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 
-//Zui
-import zui.Zui;
 
 //Engine
 import rice2d.data.WindowData;
@@ -148,7 +146,7 @@ class App {
         for (render in onRender) render(backbuffer);
         camera.unset(g);
         #if rice_ui
-            var ui: Zui = new Zui({font: font});
+            var ui: zui.Zui = new zui.Zui({font: font});
             if (Scene.canvases != null){
                 for (canvas in Scene.canvases){
                     var events = zui.Canvas.draw(ui, canvas, g);
