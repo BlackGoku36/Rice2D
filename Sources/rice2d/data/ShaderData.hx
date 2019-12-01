@@ -8,9 +8,10 @@ typedef ShaderData = {
 
 typedef ConstantData = {
     var name:String;
-    var val:Array<Float>;
-    var ?bool:Bool;
     var type:ConstantType;
+    var ?val:Array<Float>;
+    var ?bool:Bool;
+    var ?tex:kha.Image;
 }
 
 @:enum abstract ConstantType(Int) from Int to Int {
@@ -18,4 +19,5 @@ typedef ConstantData = {
     var Float = 1;
     var Bool = 2;
     var Vec2 = 3;
+    var Texture = 4;
 }

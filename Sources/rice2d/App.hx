@@ -119,6 +119,7 @@ class App {
         camera.set(g);
 
         for (object in Scene.objects){
+            if(object.shader!=null) object.shader.begin(backbuffer);
             var center = object.transform.getCenter();
             if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
 
@@ -127,6 +128,7 @@ class App {
                     g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
                 }
             }
+            if(object.shader!=null) object.shader.end(backbuffer);
             #if rice_debug
                 if(object.selected){
                     g.font = font;

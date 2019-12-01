@@ -1,6 +1,7 @@
 package rice2d;
 
 //Kha
+import kha.graphics4.TextureUnit;
 import kha.Canvas;
 import kha.math.FastVector2;
 import kha.graphics4.FragmentShader;
@@ -21,6 +22,7 @@ class Shader {
     public var vertexShader: VertexShader;
     public var constants: Array<ConstantData>;
     public var constantsLocations:Array<Map<ConstantLocation, ConstantData>> = [];
+    public var textureUnits:Array<Map<TextureUnit, ConstantData>> = [];
 
     public function new(shaderData: rice2d.data.ShaderData) {
         fragmentShader = shaderData.fragmentShader;
@@ -44,7 +46,11 @@ class Shader {
         pipeline.compile();
         constants = shaderData.constants;
         for (constant in shaderData.constants){
-            constantsLocations.push([ pipeline.getConstantLocation(constant.name) => constant]);
+            if(constant.type == Texture){
+                textureUnits.push([ pipeline.getTextureUnit(constant.name) => constant]);
+            }else{
+                constantsLocations.push([ pipeline.getConstantLocation(constant.name) => constant]);
+            }
         }
     }
 
@@ -58,7 +64,7 @@ class Shader {
         end(canvas);
     }
 
-    function begin(canvas:Canvas){
+    public function begin(canvas:Canvas){
         canvas.g2.pipeline = pipeline;
         pipeline.set();
         for (map in constantsLocations) {
@@ -68,12 +74,18 @@ class Shader {
                     case Float: canvas.g4.setFloat(cl, cd.val[0]);
                     case Bool: canvas.g4.setBool(cl, cd.bool);
                     case Vec2: canvas.g4.setVector2(cl, new FastVector2(cd.val[0], cd.val[1]));
+                    case _:
                 }
+            }
+        }
+        for (map in textureUnits){
+            for (texUnit => value in map) {
+                canvas.g4.setTexture(texUnit, value.tex);
             }
         }
     }
 
-    function end(canvas:Canvas){
+    public function end(canvas:Canvas){
         canvas.g2.pipeline = null;
     }
 }
