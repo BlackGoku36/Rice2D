@@ -17,7 +17,7 @@ import rice2d.Debug;
 
 class App {
 
-    static var version = "2019.11.17";
+    static var version = "2019.12.0";
 
     public static var backbuffer:kha.Image;
 

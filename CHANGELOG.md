@@ -7,11 +7,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 * Shaders!
-* Improved assets loading.
 * Particles:
     * Sprite, Rect, Triangle, Circle
     * Lifetime, speed, start/end angle
 * Scripts for scene.
+* Improved assets loading.
 * More debug:
     * Loaded Images, Fonts and Sounds.
     * Show time taken to update and render.
