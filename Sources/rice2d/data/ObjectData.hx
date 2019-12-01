@@ -11,4 +11,5 @@ typedef ObjectData = {
     public var ?spriteRef: String;
     public var ?color: Array<Int>;
     public var ?scripts: Array<ScriptData>;
+    public var ?shaderData: rice2d.data.ShaderData;
 }
