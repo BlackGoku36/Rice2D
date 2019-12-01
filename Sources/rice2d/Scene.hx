@@ -45,7 +45,6 @@ class Scene {
             obj.body = physics_world.add(new echo.Body(data.rigidBodyData));
         }
         #end
-        if(data.shaderData!=null) obj.shader = new Shader(data.shaderData);
         objects.push(obj);
 
         return obj;
