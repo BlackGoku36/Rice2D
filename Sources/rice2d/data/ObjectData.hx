@@ -1,6 +1,7 @@
 package rice2d.data;
 
 typedef ObjectData = {
+    public var ?id: Int;
     public var name: String;
     public var x: Float;
     public var y: Float;
