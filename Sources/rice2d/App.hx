@@ -121,7 +121,9 @@ class App {
         for (object in Scene.objects){
             if(object.shader!=null) object.shader.begin(backbuffer);
             var center = object.transform.getCenter();
-            if (object.rotation != 0) g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
+            if (object.props.rotation != null && object.props.rotation!=0){
+                g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.props.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
+            }
 
             if(object.sprite != null){
                 if(object.visibile){
@@ -141,7 +143,7 @@ class App {
                 }
             #end
 
-            if (object.rotation != 0) g.popTransformation();
+            if (object.props.rotation != null && object.props.rotation!=0) g.popTransformation();
         }
 
 
