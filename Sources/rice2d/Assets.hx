@@ -18,9 +18,7 @@ class Assets {
      */
     public static function getImage(imageRef:String) {
         var newImage:kha.Image = null;
-        for (image in images){
-            if(image.exists(imageRef)) newImage = image.get(imageRef);
-        }
+        for (image in images) if(image.exists(imageRef)) newImage = image.get(imageRef);
         return newImage;
     }
 
@@ -30,9 +28,7 @@ class Assets {
      */
     public static function getFont(fontRef:String) {
         var newFont:kha.Font = null;
-        for (font in fonts){
-            if(font.exists(fontRef)) newFont = font.get(fontRef);
-        }
+        for (font in fonts) if(font.exists(fontRef)) newFont = font.get(fontRef);
         return newFont;
     }
 
@@ -42,9 +38,7 @@ class Assets {
      */
     public static function getSound(soundRef:String) {
         var newSound:kha.Sound = null;
-        for (sound in sounds){
-            if(sound.exists(soundRef)) newSound = sound.get(soundRef);
-        }
+        for (sound in sounds) if(sound.exists(soundRef)) newSound = sound.get(soundRef);
         return newSound;
     }
 
@@ -54,9 +48,7 @@ class Assets {
      */
     public static function getBlob(blobRef:String) {
         var newBlob:kha.Blob = null;
-        for (blob in blobs){
-            if(blob.exists(blobRef)) newBlob = blob.get(blobRef);
-        }
+        for (blob in blobs) if(blob.exists(blobRef)) newBlob = blob.get(blobRef);
         return newBlob;
     }
 
@@ -68,7 +60,7 @@ class Assets {
     public static function loadImagesFromScene(imagesRef:Array<String>, done: Void->Void){
         for (image in imagesRef){
             kha.Assets.loadImageFromPath(image, true, function (img){
-                images.push([image.split(".")[0] => img]);
+                images.push([image => img]);
                 if(images.length == imagesRef.length){
                     imageDone = true;
                     done();
@@ -87,7 +79,7 @@ class Assets {
     public static function loadFontsFromScene(fontsRef:Array<String>, done:Void->Void){
         for (font in fontsRef){
             kha.Assets.loadFontFromPath(font, function (fnt){
-                fonts.push([font.split(".")[0] => fnt]);
+                fonts.push([font => fnt]);
                 if(fonts.length == fontsRef.length){
                     fontDone = true;
                     done();
@@ -106,7 +98,7 @@ class Assets {
     public static function loadSoundsFromScene(soundsRef:Array<String>, done:Void->Void){
         if(soundsRef != null) for (sound in soundsRef){
             kha.Assets.loadSoundFromPath(sound, function (snd){
-                sounds.push([sound.split(".")[0] => snd]);
+                sounds.push([sound => snd]);
                 if(sounds.length == soundsRef.length){
                     soundDone = true;
                     done();
@@ -125,7 +117,7 @@ class Assets {
     public static function loadBlobsFromScene(blobsRef:Array<String>, done:Void->Void){
         if(blobsRef != null) for (blob in blobsRef){
             kha.Assets.loadBlobFromPath(blob, function (blb){
-                blobs.push([blob.split(".")[0] => blb]);
+                blobs.push([blob => blb]);
                 if(blobs.length == blobsRef.length){
                     blobDone = true;
                     done();
