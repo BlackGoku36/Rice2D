@@ -164,7 +164,8 @@ class App {
         g.end();
 
         canvas.g2.begin();
-        kha.Scaler.scale(backbuffer, canvas, System.screenRotation);
+        canvas.g2.color = 0xffffffff;
+        canvas.g2.drawScaledImage(backbuffer, 0, 0, kha.System.windowWidth(), kha.System.windowHeight());
         canvas.g2.end();
 
         #if rice_debug
