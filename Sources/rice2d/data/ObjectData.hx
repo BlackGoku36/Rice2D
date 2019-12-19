@@ -8,7 +8,7 @@ typedef ObjectData = {
     public var height: Float;
     public var width: Float;
     public var rotation:Float;
-    public var isSprite:Bool;
+    public var animate:Bool;
     #if rice_physics
     public var ?rigidBodyData: echo.data.Options.BodyOptions;
     #end

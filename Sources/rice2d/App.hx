@@ -127,7 +127,7 @@ class App {
 
             if(object.sprite != null){
                 if(object.visibile){
-                    if(object.props.isSprite) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
+                    if(object.props.animate) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
                     else g.drawScaledImage(object.sprite, object.props.x, object.props.y, object.props.width, object.props.height);
                 }
             }
