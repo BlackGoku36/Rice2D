@@ -70,10 +70,6 @@ class App {
     function update() {
         if(Scene.sceneData == null) return;
 
-        #if rice_physics
-        Scene.physics_world.step(16/1000);
-        #end
-
         if(onInit.length > 0){
             for (init in onInit) init();
             onInit.splice(0, onInit.length);

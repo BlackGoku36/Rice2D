@@ -12,10 +12,6 @@ class Object {
     public var selected = false;
     public var shader:rice2d.Shader;
 
-    #if rice_physics
-    public var body: echo.Body;
-    #end
-
     /**
      * Create new object
      */
@@ -29,9 +25,6 @@ class Object {
      */
     public function remove() {
         if(scripts != null) for(script in scripts) removeScript(script);
-        #if rice_physics
-        body.dispose();
-        #end
         Scene.objects.splice(Scene.objects.indexOf(this), 1);
     }
 

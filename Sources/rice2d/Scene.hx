@@ -13,10 +13,6 @@ import rice2d.object.Object;
 class Scene {
     public static var sceneData: SceneData;
 
-    #if rice_physics
-    public static var physics_world: echo.World;
-    #end
-
     public static var objects: Array<Object> = [];
 
     public static var scripts: Array<Script> = [];
@@ -36,15 +32,6 @@ class Scene {
         obj.props = data;
         if(data.scripts != null) for (script in data.scripts) obj.addScript(script.name, createScriptInstance(script.scriptRef));
         obj.sprite = Assets.getImage(data.spriteRef);
-        #if rice_physics
-        if(data.rigidBodyData != null){
-            if(data.rigidBodyData.x == null) data.rigidBodyData.x = data.x;
-            if(data.rigidBodyData.y == null) data.rigidBodyData.x = data.x;
-            if(data.rigidBodyData.shape.width == null) data.rigidBodyData.shape.width = data.width;
-            if(data.rigidBodyData.shape.height == null) data.rigidBodyData.shape.height = data.height;
-            obj.body = physics_world.add(new echo.Body(data.rigidBodyData));
-        }
-        #end
         objects.push(obj);
 
         return obj;
@@ -70,10 +57,6 @@ class Scene {
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
             //TODO: Improve Asset loading
-            #if rice_physics
-                physics_world = echo.Echo.start(sceneData.physicsWorld);
-                physics_world.listen();
-            #end
             Assets.loadImagesFromScene(sceneData.assets.images, function(){
                 for (object in sceneData.objects) addObject(object);
             });
