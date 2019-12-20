@@ -4,11 +4,13 @@ package rice2d;
 #if rice_ui
 import zui.Canvas.TCanvas;
 #end
+import zui.Nodes;
 
 //Engine
 import rice2d.data.SceneData;
 import rice2d.data.ObjectData;
 import rice2d.object.Object;
+import rice2d.node.Logic;
 
 class Scene {
     public static var sceneData: SceneData;
@@ -62,7 +64,14 @@ class Scene {
             });
             Assets.loadFontsFromScene(sceneData.assets.fonts, function (){});
             Assets.loadSoundsFromScene(sceneData.assets.sounds, function (){});
-            Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){});
+            Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){
+                for(blob in Assets.blobs) for(key => value in blob){
+                    if (StringTools.startsWith(key, "LN")){
+                        var nodes:TNodeCanvas = haxe.Json.parse(value.toString());
+                        Logic.parse(nodes);
+                    }
+                }
+            });
 
             if(sceneData.scripts != null) for (script in sceneData.scripts) scripts.push(createScriptInstance(script));
             #if rice_ui

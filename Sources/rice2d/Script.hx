@@ -5,6 +5,7 @@ class Script {
     public var object: rice2d.object.Object;
     public var name: String = "";
 
+    var _add: Array<Void->Void> = null;
     var _init: Array<Void->Void> = null;
     var _update: Array<Void->Void> = null;
     var _render: Array<kha.Canvas->Void> = null;
@@ -18,6 +19,11 @@ class Script {
      */
     public function remove(script: Script) {
         object.removeScript(this);
+    }
+
+    public function notifyOnAdd(add:Void->Void) {
+        if (_add == null) _add = [];
+		_add.push(add);
     }
 
     /**

@@ -33,10 +33,15 @@ class Object {
      * @param name Name of script
      * @param script
      */
+    @:access(rice2d.Script)
     public function addScript(name:String, script:Script) {
         scripts.push(script);
         script.object = this;
         script.name = name;
+        if(script._add!=null){
+            for (add in script._add) add();
+            script._add = null;
+        }
     }
 
     /**
