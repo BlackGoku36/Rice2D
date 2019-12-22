@@ -1,5 +1,6 @@
 package rice2d.node;
 
+@:keep
 class LogicNode {
 
 	var tree:LogicTree;

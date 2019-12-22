@@ -1,5 +1,6 @@
 package rice2d.node;
 
+@:keep
 class LogicTree extends rice2d.Script {
 
 	public var loopBreak = false; // Trigger break from loop nodes

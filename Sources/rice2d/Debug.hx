@@ -75,24 +75,15 @@ class Debug {
                 if(ui.panel(propane, "Properties")){
                     for (object in Scene.objects) if(object.selected){
                         var center = object.transform.getCenter();
-                        if(object.body!=null){
-                            var handlex = Id.handle({text: center.x+""});
-                            var handley = Id.handle({text: center.y+""});
-                            var inputx = ui.textInput(handlex, "X");
-                            var inputy = ui.textInput(handley, "Y");
-                            if(handlex.changed) object.body.x = Std.parseFloat(inputx) + (object.props.rigidBodyData.shape.width / 2);
-                            if(handley.changed) object.body.y = Std.parseFloat(inputy) + (object.props.rigidBodyData.shape.height / 2);
-                        }else{
-                            var handlex = Id.handle({text: center.x+""});
-                            var handley = Id.handle({text: center.y+""});
-                            var inputx = ui.textInput(handlex, "X");
-                            var inputy = ui.textInput(handley, "Y");
-                            if(handlex.changed) object.props.x = Std.parseFloat(inputx) + (object.props.width / 2);
-                            if(handley.changed) object.props.y = Std.parseFloat(inputy) + (object.props.height / 2);
-                        }
+                        var handlex = Id.handle({text: center.x+""});
+                        var handley = Id.handle({text: center.y+""});
+                        var inputx = ui.textInput(handlex, "X");
+                        var inputy = ui.textInput(handley, "Y");
+                        if(handlex.changed) object.props.x = Std.parseFloat(inputx) + (object.props.width / 2);
+                        if(handley.changed) object.props.y = Std.parseFloat(inputy) + (object.props.height / 2);
                         object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
                         object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
-                        object.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
+                        object.props.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
                         object.visibile = ui.check(Id.handle({selected: true}), "Visible");
                     }
                 }

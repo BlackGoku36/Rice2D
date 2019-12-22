@@ -1,5 +1,6 @@
 package rice2d.node;
 
+@:keep
 @:access(rice2d.Script)
 class InitNode extends LogicNode {
 

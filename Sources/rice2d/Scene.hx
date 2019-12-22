@@ -32,7 +32,17 @@ class Scene {
         var obj = new Object();
         obj.name = data.name;
         obj.props = data;
-        if(data.scripts != null) for (script in data.scripts) obj.addScript(script.name, createScriptInstance(script.scriptRef));
+        if(data.scripts != null) for (script in data.scripts){
+            if(StringTools.endsWith(script.scriptRef, ".json")){
+                    kha.Assets.loadBlobFromPath(script.scriptRef, function (blb){
+                        var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
+                        Logic.parse(nodes);
+                    });
+                }
+            else{
+                obj.addScript(script.name, createScriptInstance(script.scriptRef));
+            }
+        }
         obj.sprite = Assets.getImage(data.spriteRef);
         objects.push(obj);
 
@@ -64,16 +74,18 @@ class Scene {
             });
             Assets.loadFontsFromScene(sceneData.assets.fonts, function (){});
             Assets.loadSoundsFromScene(sceneData.assets.sounds, function (){});
-            Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){
-                for(blob in Assets.blobs) for(key => value in blob){
-                    if (StringTools.startsWith(key, "LN")){
-                        var nodes:TNodeCanvas = haxe.Json.parse(value.toString());
-                        Logic.parse(nodes);
-                    }
-                }
-            });
+            Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){});
 
-            if(sceneData.scripts != null) for (script in sceneData.scripts) scripts.push(createScriptInstance(script));
+            if(sceneData.scripts != null) for (script in sceneData.scripts){
+                if(StringTools.endsWith(script, ".json")){
+                    kha.Assets.loadBlobFromPath(script, function (blb){
+                        var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
+                        Logic.parse(nodes);
+                    });
+                }else{
+                    scripts.push(createScriptInstance(script));
+                }
+            }
             #if rice_ui
                 parseToCanvas(sceneData.canvasRef);
             #end

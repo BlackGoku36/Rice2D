@@ -1,5 +1,6 @@
 package rice2d.node;
 
+@:keep
 class PrintNode extends LogicNode {
 
 	public function new(tree:LogicTree) {
@@ -8,7 +9,7 @@ class PrintNode extends LogicNode {
 
 	override function run(from:Int) {
 		var value:Dynamic = inputs[1].get();
-	
+
 		#if (rice_debug)
 		trace(tree.name + ": " + value);
 		#else
@@ -18,4 +19,3 @@ class PrintNode extends LogicNode {
 		runOutput(0);
 	}
 }
-

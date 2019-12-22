@@ -1,5 +1,6 @@
 package rice2d;
 
+@:keep
 class Script {
 
     public var object: rice2d.object.Object;

@@ -1,5 +1,6 @@
 package rice2d.node;
 
+@:keep
 class Logic {
 
 	static var nodes:Array<TNode>;
@@ -154,7 +155,7 @@ class Logic {
 
 		return name;
 	}
-		
+
 	static function get_root_nodes(node_group:TNodeCanvas):Array<TNode> {
 		var roots:Array<TNode> = [];
 		for (node in node_group.nodes) {
@@ -178,9 +179,9 @@ class Logic {
 	}
 
 	static function build_default_node(inp:TNodeSocket): LogicNode {
-		
+
 		var v: LogicNode = null;
-		
+
 		if (inp.type == 'OBJECT') {
 			v = createClassInstance('ObjectNode', [tree, inp.default_value]);
 		}

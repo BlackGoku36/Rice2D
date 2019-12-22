@@ -58,16 +58,20 @@ class Assets {
      * @param done To execute when done
      */
     public static function loadImagesFromScene(imagesRef:Array<String>, done: Void->Void){
-        for (image in imagesRef){
-            kha.Assets.loadImageFromPath(image, true, function (img){
-                images.push([image => img]);
-                if(images.length == imagesRef.length){
-                    imageDone = true;
-                    done();
-                }
-            }, function (error){
-                throw error + 'Can`t find image $image, make sure path is correct and image is in `Assets` folder';
-            });
+        if(imagesRef.length != 0){
+            for (image in imagesRef){
+                kha.Assets.loadImageFromPath(image, true, function (img){
+                    images.push([image => img]);
+                    if(images.length == imagesRef.length){
+                        imageDone = true;
+                        done();
+                    }
+                }, function (error){
+                    throw error + 'Can`t find image $image, make sure path is correct and image is in `Assets` folder';
+                });
+            }
+        }else{
+            done();
         }
     }
 
@@ -77,16 +81,20 @@ class Assets {
      * @param done To execute when done
      */
     public static function loadFontsFromScene(fontsRef:Array<String>, done:Void->Void){
-        for (font in fontsRef){
-            kha.Assets.loadFontFromPath(font, function (fnt){
-                fonts.push([font => fnt]);
-                if(fonts.length == fontsRef.length){
-                    fontDone = true;
-                    done();
-                }
-            }, function (error){
-                throw error + 'Can`t find font $font, make sure path is correct and font is in `Assets` folder';
-            });
+        if(fontsRef.length != 0){
+            for (font in fontsRef){
+                kha.Assets.loadFontFromPath(font, function (fnt){
+                    fonts.push([font => fnt]);
+                    if(fonts.length == fontsRef.length){
+                        fontDone = true;
+                        done();
+                    }
+                }, function (error){
+                    throw error + 'Can`t find font $font, make sure path is correct and font is in `Assets` folder';
+                });
+            }
+        }else{
+            done();
         }
     }
 
@@ -96,16 +104,20 @@ class Assets {
      * @param done To execute when done
      */
     public static function loadSoundsFromScene(soundsRef:Array<String>, done:Void->Void){
-        if(soundsRef != null) for (sound in soundsRef){
-            kha.Assets.loadSoundFromPath(sound, function (snd){
-                sounds.push([sound => snd]);
-                if(sounds.length == soundsRef.length){
-                    soundDone = true;
-                    done();
-                }
-            }, function (error){
-                throw error + 'Can`t find sound $sound, make sure path is correct and sound is in `Assets` folder';
-            });
+        if(soundsRef.length != 0){
+            for (sound in soundsRef){
+                kha.Assets.loadSoundFromPath(sound, function (snd){
+                    sounds.push([sound => snd]);
+                    if(sounds.length == soundsRef.length){
+                        soundDone = true;
+                        done();
+                    }
+                }, function (error){
+                    throw error + 'Can`t find sound $sound, make sure path is correct and sound is in `Assets` folder';
+                });
+            }
+        }else {
+            done();
         }
     }
 
@@ -115,16 +127,20 @@ class Assets {
      * @param done To execute when done
      */
     public static function loadBlobsFromScene(blobsRef:Array<String>, done:Void->Void){
-        if(blobsRef != null) for (blob in blobsRef){
-            kha.Assets.loadBlobFromPath(blob, function (blb){
-                blobs.push([blob => blb]);
-                if(blobs.length == blobsRef.length){
-                    blobDone = true;
-                    done();
-                }
-            }, function (error){
-                throw error + 'Can`t find blob $blob, make sure path is correct and blob is in `Assets` folder';
-            });
+        if(blobsRef.length != 0){
+            for (blob in blobsRef){
+                kha.Assets.loadBlobFromPath(blob, function (blb){
+                    blobs.push([blob => blb]);
+                    if(blobs.length == blobsRef.length){
+                        blobDone = true;
+                        done();
+                    }
+                }, function (error){
+                    throw error + 'Can`t find blob $blob, make sure path is correct and blob is in `Assets` folder';
+                });
+            }
+        }else{
+            done();
         }
     }
 }

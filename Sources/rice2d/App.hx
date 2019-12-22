@@ -135,7 +135,7 @@ class App {
                     g.color = Color.fromFloats(0.2, 0.2, 0.2);
                     g.fillRect(center.x, center.y, object.props.width, 20);
                     g.color = Color.White;
-                    g.drawString(" X: " + Std.int(center.x)+", Y: "+Std.int(center.y)+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.rotation*180/Math.PI)+" Deg", center.x, center.y+3);
+                    g.drawString(" X: " + Std.int(center.x)+", Y: "+Std.int(center.y)+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.props.rotation*180/Math.PI)+" Deg", center.x, center.y+3);
                     g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
                 }
             #end
