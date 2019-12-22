@@ -10,6 +10,6 @@ class RandINode extends LogicNode {
 	override function get(from: Int): Dynamic {
 		var min: Int = inputs[0].get();
 		var max: Int = inputs[1].get();
-		return min + Std.random(max - min);
+		return Math.round( Math.random() * (max - min) + min);
 	}
 }
