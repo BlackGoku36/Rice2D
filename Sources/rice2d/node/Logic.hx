@@ -188,9 +188,9 @@ class Logic {
 		else if (inp.type == 'ANIMACTION') {
 			v = createClassInstance('StringNode', [tree, inp.default_value]);
 		}
-		else if (inp.type == 'VECTOR') {
-			if (inp.default_value == null) inp.default_value = [0, 0, 0]; // TODO
-			v = createClassInstance('VectorNode', [tree, inp.default_value[0], inp.default_value[1], inp.default_value[2]]);
+		else if (inp.type == 'VECTOR2') {
+			if (inp.default_value == null) inp.default_value = [0, 0]; // TODO
+			v = createClassInstance('Vector2Node', [tree, inp.default_value[0], inp.default_value[1]]);
 		}
 		else if (inp.type == 'RGBA') {
 			if (inp.default_value == null) inp.default_value = [0, 0, 0]; // TODO

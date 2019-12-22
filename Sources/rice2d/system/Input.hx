@@ -110,20 +110,20 @@ class Mouse {
         var b = buttonCode(button);
         buttonDown.set(b, true);
         buttonStarted.set(b, true);
-        var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
-        var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
-        this.x = mouseX;
-        this.y = mouseY;
+        // var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        // var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        this.x = x;
+        this.y = y;
     }
 
     function upListener(button: Int, x: Int, y: Int):Void{
         var b = buttonCode(button);
         buttonDown.set(b, false);
         buttonReleased.set(b, true);
-        var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
-        var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
-        this.x = mouseX;
-        this.y = mouseY;
+        // var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        // var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        this.x = x;
+        this.y = y;
     }
 
     function moveListner(x: Int, y: Int, movementX: Int, movementY: Int): Void{
@@ -136,10 +136,10 @@ class Mouse {
 
         lastX = x;
         lastY = y;
-        var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
-        var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
-        this.x = mouseX;
-        this.y = mouseY;
+        // var mouseX = Scaler.transformX(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        // var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
+        this.x = x;
+        this.y = y;
 
         moved = true;
     }
