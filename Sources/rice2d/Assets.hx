@@ -104,7 +104,7 @@ class Assets {
      * @param done To execute when done
      */
     public static function loadSoundsFromScene(soundsRef:Array<String>, done:Void->Void){
-        if(soundsRef.length != 0){
+        if(soundsRef!=null) if(soundsRef.length != 0){
             for (sound in soundsRef){
                 kha.Assets.loadSoundFromPath(sound, function (snd){
                     sounds.push([sound => snd]);
@@ -127,7 +127,7 @@ class Assets {
      * @param done To execute when done
      */
     public static function loadBlobsFromScene(blobsRef:Array<String>, done:Void->Void){
-        if(blobsRef.length != 0){
+        if(blobsRef!=null) if(blobsRef.length != 0){
             for (blob in blobsRef){
                 kha.Assets.loadBlobFromPath(blob, function (blb){
                     blobs.push([blob => blb]);
