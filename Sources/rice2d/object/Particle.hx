@@ -76,7 +76,7 @@ class Particle {
         deltaTime = 0.0;
         this.x = x;
         this.y = y;
-        this.sprite = rice2d.Assets.getImage(particle.spriteRef);
+        this.sprite = rice2d.Assets.getAsset(particle.spriteRef, Image);
         rotataion = rice2d.tools.Util.randomRangeF(particle.rots, particle.rote);
         this.props = particle;
         if(props.height == null) props.height = 1.0;
