@@ -76,14 +76,14 @@ class Scene {
             Assets.loadSoundsFromScene(sceneData.assets.sounds, function (){});
             Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){});
 
-            if(sceneData.scripts != null) for (script in sceneData.scripts){
-                if(StringTools.endsWith(script, ".json")){
-                    kha.Assets.loadBlobFromPath(script, function (blb){
+            if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
+                if(StringTools.endsWith(script.scriptRef, ".json")){
+                    kha.Assets.loadBlobFromPath(script.scriptRef, function (blb){
                         var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
                         Logic.parse(nodes);
                     });
                 }else{
-                    scripts.push(createScriptInstance(script));
+                    scripts.push(createScriptInstance(script.scriptRef));
                 }
             }
             #if rice_ui
