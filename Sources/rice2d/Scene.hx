@@ -43,7 +43,7 @@ class Scene {
                 obj.addScript(script.name, createScriptInstance(script.scriptRef));
             }
         }
-        obj.sprite = Assets.getImage(data.spriteRef);
+        obj.sprite = Assets.getAsset(data.spriteRef, Image);
         objects.push(obj);
 
         return obj;
@@ -68,13 +68,13 @@ class Scene {
     public static function parseToScene(scene:String, done:Void->Void) {
         kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
             sceneData = haxe.Json.parse(b.toString());
-            //TODO: Improve Asset loading
-            Assets.loadImagesFromScene(sceneData.assets.images, function(){
-                for (object in sceneData.objects) addObject(object);
-            });
-            Assets.loadFontsFromScene(sceneData.assets.fonts, function (){});
-            Assets.loadSoundsFromScene(sceneData.assets.sounds, function (){});
-            Assets.loadBlobsFromScene(sceneData.assets.blobs, function (){});
+
+            for(asset in sceneData.assets){
+                Assets.loadAssetFromPath(asset.path, asset.type);
+                if(sceneData.assets.indexOf(asset) == sceneData.assets.length-1){
+                    for (object in sceneData.objects) addObject(object);
+                }
+            }
 
             if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
                 if(StringTools.endsWith(script.scriptRef, ".json")){

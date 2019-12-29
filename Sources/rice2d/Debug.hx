@@ -57,9 +57,10 @@ class Debug {
 
             if(ui.tab(htab, "Outliner")){
                 ui.text("Objects: "+ Scene.objects.length);
-                ui.text("Image: "+Assets.images.length);
-                ui.text("Fonts: "+Assets.fonts.length);
-                ui.text("Sounds: "+Assets.sounds.length);
+                ui.text("Image: "+ Assets.getAssetLenghtOfType(Image));
+                ui.text("Fonts: "+ Assets.getAssetLenghtOfType(Font));
+                ui.text("Sounds: "+ Assets.getAssetLenghtOfType(Sound));
+                ui.text("Blobs: "+ Assets.getAssetLenghtOfType(Blob));
 
                 if(ui.panel(Id.handle(), "Scene")){
 
