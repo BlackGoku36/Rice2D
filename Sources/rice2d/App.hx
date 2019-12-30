@@ -118,12 +118,12 @@ class App {
             if(object.shader!=null) object.shader.begin(backbuffer);
             var center = object.transform.getCenter();
             if (object.props.rotation != null && object.props.rotation!=0){
-                g.pushTransformation(g.transformation.multmat(FastMatrix3.translation(object.props.x, object.props.y)).multmat(FastMatrix3.rotation(object.props.rotation)).multmat(FastMatrix3.translation(-object.props.x, -object.props.y)));
+               g.pushRotation(object.props.rotation, center.x, center.y);
             }
 
             if(object.sprite != null){
                 if(object.visibile){
-                    if(object.props.animate) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, Math.round(center.x), Math.round(center.y), object.props.width, object.props.height);
+                    if(object.props.animate) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, object.props.x, object.props.y, object.props.width, object.props.height);
                     else g.drawScaledImage(object.sprite, object.props.x, object.props.y, object.props.width, object.props.height);
                 }
             }
@@ -133,10 +133,10 @@ class App {
                     g.font = font;
                     g.fontSize = 16;
                     g.color = Color.fromFloats(0.2, 0.2, 0.2);
-                    g.fillRect(center.x, center.y, object.props.width, 20);
+                    g.fillRect(object.props.x, object.props.y, object.props.width, 20);
                     g.color = Color.White;
-                    g.drawString(" X: " + Std.int(center.x)+", Y: "+Std.int(center.y)+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.props.rotation*180/Math.PI)+" Deg", center.x, center.y+3);
-                    g.drawRect(center.x, center.y, object.props.width, object.props.height, 3);
+                    g.drawString(" X: " + Std.int(object.props.x)+", Y: "+Std.int(object.props.y)+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.props.rotation*180/Math.PI)+" Deg", object.props.x, object.props.y+3);
+                    g.drawRect(object.props.x, object.props.y, object.props.width, object.props.height, 3);
                 }
             #end
 

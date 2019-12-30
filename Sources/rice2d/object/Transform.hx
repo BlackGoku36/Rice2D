@@ -12,8 +12,8 @@ class Transform{
     public function getCenter() {
         var x: Float;
         var y: Float;
-        x = object.props.x - (object.props.width / 2);
-        y = object.props.y - (object.props.height / 2);
+        x = object.props.x + (object.props.width / 2);
+        y = object.props.y + (object.props.height / 2);
         return { x : x, y : y}
     }
 
