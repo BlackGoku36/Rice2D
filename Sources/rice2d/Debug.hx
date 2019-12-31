@@ -76,12 +76,12 @@ class Debug {
                 if(ui.panel(propane, "Properties")){
                     for (object in Scene.objects) if(object.selected){
                         var center = object.transform.getCenter();
-                        var handlex = Id.handle({text: center.x+""});
-                        var handley = Id.handle({text: center.y+""});
+                        var handlex = Id.handle({text: object.props.x+""});
+                        var handley = Id.handle({text: object.props.y+""});
                         var inputx = ui.textInput(handlex, "X");
                         var inputy = ui.textInput(handley, "Y");
-                        if(handlex.changed) object.props.x = Std.parseFloat(inputx) + (object.props.width / 2);
-                        if(handley.changed) object.props.y = Std.parseFloat(inputy) + (object.props.height / 2);
+                        if(handlex.changed) object.props.x = Std.parseFloat(inputx);
+                        if(handley.changed) object.props.y = Std.parseFloat(inputy);
                         object.props.width = Std.parseInt(ui.textInput(Id.handle({text:object.props.width+""}), "W"));
                         object.props.height = Std.parseInt(ui.textInput(Id.handle({text:object.props.height+""}), "H"));
                         object.props.rotation = ui.slider(Id.handle({value: 0.0}), "R", 0, 6.283185, false, Align.Left);
