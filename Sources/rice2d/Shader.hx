@@ -28,13 +28,13 @@ class Shader {
         fragmentShader = shaderData.fragmentShader;
         vertexShader = shaderData.vertexShader;
         pipeline = new PipelineState();
-        pipeline.fragmentShader = fragmentShader;
-        pipeline.vertexShader = vertexShader;
+        pipeline.fragmentShader = shaderData.fragmentShader;
+        pipeline.vertexShader = shaderData.vertexShader;
 
         var vertexStructure = new VertexStructure();
         vertexStructure.add("vertexPosition", VertexData.Float3);
-        vertexStructure.add('vertexColor', VertexData.Float4);
-        vertexStructure.add('texturePosition', VertexData.Float2);
+        vertexStructure.add("vertexColor", VertexData.Float4);
+        vertexStructure.add("texturePosition", VertexData.Float2);
 
         pipeline.inputLayout = [vertexStructure];
 

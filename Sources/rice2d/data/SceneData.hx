@@ -1,9 +1,9 @@
 package rice2d.data;
 
 typedef SceneData = {
-    public var name: String;
-    public var objects: Array<ObjectData>;
-    public var assets: Array<AssetData>;
+    var name: String;
+    var objects: Array<ObjectData>;
+    var assets: Array<AssetData>;
     var ?scripts: Array<ScriptData>;
-    public var ?canvasRef: String;
+    var ?canvasRef: String;
 }
