@@ -9,6 +9,7 @@ typedef ObjectData = {
     var width: Float;
     var rotation:Float;
     var animate:Bool;
+    var ?labels: Array<String>;
     var ?spriteRef: String;
     var ?color: Array<Int>;
     var ?scripts: Array<ScriptData>;
