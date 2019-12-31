@@ -20,6 +20,7 @@ class App {
     static var version = "2019.12.0";
 
     public static var backbuffer:kha.Image;
+    static var background:kha.Image;
 
     static var onInit: Array<Void->Void> = [];
     static var onUpdate: Array<Void->Void> = [];
@@ -55,6 +56,7 @@ class App {
 
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 backbuffer = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
+                background = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
                 Scene.parseToScene(scene, function (){
                     #if rice_debug
                         debug = new Debug(font);
@@ -106,11 +108,16 @@ class App {
         #end
 
         var clearColor = Window.window.clearColor;
+
+        background.g2.begin();
+        background.g2.color = Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+        background.g2.fillRect(0, 0, background.width, background.height);
+        background.g2.end();
+
         var g = backbuffer.g2;
         g.begin();
 
-        canvas.g2.color = Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
-        canvas.g2.fillRect(0, 0, backbuffer.width, backbuffer.height);
+        g.drawScaledImage(background, 0, 0, backbuffer.width, backbuffer.height);
 
         camera.set(g);
 
