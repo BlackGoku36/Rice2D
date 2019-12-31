@@ -1,9 +1,14 @@
 package rice2d.data;
 
 typedef ShaderData = {
-    var vertexShader: kha.graphics4.VertexShader;
     var fragmentShader: kha.graphics4.FragmentShader;
     var constants:Array<ConstantData>;
+    var type: ShaderType;
+}
+
+@:enum abstract ShaderType(Int) from Int to Int {
+    var Texture = 0;
+    var Color = 1;
 }
 
 typedef ConstantData = {

@@ -1,6 +1,7 @@
 package rice2d;
 
 //Kha
+import kha.Shaders;
 import kha.graphics4.TextureUnit;
 import kha.Canvas;
 import kha.math.FastVector2;
@@ -19,22 +20,26 @@ import rice2d.data.ShaderData.ConstantData;
 class Shader {
     var pipeline:PipelineState;
     public var fragmentShader: FragmentShader;
-    public var vertexShader: VertexShader;
     public var constants: Array<ConstantData>;
     public var constantsLocations:Array<Map<ConstantLocation, ConstantData>> = [];
     public var textureUnits:Array<Map<TextureUnit, ConstantData>> = [];
 
     public function new(shaderData: rice2d.data.ShaderData) {
         fragmentShader = shaderData.fragmentShader;
-        vertexShader = shaderData.vertexShader;
         pipeline = new PipelineState();
-        pipeline.fragmentShader = shaderData.fragmentShader;
-        pipeline.vertexShader = shaderData.vertexShader;
+        pipeline.fragmentShader = fragmentShader;
 
         var vertexStructure = new VertexStructure();
         vertexStructure.add("vertexPosition", VertexData.Float3);
-        vertexStructure.add("vertexColor", VertexData.Float4);
-        vertexStructure.add("texturePosition", VertexData.Float2);
+
+        if(shaderData.type == Texture){
+            pipeline.vertexShader = Shaders.painter_image_vert;
+            vertexStructure.add("texPosition", VertexData.Float2);
+            vertexStructure.add("vertexColor", VertexData.Float4);
+        }else{
+            pipeline.vertexShader = Shaders.painter_colored_vert;
+            vertexStructure.add("vertexColor", VertexData.Float4);
+        }
 
         pipeline.inputLayout = [vertexStructure];
 
