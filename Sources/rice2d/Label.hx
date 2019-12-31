@@ -1,4 +1,4 @@
-package rice2d.data;
+package rice2d;
 
 import rice2d.data.ObjectData;
 
