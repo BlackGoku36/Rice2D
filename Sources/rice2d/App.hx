@@ -32,6 +32,10 @@ class App {
 
     public static var camera: rice2d.system.Camera;
 
+    #if rice_postprocess
+    var postprocess: rice2d.shaders.Postprocess;
+    #end
+
     #if rice_debug
         static var debug: Debug;
         static var startTime:Float;
@@ -57,6 +61,9 @@ class App {
             System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
                 backbuffer = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
                 background = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
+                #if rice_postprocess
+                postprocess = new rice2d.shaders.Postprocess();
+                #end
                 Scene.parseToScene(scene, function (){
                     #if rice_debug
                         debug = new Debug(font);
@@ -168,8 +175,14 @@ class App {
         g.end();
 
         canvas.g2.begin();
+        #if rice_postprocess
+        postprocess.start(canvas);
+        #end
         canvas.g2.color = 0xffffffff;
         canvas.g2.drawScaledImage(backbuffer, 0, 0, kha.System.windowWidth(), kha.System.windowHeight());
+        #if rice_postprocess
+        postprocess.end(canvas);
+        #end
         canvas.g2.end();
 
         #if rice_debug

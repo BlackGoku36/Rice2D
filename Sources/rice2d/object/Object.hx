@@ -10,7 +10,7 @@ class Object {
     public var scripts: Array<Script> = [];
     public var visibile = true;
     public var selected = false;
-    public var shader:rice2d.Shader;
+    public var shader: rice2d.shaders.Shader;
 
     /**
      * Create new object
