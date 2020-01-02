@@ -7,7 +7,7 @@ typedef ObjectData = {
     var y: Float;
     var height: Float;
     var width: Float;
-    var rotation:Float;
+    var ?rotation: Float;
     var animate:Bool;
     var ?labels: Array<String>;
     var ?spriteRef: String;

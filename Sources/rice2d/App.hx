@@ -131,7 +131,7 @@ class App {
         for (object in Scene.objects){
             if(object.shader!=null) object.shader.begin(backbuffer);
             var center = object.transform.getCenter();
-            if (object.props.rotation != null && object.props.rotation!=0){
+            if (object.props.rotation != 0){
                g.pushRotation(object.props.rotation, center.x, center.y);
             }
 
@@ -154,7 +154,7 @@ class App {
                 }
             #end
 
-            if (object.props.rotation != null && object.props.rotation!=0) g.popTransformation();
+            if (object.props.rotation != 0) g.popTransformation();
         }
 
 

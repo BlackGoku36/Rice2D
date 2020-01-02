@@ -44,6 +44,7 @@ class Scene {
             }
         }
         obj.sprite = Assets.getAsset(data.spriteRef, Image);
+        if(obj.props.rotation == null) obj.props.rotation = 0.0;
         objects.push(obj);
 
         return obj;
