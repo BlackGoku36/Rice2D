@@ -14,11 +14,11 @@ class Assets {
 		return names;
 	}
 
-    public static function getAssetLenghtOfType(type:AssetType): Int {
-        var len = 0;
-        for(asset in assets) if(asset.type == type) len+=1;
-        return len;
-    }
+	public static function getAssetLenghtOfType(type:AssetType): Int {
+		var len = 0;
+		for(asset in assets) if(asset.type == type) len+=1;
+		return len;
+	}
 
 	public static function getAsset(name:String, type:AssetType): Dynamic {
 		var value:Dynamic = null;
