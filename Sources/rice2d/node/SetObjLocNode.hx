@@ -1,5 +1,7 @@
 package rice2d.node;
 
+import kha.math.FastVector2;
+
 class SetObjLocNode extends LogicNode{
 
     public function new(tree:LogicTree) {
@@ -8,11 +10,10 @@ class SetObjLocNode extends LogicNode{
 
 	override function run(from:Int) {
 		var name:String = inputs[1].get();
-		var x:Float = inputs[2].get();
-		var y:Float = inputs[3].get();
+		var vec2:FastVector2 = inputs[2].get();
 
-        Scene.getObject(name).props.x = x;
-        Scene.getObject(name).props.y = y;
+        Scene.getObject(name).props.x = vec2.x;
+        Scene.getObject(name).props.y = vec2.y;
 
 		runOutput(0);
 	}
