@@ -11,8 +11,9 @@ class TranslateObjectNode extends LogicNode {
 	override function run(from:Int) {
         var name:String = inputs[1].get();
         var vec2:FastVector2 = inputs[2].get();
+        var speed:Float = inputs[3].get();
         
-        Scene.getObject(name).transform.translate(vec2.x, vec2.y, 1.0);
+        Scene.getObject(name).transform.translate(vec2.x, vec2.y, speed);
 
 		runOutput(0);
 	}
