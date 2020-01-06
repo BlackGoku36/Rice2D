@@ -12,18 +12,18 @@ class OnMouseNode extends LogicNode {
 
 	function update() {
 		var mouse = rice2d.system.Input.getMouse();
-		var b = false;
+		var bool = false;
 		switch (operations1) {
-            case "Down":
-                b = mouse.down(getMouseButton(operations2));
             case "Started":
-                b = mouse.started(getMouseButton(operations2));
+                bool = mouse.started(getMouseButton(operations2));
             case "Released":
-                b = mouse.released(getMouseButton(operations2));
+                bool = mouse.released(getMouseButton(operations2));
+            case "Down":
+                bool = mouse.down(getMouseButton(operations2));
             case "Moved":
-                b = mouse.moved;
+                bool = mouse.moved;
 		}
-		if (b) runOutput(0);
+		if (bool) runOutput(0);
 	}
 
     function getMouseButton(string:String):Int {
