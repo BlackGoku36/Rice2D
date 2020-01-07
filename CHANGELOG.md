@@ -3,6 +3,24 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2020.1.0] - 2020-1-7
+
+### Added
+* NODES!
+* Labels
+* API documentation
+* Post-Processes
+
+### Fixed
+* Fix loading of blobs and sound
+* Fix rotation
+* Fix scene scripts
+* Fix image shader
+
+### Changed
+* Removed echo physics lib and let devs use their own
+* Objects’s x and y are in top-left corner instead of center
+
 ## [2019.12.0] - 2019-12-1
 
 ### Added
@@ -24,5 +42,3 @@ All notable changes to this project will be documented in this file.
 ### Changed
 * Stringly type keyboard/mouse input is changed to KeyCode/Int type.
 * `rice` folder(where scripts are) is renamed to `scripts`.
-
-
