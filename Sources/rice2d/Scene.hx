@@ -4,7 +4,7 @@ package rice2d;
 #if rice_ui
 import zui.Canvas.TCanvas;
 #end
-import zui.Nodes;
+import rice2d.data.NodeData;
 
 //Engine
 import rice2d.data.SceneData;
