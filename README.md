@@ -8,6 +8,7 @@
 
 ![](https://img.shields.io/badge/Version-2019.11.17-blue)
 ![GitHub](https://img.shields.io/github/license/BlackGoku36/Rice2D)
+![Discord](https://img.shields.io/discord/664101262958133258?label=Discord)
 
 **Rice2D** is data-driven cross-platform 2d game engine written in [Haxe](https://haxe.org/) and powered by [Kha](https://kha.tech/). It is inspired from Armory3D's Iron core engine architecture
 
