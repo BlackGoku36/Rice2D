@@ -13,6 +13,8 @@
 
 Documentation is at [Rice2D-Docs (Web)](https://blackgoku36.github.io/Rice2D-Docs/#/), [Rice2D-Docs (Github)](https://github.com/BlackGoku36/Rice2D-Docs)
 
+API Documentation is at [Rice2D-API (Web)](https://blackgoku36.github.io/Rice2D-API/rice2d/index.html), [Rice2D-API (Github)](https://github.com/BlackGoku36/Rice2D-API)
+
 Check [CHANGELOG](CHANGELOG.md)
 
 Check out [VSCode snippet](https://gist.github.com/BlackGoku36/e97d500547be88b3b2de5f2ea560372c)
