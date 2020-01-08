@@ -51,9 +51,11 @@ class App {
 	public function new(scene:String) {
 		Window.loadWindow(function () {
 
+			#if (rice_debug||rice_ui)
 			kha.Assets.loadFontFromPath("mainfont.ttf", function (f) {
 				font = f;
 			});
+			#end
 
 			var windowMode:WindowMode = WindowMode.Fullscreen;
 			Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
