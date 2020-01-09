@@ -7,10 +7,11 @@ import zui.Canvas.TCanvas;
 import rice2d.data.NodeData;
 
 //Engine
+import rice2d.node.Logic;
+import rice2d.object.Object;
 import rice2d.data.SceneData;
 import rice2d.data.ObjectData;
-import rice2d.object.Object;
-import rice2d.node.Logic;
+import rice2d.data.ScriptData;
 
 class Scene {
 	public static var sceneData: SceneData;
@@ -32,21 +33,35 @@ class Scene {
 		var obj = new Object();
 		obj.name = data.name;
 		obj.props = data;
-		if(data.scripts != null) for (script in data.scripts){
-			if(StringTools.endsWith(script.scriptRef, ".json")){
-				kha.Assets.loadBlobFromPath(script.scriptRef, function (blb){
-					var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
-					Logic.parse(nodes);
-				});
-			}else{
-				obj.addScript(script.name, createScriptInstance(script.scriptRef));
-			}
-		}
+
+		if(data.scripts != null) for (script in data.scripts) obj.addScript(script);
+
 		obj.sprite = Assets.getAsset(data.spriteRef, Image);
+
 		if(obj.props.rotation == null) obj.props.rotation = 0.0;
+
 		objects.push(obj);
 
 		return obj;
+	}
+
+	@:access(rice2d.Script)
+	public static function addScript(scriptData: ScriptData) {
+		if(StringTools.endsWith(scriptData.scriptRef, ".json")){
+			kha.Assets.loadBlobFromPath(scriptData.scriptRef, function (blb){
+				var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
+				Logic.parse(nodes);
+			});
+		}else{
+			var script = createScriptInstance(scriptData.scriptRef);
+			scripts.push(script);
+			script.object = null;
+			script.name = scriptData.name;
+			if(script._add!=null){
+				for (add in script._add) add();
+				script._add = null;
+			}
+		}
 	}
 
 	/**

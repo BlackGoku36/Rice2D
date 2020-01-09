@@ -1,5 +1,10 @@
 package rice2d.object;
 
+// Engine
+import rice2d.node.Logic;
+import rice2d.data.NodeData;
+import rice2d.data.ScriptData;
+
 class Object {
 
 	public var name = "";
@@ -34,13 +39,21 @@ class Object {
 		* @param script
 		*/
 	@:access(rice2d.Script)
-	public function addScript(name:String, script:Script) {
-		scripts.push(script);
-		script.object = this;
-		script.name = name;
-		if(script._add!=null){
-			for (add in script._add) add();
-			script._add = null;
+	public function addScript(scriptData: ScriptData) {
+		if(StringTools.endsWith(scriptData.scriptRef, ".json")){
+			kha.Assets.loadBlobFromPath(scriptData.scriptRef, function (blb){
+				var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
+				Logic.parse(nodes);
+			});
+		}else{
+			var script = createScriptInstance(scriptData.scriptRef);
+			scripts.push(script);
+			script.object = this;
+			script.name = scriptData.name;
+			if(script._add!=null){
+				for (add in script._add) add();
+				script._add = null;
+			}
 		}
 	}
 
@@ -95,6 +108,12 @@ class Object {
 
 		scripts.remove(script);
 
+	}
+
+	static function createScriptInstance(script:String):Dynamic {
+		var scr = Type.resolveClass("scripts."+script);
+		if (scr == null) return null;
+		return Type.createInstance(scr, []);
 	}
 
 }
