@@ -7,6 +7,11 @@ import rice2d.data.AssetData;
 class Assets {
 
 	public static var assets: Array<AssetData> = [];
+	public static var totalAssets:Int = 0;
+	public static var totalImages:Int = 0;
+	public static var totalFonts:Int = 0;
+	public static var totalSounds:Int = 0;
+	public static var totalBlobs:Int = 0;
 
 	public static function getAssetNamesOfType(type:AssetType): Array<String> {
 		var names:Array<String> = [];
@@ -14,6 +19,7 @@ class Assets {
 		return names;
 	}
 
+	@:deprecated
 	public static function getAssetLenghtOfType(type:AssetType): Int {
 		var len = 0;
 		for(asset in assets) if(asset.type == type) len+=1;
@@ -40,6 +46,8 @@ class Assets {
 						value: image,
 						path: path
 					});
+					totalAssets += 1;
+					totalImages += 1;
 				});
 			case Font:
 				kha.Assets.loadFontFromPath(path, function(font){
@@ -49,6 +57,8 @@ class Assets {
 						value: font,
 						path: path
 					});
+					totalAssets += 1;
+					totalFonts += 1;
 				});
 			case Sound:
 				kha.Assets.loadSoundFromPath(path, function(sound){
@@ -58,6 +68,8 @@ class Assets {
 						value: sound,
 						path: path
 					});
+					totalAssets += 1;
+					totalSounds += 1;
 				});
 			case Blob:
 				kha.Assets.loadBlobFromPath(path, function(blob){
@@ -67,6 +79,8 @@ class Assets {
 						value: blob,
 						path: path
 					});
+					totalAssets += 1;
+					totalBlobs += 1;
 				});
 		}
 	}

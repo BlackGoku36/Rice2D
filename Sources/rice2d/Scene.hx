@@ -69,12 +69,9 @@ class Scene {
 		kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
 			sceneData = haxe.Json.parse(b.toString());
 
-			for(asset in sceneData.assets){
-				Assets.loadAssetFromPath(asset.path, asset.type);
-				if(sceneData.assets.indexOf(asset) == sceneData.assets.length-1){
-					for (object in sceneData.objects) addObject(object);
-				}
-			}
+			for(asset in sceneData.assets) Assets.loadAssetFromPath(asset.path, asset.type);
+
+			for (object in sceneData.objects) addObject(object);
 
 			if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
 				if(StringTools.endsWith(script.scriptRef, ".json")){
