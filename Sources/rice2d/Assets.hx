@@ -13,6 +13,11 @@ class Assets {
 	public static var totalSounds:Int = 0;
 	public static var totalBlobs:Int = 0;
 
+	/**
+	 * Get names of assets of type
+	 * @param type type of assets
+	 * @return Array<String> list of names
+	 */
 	public static function getAssetNamesOfType(type:AssetType): Array<String> {
 		var names:Array<String> = [];
 		for(asset in assets) if(asset.type == type) names.push(asset.name);
@@ -26,6 +31,12 @@ class Assets {
 		return len;
 	}
 
+	/**
+	 * Get asset
+	 * @param name Name of the asset
+	 * @param type Type of the asset
+	 * @return Dynamic Asset's value
+	 */
 	public static function getAsset(name:String, type:AssetType): Dynamic {
 		var value:Dynamic = null;
 		for(asset in assets){
@@ -36,6 +47,11 @@ class Assets {
 		return value;
 	}
 
+	/**
+	 * Load asset from path
+	 * @param path Path to asset (path start from `Assets` folder)
+	 * @param type Type of asset
+	 */
 	public static function loadAssetFromPath(path:String, type:AssetType) {
 		switch (type){
 			case Image:

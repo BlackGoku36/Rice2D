@@ -34,10 +34,9 @@ class Object {
 	}
 
 	/**
-		* Add script to object
-		* @param name Name of script
-		* @param script
-		*/
+	 * Add haxe or node script to object
+	 * @param scriptData Script's data
+	 */
 	@:access(rice2d.Script)
 	public function addScript(scriptData: ScriptData) {
 		if(StringTools.endsWith(scriptData.scriptRef, ".json")){

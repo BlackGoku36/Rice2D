@@ -45,6 +45,10 @@ class Scene {
 		return obj;
 	}
 
+	/**
+	 * Add haxe or node script to scene
+	 * @param scriptData Script's data
+	 */
 	@:access(rice2d.Script)
 	public static function addScript(scriptData: ScriptData) {
 		if(StringTools.endsWith(scriptData.scriptRef, ".json")){

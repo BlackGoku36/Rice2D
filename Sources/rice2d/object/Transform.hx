@@ -19,15 +19,20 @@ class Transform{
 
 	/**
 		* Translate object
-		* @param x
-		* @param y
-		* @param s
+		* @param x translate on x-axis
+		* @param y translate on y-axis
+		* @param s speed of translation
 		*/
 	public function translate(x:Float, y:Float, s:Float) {
 		object.props.x += x * s;
 		object.props.y += y * s;
 	}
 
+	/**
+	 * Resize the object
+	 * @param width amount of width to be resized
+	 * @param height amount of height to be resized
+	 */
 	public function resize(width:Float = 0.0, height:Float = 0.0) {
 		object.props.width += width;
 		object.props.height += height;
