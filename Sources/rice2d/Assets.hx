@@ -35,7 +35,7 @@ class Assets {
 	 * Get asset
 	 * @param name Name of the asset
 	 * @param type Type of the asset
-	 * @return Dynamic Asset's value
+	 * @return Dynamic
 	 */
 	public static function getAsset(name:String, type:AssetType): Dynamic {
 		var value:Dynamic = null;
@@ -48,11 +48,23 @@ class Assets {
 	}
 
 	/**
+	 * Get Asset's data
+	 * @param name Name of the asset
+	 * @param type Type of the asset
+	 * @return AssetData
+	 */
+	public static function getAssetData(name:String, type:AssetType):AssetData {
+		var data:AssetData = null;
+		for (asset in assets) if(asset.type == type && asset.name == name) data = asset;
+		return data;
+	}
+
+	/**
 	 * Load asset from path
 	 * @param path Path to asset (path start from `Assets` folder)
 	 * @param type Type of asset
 	 */
-	public static function loadAssetFromPath(path:String, type:AssetType) {
+	public static function loadAssetFromPath(path:String, type:AssetType, done:AssetData->Void = null) {
 		switch (type){
 			case Image:
 				kha.Assets.loadImageFromPath(path, true, function(image){
@@ -65,6 +77,7 @@ class Assets {
 					totalAssets += 1;
 					totalImages += 1;
 				});
+				if(done != null) done(getAssetData(Path.getNameFromPath(path), Image));
 			case Font:
 				kha.Assets.loadFontFromPath(path, function(font){
 					assets.push({
@@ -76,6 +89,7 @@ class Assets {
 					totalAssets += 1;
 					totalFonts += 1;
 				});
+				if(done != null) done(getAssetData(Path.getNameFromPath(path), Font));
 			case Sound:
 				kha.Assets.loadSoundFromPath(path, function(sound){
 					assets.push({
@@ -87,6 +101,7 @@ class Assets {
 					totalAssets += 1;
 					totalSounds += 1;
 				});
+				if(done != null) done(getAssetData(Path.getNameFromPath(path), Sound));
 			case Blob:
 				kha.Assets.loadBlobFromPath(path, function(blob){
 					assets.push({
@@ -98,6 +113,7 @@ class Assets {
 					totalAssets += 1;
 					totalBlobs += 1;
 				});
+				if(done != null) done(getAssetData(Path.getNameFromPath(path), Blob));
 		}
 	}
 }

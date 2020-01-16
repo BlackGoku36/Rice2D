@@ -29,7 +29,7 @@ class Scene {
 		* @param data Object's data
 		* @return Object
 		*/
-	public static function addObject(data:ObjectData):Object {
+	public static function addObject(data:ObjectData, done:Object->Void = null):Object {
 		var obj = new Object();
 		obj.name = data.name;
 		obj.props = data;
@@ -41,6 +41,7 @@ class Scene {
 		if(obj.props.rotation == null) obj.props.rotation = 0.0;
 
 		objects.push(obj);
+		if(done != null) done(obj);
 
 		return obj;
 	}
