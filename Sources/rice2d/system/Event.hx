@@ -13,7 +13,7 @@ class Event {
 	/**
 	 * Send event of name
 	 * @param name Name of event
-	 * @param mask = -1 
+	 * @param mask = -1
 	 */
 	public static function send(name:String, mask = -1) {
 		var entries = get(name);
@@ -22,7 +22,7 @@ class Event {
 
 	/**
 	 * Get events
-	 * @param name 
+	 * @param name
 	 * @return Array<TEvent>
 	 */
 	public static function get(name:String):Array<TEvent> {
@@ -33,7 +33,7 @@ class Event {
 	 * Add event
 	 * @param name Name of event
 	 * @param onEvent Funtion to call when event it triggered
-	 * @param mask = -1 
+	 * @param mask = -1
 	 * @return TEvent
 	 */
 	public static function add(name:String, onEvent:Void->Void, mask = -1):TEvent {

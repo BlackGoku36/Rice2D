@@ -19,7 +19,7 @@ class Camera {
 
 	/**
 	 * Set camera
-	 * @param g 
+	 * @param g
 	 */
 	public function set(g:Graphics) {
 		active = true;
@@ -29,7 +29,7 @@ class Camera {
 
 	/**
 	 * Unset camera
-	 * @param g 
+	 * @param g
 	 */
 	public function unset(g:Graphics) {
 		g.popTransformation();

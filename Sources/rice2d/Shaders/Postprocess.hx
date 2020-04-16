@@ -9,27 +9,27 @@ import kha.graphics4.FragmentShader;
 class Postprocess {
 
 #if rice_postprocess
-    function new() {}
-    
-    var shader:Shader = new rice2d.shaders.Shader({
-        type: Texture,
-        fragmentShader: kha.Shaders.postprocess_frag,
-        constants: [
-            {
-                name: "tex",
-                type: Texture,
-                tex: App.backbuffer
-            }
-        ]
-    });
+	function new() {}
 
-    function start(canvas:Canvas) {
-        shader.begin(canvas);
-    }
+	var shader:Shader = new rice2d.shaders.Shader({
+		type: Texture,
+		fragmentShader: kha.Shaders.postprocess_frag,
+		constants: [
+			{
+				name: "tex",
+				type: Texture,
+				tex: App.backbuffer
+			}
+		]
+	});
 
-    function end(canvas:Canvas) {
-        shader.end(canvas);
-    }
+	function start(canvas:Canvas) {
+		shader.begin(canvas);
+	}
+
+	function end(canvas:Canvas) {
+		shader.end(canvas);
+	}
 #end
 
 }
