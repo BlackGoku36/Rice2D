@@ -51,7 +51,7 @@ class App {
 	public function new(scene:String) {
 		Window.loadWindow(function () {
 
-			#if (rice_debug||rice_ui)
+			#if (rice_debug || rice_ui)
 			kha.Assets.loadFontFromPath("mainfont.ttf", function (f) {
 				font = f;
 			});
@@ -131,7 +131,7 @@ class App {
 		camera.set(g);
 
 		for (object in Scene.objects){
-			if(object.shader!=null) object.shader.begin(backbuffer);
+			// if(object.shader!=null) object.shader.begin(backbuffer);
 			var center = object.transform.getCenter();
 			if (object.props.rotation != 0){
 				g.pushRotation(object.props.rotation, center.x, center.y);
@@ -142,7 +142,10 @@ class App {
 					if(object.props.animate) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, object.props.x, object.props.y, object.props.width, object.props.height);
 					else g.drawScaledImage(object.sprite, object.props.x, object.props.y, object.props.width, object.props.height);
 				}
+			}else{
+				trace('Warning: Object \'${object.name}\' doesn\'t have sprite');
 			}
+
 			if(object.shader!=null) object.shader.end(backbuffer);
 			#if rice_debug
 				if(object.selected){

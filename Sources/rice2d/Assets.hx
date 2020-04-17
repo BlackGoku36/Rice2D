@@ -76,8 +76,8 @@ class Assets {
 					});
 					totalAssets += 1;
 					totalImages += 1;
-				});
-				if(done != null) done(getAssetData(Path.getNameFromPath(path), Image));
+					if(done != null) done(getAssetData(Path.getNameFromPath(path), Image));
+				}, assetError);
 			case Font:
 				kha.Assets.loadFontFromPath(path, function(font){
 					assets.push({
@@ -88,8 +88,8 @@ class Assets {
 					});
 					totalAssets += 1;
 					totalFonts += 1;
-				});
-				if(done != null) done(getAssetData(Path.getNameFromPath(path), Font));
+					if(done != null) done(getAssetData(Path.getNameFromPath(path), Font));
+				}, assetError);
 			case Sound:
 				kha.Assets.loadSoundFromPath(path, function(sound){
 					assets.push({
@@ -100,8 +100,8 @@ class Assets {
 					});
 					totalAssets += 1;
 					totalSounds += 1;
-				});
-				if(done != null) done(getAssetData(Path.getNameFromPath(path), Sound));
+					if(done != null) done(getAssetData(Path.getNameFromPath(path), Sound));
+				}, assetError);
 			case Blob:
 				kha.Assets.loadBlobFromPath(path, function(blob){
 					assets.push({
@@ -112,8 +112,12 @@ class Assets {
 					});
 					totalAssets += 1;
 					totalBlobs += 1;
-				});
-				if(done != null) done(getAssetData(Path.getNameFromPath(path), Blob));
+					if(done != null) done(getAssetData(Path.getNameFromPath(path), Blob));
+				}, assetError);
 		}
+	}
+
+	static function assetError(err:kha.AssetError) {
+		trace('Asset failed to load, \'${err}\'');
 	}
 }

@@ -27,7 +27,7 @@ class OnKeyboardNode extends LogicNode {
 	}
 
     function getKeyboard(string:String):KeyCode {
-        var key: KeyCode = null;
+        var key: Null<KeyCode> = null;
         switch (string){
             case "Up": key = Up;
             case "Down": key = Down;
