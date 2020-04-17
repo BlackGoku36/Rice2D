@@ -131,7 +131,7 @@ class App {
 		camera.set(g);
 
 		for (object in Scene.objects){
-			// if(object.shader!=null) object.shader.begin(backbuffer);
+			if(object.shader!=null) object.shader.begin(backbuffer);
 			var center = object.transform.getCenter();
 			if (object.props.rotation != 0){
 				g.pushRotation(object.props.rotation, center.x, center.y);
