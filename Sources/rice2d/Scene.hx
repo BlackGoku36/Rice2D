@@ -88,7 +88,6 @@ class Scene {
 	public static function parseToScene(scene:String, done:Void->Void) {
 		kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
 			sceneData = haxe.Json.parse(b.toString());
-
 			loadAllAssets(sceneData, function (){
 				addAllObjects(sceneData, function (){
 					done();
@@ -157,6 +156,10 @@ class Scene {
 	}
 
 	static function loadAllAssets(sceneData:SceneData, done:Void->Void) {
+		if(sceneData.assets == null || sceneData.assets.length == 0){
+			done();
+			return;
+		}
 		for(asset in sceneData.assets){
 			Assets.loadAssetFromPath(asset.path, asset.type, function (_){
 				if(sceneData.assets.length == Assets.totalAssets){
