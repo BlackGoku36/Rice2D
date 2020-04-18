@@ -99,6 +99,9 @@ class App {
 	function render(canvas: kha.Canvas):Void {
 		if(Scene.sceneData == null) return;
 
+		backbuffer = kha.Image.createRenderTarget(System.windowWidth(), System.windowHeight());
+		background = kha.Image.createRenderTarget(System.windowWidth(), System.windowHeight());
+
 		#if rice_debug
 		startTime = kha.Scheduler.realTime();
 		#end
@@ -125,13 +128,12 @@ class App {
 
 		var g = backbuffer.g2;
 		g.begin();
-
-		g.drawScaledImage(background, 0, 0, backbuffer.width, backbuffer.height);
+		g.drawImage(background, 0, 0);
 
 		camera.set(g);
 
 		for (object in Scene.objects){
-			if(object.shader!=null) object.shader.begin(backbuffer);
+			if(object.shader != null) object.shader.begin(backbuffer);
 			var center = object.transform.getCenter();
 			if (object.props.rotation != 0){
 				g.pushRotation(object.props.rotation, center.x, center.y);
@@ -184,7 +186,7 @@ class App {
 		postprocess.start(canvas);
 		#end
 		canvas.g2.color = 0xffffffff;
-		canvas.g2.drawScaledImage(backbuffer, 0, 0, kha.System.windowWidth(), kha.System.windowHeight());
+		canvas.g2.drawImage(backbuffer, 0, 0);
 		#if rice_postprocess
 		postprocess.end(canvas);
 		#end
@@ -195,6 +197,8 @@ class App {
 			previousTime = currentTime;
 			renderTime = kha.Scheduler.realTime() - startTime;
 		#end
+		background.unload();
+		backbuffer.unload();
 	}
 
 	public static function notifyOnInit(init:Void->Void) {
