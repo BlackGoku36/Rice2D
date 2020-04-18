@@ -90,23 +90,23 @@ class Scene {
 			sceneData = haxe.Json.parse(b.toString());
 			loadAllAssets(sceneData, function (){
 				addAllObjects(sceneData, function (){
+					if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
+						if(StringTools.endsWith(script.scriptRef, ".json")){
+							kha.Assets.loadBlobFromPath(script.scriptRef, function (blb){
+								var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
+								Logic.parse(nodes);
+							});
+						}else{
+							scripts.push(createScriptInstance(script.scriptRef));
+						}
+					}
+					#if rice_ui
+					parseToCanvas(sceneData.canvasRef);
+					#end
 					done();
 				});
 			});
 
-			if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
-				if(StringTools.endsWith(script.scriptRef, ".json")){
-					kha.Assets.loadBlobFromPath(script.scriptRef, function (blb){
-						var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
-						Logic.parse(nodes);
-					});
-				}else{
-					scripts.push(createScriptInstance(script.scriptRef));
-				}
-			}
-			#if rice_ui
-			parseToCanvas(sceneData.canvasRef);
-			#end
 		}, function(err: kha.AssetError) {
 			trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
 		});
@@ -161,7 +161,7 @@ class Scene {
 			return;
 		}
 		for(asset in sceneData.assets){
-			Assets.loadAssetFromPath(asset.path, asset.type, function (_){
+			Assets.loadAsset(asset, function (_){
 				if(sceneData.assets.length == Assets.totalAssets){
 					done();
 				}
