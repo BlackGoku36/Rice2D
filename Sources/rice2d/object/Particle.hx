@@ -99,7 +99,7 @@ class Particle {
 		var g = canvas.g2;
 		var center = Util.getCenter(x, y, props.width, props.height);
 		var col = g.color;
-		var alpha = props.color[3];
+		var alpha = props.color == null ? 255 : props.color[3];
 		if(props.controlLifetime != null && props.controlLifetime.indexOf(Alpha) != -1) alpha = Std.int(Util.lerp(props.color[3], 0, deltaTime));
 		if(props.color != null) g.color = Color.fromBytes(props.color[0], props.color[1], props.color[2], alpha);
 		switch (props.type){
