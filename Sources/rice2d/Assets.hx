@@ -64,55 +64,59 @@ class Assets {
 	 * @param path Path to asset (path start from `Assets` folder)
 	 * @param type Type of asset
 	 */
-	public static function loadAssetFromPath(path:String, type:AssetType, done:AssetData->Void = null) {
-		switch (type){
+	public static function loadAsset(data:AssetData, done:AssetData->Void = null) {
+		switch (data.type){
 			case Image:
-				kha.Assets.loadImageFromPath(path, true, function(image){
-					assets.push({
-						name: Path.getNameFromPath(path),
+				kha.Assets.loadImageFromPath(data.path, true, function(image){
+					var asset = {
+						name: data.name,
 						type: Image,
 						value: image,
-						path: path
-					});
+						path: data.path
+					};
+					assets.push(asset);
 					totalAssets += 1;
 					totalImages += 1;
-					if(done != null) done(getAssetData(Path.getNameFromPath(path), Image));
+					if(done != null) done(asset);
 				}, assetError);
 			case Font:
-				kha.Assets.loadFontFromPath(path, function(font){
-					assets.push({
-						name: Path.getNameFromPath(path),
+				kha.Assets.loadFontFromPath(data.path, function(font){
+					var asset = {
+						name: data.name,
 						type: Font,
 						value: font,
-						path: path
-					});
+						path: data.path
+					};
+					assets.push(asset);
 					totalAssets += 1;
 					totalFonts += 1;
-					if(done != null) done(getAssetData(Path.getNameFromPath(path), Font));
+					if(done != null) done(asset);
 				}, assetError);
 			case Sound:
-				kha.Assets.loadSoundFromPath(path, function(sound){
-					assets.push({
-						name: Path.getNameFromPath(path),
+				kha.Assets.loadSoundFromPath(data.path, function(sound){
+					var asset = {
+						name: data.name,
 						type: Sound,
 						value: sound,
-						path: path
-					});
+						path: data.path
+					};
+					assets.push(asset);
 					totalAssets += 1;
 					totalSounds += 1;
-					if(done != null) done(getAssetData(Path.getNameFromPath(path), Sound));
+					if(done != null) done(asset);
 				}, assetError);
 			case Blob:
-				kha.Assets.loadBlobFromPath(path, function(blob){
-					assets.push({
-						name: Path.getNameFromPath(path),
+				kha.Assets.loadBlobFromPath(data.path, function(blob){
+					var asset = {
+						name: data.name,
 						type: Blob,
 						value: blob,
-						path: path
-					});
+						path: data.path
+					};
+					assets.push(asset);
 					totalAssets += 1;
 					totalBlobs += 1;
-					if(done != null) done(getAssetData(Path.getNameFromPath(path), Blob));
+					if(done != null) done(asset);
 				}, assetError);
 		}
 	}
