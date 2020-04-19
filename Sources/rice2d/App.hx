@@ -9,6 +9,12 @@ import kha.WindowMode;
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 
+#if kha_html5
+import js.html.CanvasElement;
+import js.Browser.document;
+import js.Browser.window;
+#end
+
 
 //Engine
 import rice2d.data.WindowData;
@@ -59,6 +65,8 @@ class App {
 
 			var windowMode:WindowMode = WindowMode.Fullscreen;
 			Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
+
+			html();
 
 			System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
 				backbuffer = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
@@ -144,8 +152,6 @@ class App {
 					if(object.props.animate) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, object.props.x, object.props.y, object.props.width, object.props.height);
 					else g.drawScaledImage(object.sprite, object.props.x, object.props.y, object.props.width, object.props.height);
 				}
-			}else{
-				trace('Warning: Object \'${object.name}\' doesn\'t have sprite');
 			}
 
 			if(object.shader!=null) object.shader.end(backbuffer);
@@ -199,6 +205,27 @@ class App {
 		#end
 		background.unload();
 		backbuffer.unload();
+	}
+
+	static function html(){
+		#if kha_html5
+		document.documentElement.style.padding = '0';
+		document.documentElement.style.margin = '0';
+		document.body.style.padding = '0';
+		document.body.style.margin = '0';
+
+		var canvas = cast(document.getElementById('khanvas'), CanvasElement);
+		canvas.style.display = 'block';
+
+		var resize = function(){
+		canvas.width = Std.int(window.innerWidth * window.devicePixelRatio);
+		canvas.height = Std.int(window.innerHeight * window.devicePixelRatio);
+		canvas.style.width = document.documentElement.clientWidth + 'px';
+		canvas.style.height = document.documentElement.clientHeight + 'px';
+		}
+		window.onresize = resize;
+		resize();
+		#end
 	}
 
 	public static function notifyOnInit(init:Void->Void) {
