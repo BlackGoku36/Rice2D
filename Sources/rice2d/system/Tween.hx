@@ -1,8 +1,10 @@
 package rice2d.system;
 
+import rice2d.data.TweenData;
+
 class Tween {
 
-	var tween: rice2d.data.TweenData;
+	public var tween: rice2d.data.TweenData;
 
 	static inline var DEFAULT_OVERSHOOT: Float = 1.70158;
 
@@ -31,12 +33,30 @@ class Tween {
 			tween.deltaTime += 1 / 60;
 			if (tween.deltaTime >= tween.duration){
 				tween.done = true;
-				tween.onDone();
+				tween.onDone(this);
 			} else {
 				var t = tween.deltaTime / tween.duration;
 				xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
 				xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
+				if(tween.rotS != null || tween.rotE != null)
+					xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
+				if(tween.colourS != null || tween.colourE != null){
+					xy.col = [
+						Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
+						Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
+						Std.int(tween.colourS[2] + eases[tween.ease](t) * tween.colourE[2]),
+						Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
+					];
+				}
+			}
+		}
+		if(tween.paused){
+			var t = tween.deltaTime / tween.duration;
+			xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
+			xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
+			if(tween.rotS != null || tween.rotE != null)
 				xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
+			if(tween.colourS != null || tween.colourE != null){
 				xy.col = [
 					Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
 					Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
@@ -44,18 +64,6 @@ class Tween {
 					Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
 				];
 			}
-		}
-		if(tween.paused){
-			var t = tween.deltaTime / tween.duration;
-			xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
-			xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
-			xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
-			xy.col = [
-				Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
-				Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
-				Std.int(tween.colourS[2] + eases[tween.ease](t) * tween.colourE[2]),
-				Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
-			];
 		}
 		if(tween.done){
 			xy.x = tween.end.x;
@@ -69,7 +77,8 @@ class Tween {
 	/**
 	 * Restart tween
 	 */
-	public function restart() {
+	public function restart(?newTween:TweenData) {
+		if(newTween != null) tween = newTween;
 	  	tween.done = false;
 		tween.deltaTime = 0;
 	}

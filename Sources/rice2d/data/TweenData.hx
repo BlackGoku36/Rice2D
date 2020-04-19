@@ -1,6 +1,7 @@
 package rice2d.data;
 
 //Kha
+import rice2d.system.Tween;
 import kha.math.Vector2;
 
 typedef TweenData = {
@@ -8,7 +9,7 @@ typedef TweenData = {
 	var end: Vector2;
 	var duration: Float;
 	var ease: Null<EaseType>;
-	var onDone: Void->Void;
+	var onDone: Tween->Void;
 	var ?rotS: Float;
 	var ?rotE: Float;
 	var ?colourS: Array<Int>;
