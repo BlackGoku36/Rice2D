@@ -1,5 +1,6 @@
 package rice2d;
 
+import rice2d.object.Object;
 import rice2d.data.ObjectData;
 
 class Label {
