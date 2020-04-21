@@ -101,14 +101,15 @@ class Scene {
 						}
 					}
 					#if rice_ui
-					parseToCanvas(sceneData.canvasRef);
+					if(sceneData.canvasRef != null && sceneData.canvasRef != "") parseToCanvas(sceneData.canvasRef);
+					else trace("Warning! Canvas ref is not set in scene's json");
 					#end
 					done();
 				});
 			});
 
 		}, function(err: kha.AssetError) {
-			trace(err.error+'. Make sure $scene.json exist in "Assets" folder and there is not typo.\n');
+			trace(err.error+'. Make sure $scene.json (Scene) exist in "Assets" folder and there is not typo.\n');
 		});
 	}
 
@@ -118,7 +119,7 @@ class Scene {
 				var newCanvas:TCanvas = haxe.Json.parse(b.toString());
 				canvases.push(newCanvas);
 			}, function(err: kha.AssetError) {
-				trace(err.error+'. Make sure $canvasRef.json exist in "Assets" folder and there is not typo when referencing from scene.\n');
+				trace(err.error+'. Make sure $canvasRef.json (Canvas) exist in "Assets" folder and there is not typo when referencing from scene.\n');
 			});
 		}
 	#end
