@@ -22,6 +22,19 @@ Check out [VSCode snippet](https://gist.github.com/BlackGoku36/e97d500547be88b3b
 
 Check out [empty rice project](https://github.com/BlackGoku36/Rice2D-Empty)
 
+## Showcase
+
+### Mr.Virus
+
+[LD-46](https://ldjam.com/events/ludum-dare/46/mr-virus)
+
+[Itch.io](https://blackgoku36.itch.io/mr-virus)
+
+[Source Code](https://github.com/BlackGoku36/BG36-LD-46)
+
+![screenshot1](https://github.com/BlackGoku36/BG36-LD-46/raw/master/screenshot1.png)
+![screenshot2](https://raw.githubusercontent.com/BlackGoku36/BG36-LD-46/master/screenshot3.png)
+
 ### Versioning
 
 Versioning is based on year.month.day of release (e.g. 2019.11.16)
