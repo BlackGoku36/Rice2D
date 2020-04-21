@@ -57,12 +57,6 @@ class App {
 	public function new(scene:String) {
 		Window.loadWindow(function () {
 
-			#if (rice_debug || rice_ui)
-			kha.Assets.loadFontFromPath("mainfont.ttf", function (f) {
-				font = f;
-			});
-			#end
-
 			var windowMode:WindowMode = WindowMode.Fullscreen;
 			Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
 
@@ -76,7 +70,13 @@ class App {
 				#end
 				Scene.parseToScene(scene, function (){
 					#if rice_debug
-						debug = new Debug(font);
+						for(i in Assets.assets){
+							if(i.type == Font){
+								font = i.value;
+								debug = new Debug(font);
+								break;
+							}
+						}
 					#end
 					Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
 					System.notifyOnFrames(function (frames) { render(frames[0]); });
@@ -175,7 +175,7 @@ class App {
 		camera.unset(g);
 		#if rice_ui
 			var ui: zui.Zui = new zui.Zui({font: font});
-			if (Scene.canvases != null){
+			if (Scene.canvases != null || Scene.canvases.length != 0){
 				for (canvas in Scene.canvases){
 					var events = zui.Canvas.draw(ui, canvas, g);
 					for (e in events) {
