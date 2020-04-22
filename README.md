@@ -12,6 +12,8 @@
 
 **Rice2D** is data-driven cross-platform 2d game engine written in [Haxe](https://haxe.org/) and powered by [Kha](https://kha.tech/). It is inspired from Armory3D's Iron core engine architecture
 
+**Warning: ** Git version might have breaking change.
+
 Documentation is at [Rice2D-Docs (Web)](https://blackgoku36.github.io/Rice2D-Docs/#/), [Rice2D-Docs (Github)](https://github.com/BlackGoku36/Rice2D-Docs)
 
 API Documentation is at [Rice2D-API (Web)](https://blackgoku36.github.io/Rice2D-API/rice2d/index.html), [Rice2D-API (Github)](https://github.com/BlackGoku36/Rice2D-API)
