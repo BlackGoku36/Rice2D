@@ -27,6 +27,7 @@ class App {
 
 	public static var backbuffer:kha.Image;
 	static var background:kha.Image;
+	public var clearColor:kha.Color;
 
 	static var onInit: Array<Void->Void> = [];
 	static var onUpdate: Array<Void->Void> = [];
@@ -54,34 +55,31 @@ class App {
 		public static var fps: Int = 0;
 	#end
 
-	public function new(scene:String) {
-		Window.loadWindow(function () {
+	public function new(name: String, width:Int, height:Int, clearColor: kha.Color = Color.White, windowMode:WindowMode = Windowed, scene:String) {
 
-			var windowMode:WindowMode = WindowMode.Fullscreen;
-			Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
+		this.clearColor = clearColor;
 
-			html();
+		html();
 
-			System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
-				backbuffer = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
-				background = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
-				#if rice_postprocess
-				postprocess = new rice2d.shaders.Postprocess();
+		System.start({title: name, width: width, height: height, window: {mode: windowMode}}, function (window:kha.Window) {
+			backbuffer = kha.Image.createRenderTarget(width, height);
+			background = kha.Image.createRenderTarget(width, height);
+			#if rice_postprocess
+			postprocess = new rice2d.shaders.Postprocess();
+			#end
+			Scene.parseToScene(scene, function (){
+				#if rice_debug
+				for(i in Assets.assets){
+					if(i.type == Font){
+						font = i.value;
+						debug = new Debug(font);
+						break;
+					}
+				}
 				#end
-				Scene.parseToScene(scene, function (){
-					#if rice_debug
-						for(i in Assets.assets){
-							if(i.type == Font){
-								font = i.value;
-								debug = new Debug(font);
-								break;
-							}
-						}
-					#end
-					Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
-					System.notifyOnFrames(function (frames) { render(frames[0]); });
-					camera = new Camera();
-				});
+				Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
+				System.notifyOnFrames(function (frames) { render(frames[0]); });
+				camera = new Camera();
 			});
 		});
 	}
@@ -127,10 +125,8 @@ class App {
 			totalFrames++;
 		#end
 
-		var clearColor = Window.window.clearColor;
-
 		background.g2.begin();
-		background.g2.color = Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+		background.g2.color = clearColor;
 		background.g2.fillRect(0, 0, background.width, background.height);
 		background.g2.end();
 
@@ -203,6 +199,7 @@ class App {
 			previousTime = currentTime;
 			renderTime = kha.Scheduler.realTime() - startTime;
 		#end
+
 		background.unload();
 		backbuffer.unload();
 	}
