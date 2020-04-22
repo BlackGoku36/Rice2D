@@ -162,7 +162,7 @@ class Scene {
 			return;
 		}
 		for(asset in sceneData.assets){
-			Assets.loadAsset(asset, function (_){
+			Assets.loadAssets(asset, function (_){
 				if(sceneData.assets.length == Assets.totalAssets){
 					done();
 				}

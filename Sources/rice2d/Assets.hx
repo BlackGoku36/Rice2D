@@ -64,15 +64,14 @@ class Assets {
 	 * @param path Path to asset (path start from `Assets` folder)
 	 * @param type Type of asset
 	 */
-	public static function loadAsset(data:AssetData, done:AssetData->Void = null) {
+	public static function loadAssets(data:AssetData, done:AssetData->Void = null) {
 		switch (data.type){
 			case Image:
-				kha.Assets.loadImageFromPath(data.path, true, function(image){
+				kha.Assets.loadImage(data.name, function(image){
 					var asset = {
 						name: data.name,
 						type: Image,
-						value: image,
-						path: data.path
+						value: image
 					};
 					assets.push(asset);
 					totalAssets += 1;
@@ -80,12 +79,11 @@ class Assets {
 					if(done != null) done(asset);
 				}, assetError);
 			case Font:
-				kha.Assets.loadFontFromPath(data.path, function(font){
+				kha.Assets.loadFont(data.name, function(font){
 					var asset = {
 						name: data.name,
 						type: Font,
-						value: font,
-						path: data.path
+						value: font
 					};
 					assets.push(asset);
 					totalAssets += 1;
@@ -93,12 +91,11 @@ class Assets {
 					if(done != null) done(asset);
 				}, assetError);
 			case Sound:
-				kha.Assets.loadSoundFromPath(data.path, function(sound){
+				kha.Assets.loadSound(data.name, function(sound){
 					var asset = {
 						name: data.name,
 						type: Sound,
-						value: sound,
-						path: data.path
+						value: sound
 					};
 					assets.push(asset);
 					totalAssets += 1;
@@ -106,12 +103,11 @@ class Assets {
 					if(done != null) done(asset);
 				}, assetError);
 			case Blob:
-				kha.Assets.loadBlobFromPath(data.path, function(blob){
+				kha.Assets.loadBlob(data.name, function(blob){
 					var asset = {
 						name: data.name,
 						type: Blob,
-						value: blob,
-						path: data.path
+						value: blob
 					};
 					assets.push(asset);
 					totalAssets += 1;

@@ -4,7 +4,6 @@ typedef AssetData = {
 	var name:String;
 	var type:AssetType;
 	var ?value: Dynamic;
-	var path:String;
 }
 
 @:enum abstract AssetType(Int) from Int to Int {
