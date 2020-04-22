@@ -64,6 +64,9 @@ class Mouse {
 	public function new() {
 		reset();
 		kha.input.Mouse.get().notify(downListener, upListener, moveListner, wheelListener);
+		#if (kha_android || kha_ios)
+		if (kha.input.Surface.get() != null) kha.input.Surface.get().notify(onTouchDown, onTouchUp, onTouchMove);
+		#end
 	}
 
 	public function endFrame() {
@@ -114,6 +117,9 @@ class Mouse {
 		// var mouseY = Scaler.transformY(Std.int(x+App.camera.x), Std.int(y+App.camera.y), App.backbuffer, ScreenCanvas.the, System.screenRotation);
 		this.x = x;
 		this.y = y;
+		#if (kha_android || kha_ios || kha_webgl) // For movement delta using touch
+		if (button == 0) { lastX = x; lastY = y; }
+		#end
 	}
 
 	function upListener(button: Int, x: Int, y: Int):Void{
@@ -147,6 +153,19 @@ class Mouse {
 	function wheelListener(delta: Int){
 		wheelDelta = delta;
 	}
+
+	#if (kha_android || kha_ios)
+	public function onTouchDown(index: Int, x: Int, y: Int) {
+		// Two fingers down - right mouse button
+		if (index == 1) { upListener(0, x, y); downListener(1, x, y); }
+	}
+
+	public function onTouchUp(index: Int, x: Int, y: Int) {
+		if (index == 1) upListener(1, x, y);
+	}
+
+	public function onTouchMove(index: Int, x: Int, y: Int) {}
+	#end
 }
 
 class Keyboard {
