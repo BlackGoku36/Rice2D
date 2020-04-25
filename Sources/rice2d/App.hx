@@ -61,13 +61,13 @@ class App {
 
 		html();
 
-		System.start({title: name, width: width, height: height, window: {mode: windowMode}}, function (window:kha.Window) {
+		System.start({title: name, width: width, height: height, window: {mode: windowMode}}, (window) -> {
 			backbuffer = kha.Image.createRenderTarget(width, height);
 			background = kha.Image.createRenderTarget(width, height);
 			#if rice_postprocess
 			postprocess = new rice2d.shaders.Postprocess();
 			#end
-			Scene.parseToScene(scene, function (){
+			Scene.parseToScene(scene, () -> {
 				#if rice_debug
 				for(i in Assets.assets){
 					if(i.type == Font){
@@ -77,8 +77,8 @@ class App {
 					}
 				}
 				#end
-				Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
-				System.notifyOnFrames(function (frames) { render(frames[0]); });
+				Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
+				System.notifyOnFrames((frames) -> { render(frames[0]); });
 				camera = new Camera();
 			});
 		});

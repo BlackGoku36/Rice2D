@@ -25,9 +25,9 @@ typedef TNodeSocket = {
 	var type: String;
 	var color: Int;
 	var default_value: Dynamic;
-	@:optional var min: Null<Float>;
-	@:optional var max: Null<Float>;
-	@:optional var precision: Null<Float>;
+	var ?min: Null<Float>;
+	var ?max: Null<Float>;
+	var ?precision: Null<Float>;
 }
 
 typedef TNodeLink = {
@@ -41,10 +41,10 @@ typedef TNodeLink = {
 typedef TNodeButton = {
 	var name: String;
 	var type: String;
-	@:optional var output: Null<Int>;
-	@:optional var default_value: Dynamic;
-	@:optional var data: Dynamic;
-	@:optional var min: Null<Float>;
-	@:optional var max: Null<Float>;
-	@:optional var precision: Null<Float>;
+	var ?output: Null<Int>;
+	var ?default_value: Dynamic;
+	var ?data: Dynamic;
+	var ?min: Null<Float>;
+	var ?max: Null<Float>;
+	var ?precision: Null<Float>;
 }

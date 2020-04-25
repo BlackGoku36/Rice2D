@@ -6,9 +6,9 @@ typedef ShaderData = {
 	var type: ShaderType;
 }
 
-@:enum abstract ShaderType(Int) from Int to Int {
-	var Texture = 0;
-	var Color = 1;
+enum abstract ShaderType(Int) from Int to Int {
+	var Texture;
+	var Color;
 }
 
 typedef ConstantData = {
@@ -19,10 +19,10 @@ typedef ConstantData = {
 	var ?tex:kha.Image;
 }
 
-@:enum abstract ConstantType(Int) from Int to Int {
-	var Int = 0;
-	var Float = 1;
-	var Bool = 2;
-	var Vec2 = 3;
-	var Texture = 4;
+enum abstract ConstantType(Int) from Int to Int {
+	var Int;
+	var Float;
+	var Bool;
+	var Vec2;
+	var Texture;
 }

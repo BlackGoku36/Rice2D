@@ -53,7 +53,7 @@ class Scene {
 	@:access(rice2d.Script)
 	public static function addScript(scriptData: ScriptData) {
 		if(StringTools.endsWith(scriptData.scriptRef, ".json")){
-			kha.Assets.loadBlobFromPath(scriptData.scriptRef, function (blb){
+			kha.Assets.loadBlobFromPath(scriptData.scriptRef, (blb) -> {
 				var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
 				Logic.parse(nodes);
 			});
@@ -86,13 +86,13 @@ class Scene {
 		* @param done To execute when done parsing.
 		*/
 	public static function parseToScene(scene:String, done:Void->Void) {
-		kha.Assets.loadBlobFromPath(scene+".json", function (b:kha.Blob) {
+		kha.Assets.loadBlobFromPath(scene+".json", (b) -> {
 			sceneData = haxe.Json.parse(b.toString());
-			loadAllAssets(sceneData, function (){
-				addAllObjects(sceneData, function (){
+			loadAllAssets(sceneData, () -> {
+				addAllObjects(sceneData, () -> {
 					if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
 						if(StringTools.endsWith(script.scriptRef, ".json")){
-							kha.Assets.loadBlobFromPath(script.scriptRef, function (blb){
+							kha.Assets.loadBlobFromPath(script.scriptRef, (blb) -> {
 								var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
 								Logic.parse(nodes);
 							});
@@ -108,7 +108,7 @@ class Scene {
 				});
 			});
 
-		}, function(err: kha.AssetError) {
+		}, (err) -> {
 			trace(err.error+'. Make sure $scene.json (Scene) exist in "Assets" folder and there is not typo.\n');
 		});
 	}
@@ -118,7 +118,7 @@ class Scene {
 			kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
 				var newCanvas:TCanvas = haxe.Json.parse(b.toString());
 				canvases.push(newCanvas);
-			}, function(err: kha.AssetError) {
+			}, (err) -> {
 				trace(err.error+'. Make sure $canvasRef.json (Canvas) exist in "Assets" folder and there is not typo when referencing from scene.\n');
 			});
 		}
@@ -162,7 +162,7 @@ class Scene {
 			return;
 		}
 		for(asset in sceneData.assets){
-			Assets.loadAssets(asset, function (_){
+			Assets.loadAssets(asset, (_) -> {
 				if(sceneData.assets.length == Assets.totalAssets){
 					done();
 				}
@@ -170,9 +170,9 @@ class Scene {
 		}
 	}
 
-	static  function addAllObjects(sceneData:SceneData, done:Void->Void) {
+	static function addAllObjects(sceneData:SceneData, done:Void->Void) {
 		for (object in sceneData.objects){
-			addObject(object, function (_){
+			addObject(object, (_) -> {
 				if(sceneData.objects.length == objects.length){
 					done();
 				}

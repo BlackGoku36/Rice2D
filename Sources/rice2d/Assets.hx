@@ -67,7 +67,7 @@ class Assets {
 	public static function loadAssets(data:AssetData, done:AssetData->Void = null) {
 		switch (data.type){
 			case Image:
-				kha.Assets.loadImage(data.name, function(image){
+				kha.Assets.loadImage(data.name, (image) -> {
 					var asset = {
 						name: data.name,
 						type: Image,
@@ -79,7 +79,7 @@ class Assets {
 					if(done != null) done(asset);
 				}, assetError);
 			case Font:
-				kha.Assets.loadFont(data.name, function(font){
+				kha.Assets.loadFont(data.name, (font) -> {
 					var asset = {
 						name: data.name,
 						type: Font,
@@ -91,7 +91,7 @@ class Assets {
 					if(done != null) done(asset);
 				}, assetError);
 			case Sound:
-				kha.Assets.loadSound(data.name, function(sound){
+				kha.Assets.loadSound(data.name, (sound) -> {
 					var asset = {
 						name: data.name,
 						type: Sound,
@@ -103,7 +103,7 @@ class Assets {
 					if(done != null) done(asset);
 				}, assetError);
 			case Blob:
-				kha.Assets.loadBlob(data.name, function(blob){
+				kha.Assets.loadBlob(data.name, (blob) -> {
 					var asset = {
 						name: data.name,
 						type: Blob,
