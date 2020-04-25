@@ -85,6 +85,7 @@ class Scene {
 		* @param scene File name of scene's json.
 		* @param done To execute when done parsing.
 		*/
+	@:access(rice2d.Script)
 	public static function parseToScene(scene:String, done:Void->Void) {
 		kha.Assets.loadBlobFromPath(scene+".json", (b) -> {
 			sceneData = haxe.Json.parse(b.toString());
@@ -97,7 +98,14 @@ class Scene {
 								Logic.parse(nodes);
 							});
 						}else{
-							scripts.push(createScriptInstance(script.scriptRef));
+							var newScript:Script = createScriptInstance(script.scriptRef);
+							newScript.object = null;
+							newScript.name = script.name;
+							if(newScript._add!=null){
+								for (add in newScript._add) add();
+								newScript._add = null;
+							}
+							scripts.push(newScript);
 						}
 					}
 					#if rice_ui

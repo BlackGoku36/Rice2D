@@ -45,14 +45,14 @@ class Object {
 				Logic.parse(nodes);
 			});
 		}else{
-			var script = createScriptInstance(scriptData.scriptRef);
-			scripts.push(script);
+			var script:Script = createScriptInstance(scriptData.scriptRef);
 			script.object = this;
 			script.name = scriptData.name;
 			if(script._add!=null){
 				for (add in script._add) add();
 				script._add = null;
 			}
+			scripts.push(script);
 		}
 	}
 

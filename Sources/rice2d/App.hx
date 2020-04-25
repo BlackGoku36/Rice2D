@@ -55,6 +55,10 @@ class App {
 		public static var fps: Int = 0;
 	#end
 
+	#if rice_ui
+	static public var ui: zui.Zui;
+	#end
+
 	public function new(name: String, width:Int, height:Int, clearColor: kha.Color = Color.White, windowMode:WindowMode = Windowed, scene:String) {
 
 		this.clearColor = clearColor;
@@ -68,11 +72,16 @@ class App {
 			postprocess = new rice2d.shaders.Postprocess();
 			#end
 			Scene.parseToScene(scene, () -> {
-				#if rice_debug
+				#if (rice_debug || rice_ui)
 				for(i in Assets.assets){
 					if(i.type == Font){
 						font = i.value;
-						debug = new Debug(font);
+						#if rice_ui
+						ui = new zui.Zui({font: font});
+						#end
+						#if rice_debug
+							debug = new Debug(font);
+						#end
 						break;
 					}
 				}
@@ -170,7 +179,6 @@ class App {
 		for (render in onRender) render(backbuffer);
 		camera.unset(g);
 		#if rice_ui
-			var ui: zui.Zui = new zui.Zui({font: font});
 			if (Scene.canvases != null || Scene.canvases.length != 0){
 				for (canvas in Scene.canvases){
 					var events = zui.Canvas.draw(ui, canvas, g);
