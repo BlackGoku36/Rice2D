@@ -171,6 +171,7 @@ class Scene {
 		}
 		for(asset in sceneData.assets){
 			Assets.loadAssets(asset, (_) -> {
+				trace('Asset ${sceneData.assets.indexOf(asset)+1} of ${sceneData.assets.length} loaded: ${asset.name} (${asset.type})');
 				if(sceneData.assets.length == Assets.totalAssets){
 					done();
 				}
