@@ -1,5 +1,7 @@
 package rice2d.ui;
 
+#if rice_ui
+
 import rice2d.system.Input;
 import kha.graphics2.Graphics;
 import kha.Color;
@@ -25,13 +27,18 @@ class UI {
 		if(canvasData.height == null) canvasData.height = System.windowHeight();
 		this.canvasData = canvasData;
 		loaded = true;
-		for(elem in canvasData.elements) elem.state = None;
+		for(elem in canvasData.elements){
+			elem.state = None;
+			if(elem.visible == null) elem.visible = true;
+		}
+		Scene.uis.push(this);
 	}
 
 	public function update() {
 		if(canvasData.elements == null || canvasData.elements.length == 0) return;
 		if(!visible) return;
 		for (elem in canvasData.elements){
+			if(!elem.visible) continue;
 			if(mouse.x >= elem.x && mouse.x <= elem.x + elem.width && mouse.y >= elem.y && mouse.y <= elem.y + elem.height){
 				if(mouse.started()){
 					elem.state = Clicked;
@@ -61,6 +68,7 @@ class UI {
 		var col = g.color;
 
 		for (elem in canvasData.elements){
+			if(!elem.visible) continue;
 			switch (elem.type){
 				case Text:
 					renderText(g, elem);
@@ -131,4 +139,7 @@ class UI {
 				return elem;
 		return null;
 	}
+
 }
+
+#end

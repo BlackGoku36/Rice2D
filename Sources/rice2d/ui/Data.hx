@@ -1,5 +1,7 @@
 package rice2d.ui;
 
+#if rice_ui
+
 import kha.Color;
 import kha.Font;
 
@@ -21,6 +23,7 @@ typedef ElementData = {
     var width: Int;
     var height: Int;
     var type: ElementType;
+    var ?visible:Bool;
     var ?style: StyleData;
     var ?image: kha.Image;
     var ?state: ElementState;
@@ -57,3 +60,5 @@ enum abstract ElementType (Int) from Int to Int {
     var Image;// 3
     var Rect;// 4
 }
+
+#end

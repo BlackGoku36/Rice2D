@@ -1,8 +1,11 @@
 package rice2d.ui;
 
+#if rice_ui
+
 import kha.Color;
 
 class Style {
+
     public static final light: rice2d.ui.Data.StyleData = {
         textColor:Color.fromBytes(25, 25, 25).value,
         textHoverColor:Color.fromBytes(15, 15, 15).value,
@@ -16,3 +19,5 @@ class Style {
         borderDownColor:Color.fromBytes(60, 60, 60).value
     }
 }
+
+#end

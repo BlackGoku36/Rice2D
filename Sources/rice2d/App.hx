@@ -40,7 +40,7 @@ class App {
 	public static var camera: rice2d.system.Camera;
 
 	#if rice_postprocess
-	var postprocess: rice2d.shaders.Postprocess;
+		var postprocess: rice2d.shaders.Postprocess;
 	#end
 
 	#if rice_debug
@@ -55,10 +55,6 @@ class App {
 		public static var fps: Int = 0;
 	#end
 
-	#if rice_ui
-	static public var ui: zui.Zui;
-	#end
-
 	public function new(name: String, width:Int, height:Int, clearColor: kha.Color = Color.White, windowMode:WindowMode = Windowed, scene:String) {
 
 		this.clearColor = clearColor;
@@ -68,24 +64,23 @@ class App {
 		System.start({title: name, width: width, height: height, window: {mode: windowMode}}, (window) -> {
 			backbuffer = kha.Image.createRenderTarget(width, height);
 			background = kha.Image.createRenderTarget(width, height);
+
 			#if rice_postprocess
-			postprocess = new rice2d.shaders.Postprocess();
+				postprocess = new rice2d.shaders.Postprocess();
 			#end
+
 			Scene.parseToScene(scene, () -> {
-				#if (rice_debug || rice_ui)
-				for(i in Assets.assets){
-					if(i.type == Font){
-						font = i.value;
-						#if rice_ui
-						ui = new zui.Zui({font: font});
-						#end
-						#if rice_debug
+
+				#if rice_debug
+					for(i in Assets.assets){
+						if(i.type == Font){
+							font = i.value;
 							debug = new Debug(font);
-						#end
-						break;
+							break;
+						}
 					}
-				}
 				#end
+
 				Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
 				System.notifyOnFrames((frames) -> { render(frames[0]); });
 				camera = new Camera();
@@ -103,11 +98,16 @@ class App {
 		if(onUpdate.length > 0){
 			for (update in onUpdate) update();
 		}
+
+		#if rice_ui
+			for(ui in Scene.uis) ui.update();
+		#end
+
 		if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
 
 		#if rice_debug
-		debug.update();
-		updateTime = kha.Scheduler.realTime() - startTime;
+			debug.update();
+			updateTime = kha.Scheduler.realTime() - startTime;
 		#end
 	}
 
@@ -118,7 +118,7 @@ class App {
 		background = kha.Image.createRenderTarget(System.windowWidth(), System.windowHeight());
 
 		#if rice_debug
-		startTime = kha.Scheduler.realTime();
+			startTime = kha.Scheduler.realTime();
 		#end
 
 		#if rice_debug
@@ -160,6 +160,7 @@ class App {
 			}
 
 			if(object.shader!=null) object.shader.end(backbuffer);
+
 			#if rice_debug
 				if(object.selected){
 					g.font = font;
@@ -178,28 +179,26 @@ class App {
 
 		for (render in onRender) render(backbuffer);
 		camera.unset(g);
+
 		#if rice_ui
-			if (Scene.canvases != null || Scene.canvases.length != 0){
-				for (canvas in Scene.canvases){
-					var events = zui.Canvas.draw(ui, canvas, g);
-					for (e in events) {
-						var all = rice2d.system.Event.get(e);
-						if (all != null) for (entry in all) entry.onEvent();
-					}
-				}
-			}
+			for(ui in Scene.uis)ui.render(backbuffer);
 		#end
+	
 		g.end();
 
 		canvas.g2.begin();
+
 		#if rice_postprocess
-		postprocess.start(canvas);
+			postprocess.start(canvas);
 		#end
+
 		canvas.g2.color = 0xffffffff;
 		canvas.g2.drawImage(backbuffer, 0, 0);
+
 		#if rice_postprocess
-		postprocess.end(canvas);
+			postprocess.end(canvas);
 		#end
+
 		canvas.g2.end();
 
 		#if rice_debug
