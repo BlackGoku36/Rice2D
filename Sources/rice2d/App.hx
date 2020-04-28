@@ -55,6 +55,15 @@ class App {
 		public static var fps: Int = 0;
 	#end
 
+	/**
+	 * Create new Rice2D game.
+	 * @param name Name of the window.
+	 * @param width Width of window.
+	 * @param height Height of window.
+	 * @param clearColor Background color of window, defaults to white.
+	 * @param windowMode Mode of window, defaults to windowed. (Fullscreen, windowed)
+	 * @param scene Name of json file that have scene data.
+	 */
 	public function new(name: String, width:Int, height:Int, clearColor: kha.Color = Color.White, windowMode:WindowMode = Windowed, scene:String) {
 
 		this.clearColor = clearColor;

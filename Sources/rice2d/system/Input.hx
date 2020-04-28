@@ -89,14 +89,26 @@ class Mouse {
 		endFrame();
 	}
 
+	/**
+	 * Check if mouse's button was down.
+	 * @param button Button of mouse, defaults to left.
+	 */
 	public function down(button: Int = 0){
 		return buttonDown.get(buttonCode(button));
 	}
 
+	/**
+	 * Check if mouse's button was pressed.
+	 * @param button Button of mouse, defaults to left.
+	 */
 	public function started(button: Int = 0){
 		return buttonStarted.get(buttonCode(button));
 	}
 
+	/**
+	 * Check if mouse's button was released.
+	 * @param button Button of mouse, defaults to left.
+	 */
 	public function released(button: Int = 0){
 		return buttonReleased.get(buttonCode(button));
 	}
@@ -199,14 +211,26 @@ class Keyboard {
 		endFrame();
 	}
 
+	/**
+	 * Check if the key was pressed.
+	 * @param key Keyboard's key.
+	 */
 	public function started(key:KeyCode) {
 		return keyStarted.get(key);
 	}
 
+	/**
+	 * Check if the key was released.
+	 * @param key Keyboard's Key.
+	 */
 	public function released(key:KeyCode) {
 		return keyReleased.get(key);
 	}
 
+	/**
+	 * Check if the key was down.
+	 * @param key Keyboard's key.
+	 */
 	public function down(key:KeyCode) {
 		return keyDown.get(key);
 	}

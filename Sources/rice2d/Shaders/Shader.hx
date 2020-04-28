@@ -24,6 +24,10 @@ class Shader {
 	public var constantsLocations:Array<Map<ConstantLocation, ConstantData>> = [];
 	public var textureUnits:Array<Map<TextureUnit, ConstantData>> = [];
 
+	/**
+	 * Create new Shader from shader's data
+	 * @param shaderData Shader's data
+	 */
 	public function new(shaderData: rice2d.data.ShaderData) {
 		fragmentShader = shaderData.fragmentShader;
 		pipeline = new PipelineState();
@@ -59,10 +63,18 @@ class Shader {
 		}
 	}
 
+	/**
+	 * Get pipeline of shader.
+	 */
 	public function getPipeline() {
 		return pipeline;
 	}
 
+	/**
+	 * Render the shader.
+	 * @param canvas
+	 * @param render 
+	 */
 	public function render(canvas:Canvas, render:Void->Void) {
 		begin(canvas);
 		render();

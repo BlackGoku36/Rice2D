@@ -26,8 +26,8 @@ class Object {
 	}
 
 	/**
-		* Remove itself
-		*/
+	 * Remove self object from game.
+	 */
 	public function remove() {
 		if(scripts != null) for(script in scripts) removeScript(script);
 		Scene.objects.splice(Scene.objects.indexOf(this), 1);

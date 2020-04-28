@@ -16,20 +16,21 @@ class Script {
 
 	/**
 		* Remove script from this object.
-		* @param script
 		*/
 	public function remove(script: Script) {
 		object.removeScript(this);
 	}
 
+	/**
+	 * Callback function when the script is added.
+	 */
 	public function notifyOnAdd(add:Void->Void) {
 		if (_add == null) _add = [];
 		_add.push(add);
 	}
 
 	/**
-		* Execute funtion 'init' when the Script is initiated.
-		* @param init
+		* Callback function when the script is first initiated in update loop.
 		*/
 	public function notifyOnInit(init:Void->Void) {
 		if(_init == null) _init = [];
@@ -38,8 +39,7 @@ class Script {
 	}
 
 	/**
-		* Execute funtion 'update' every frame.
-		* @param update
+		* Callback function during the update loop.
 		*/
 	public function notifyOnUpdate(update: Void->Void) {
 		if(_update == null) _update = [];
@@ -48,8 +48,7 @@ class Script {
 	}
 
 	/**
-		* Execute funtion 'update' and remove notifyOnUpdate.
-		* @param update
+		* Callback function to remove script from update loop.
 		*/
 	public function removeUpdate(update: Void->Void) {
 		_update.remove(update);
@@ -57,8 +56,7 @@ class Script {
 	}
 
 	/**
-		* Execute function 'render' when frame is rendering.
-		* @param render
+		* Callback function during each frame for rendering.
 		*/
 	public function notifyOnRender(render: kha.Canvas->Void) {
 		if(_render == null) _render = [];
@@ -67,8 +65,7 @@ class Script {
 	}
 
 	/**
-		* Execute function 'render' and remove notifyOnRender
-		* @param render
+		* Callback function to remove script from rendering.
 		*/
 	public function removeRender(render: kha.Canvas->Void) {
 		_render.remove(render);
@@ -76,8 +73,7 @@ class Script {
 	}
 
 	/**
-		* Execute funtion 'remove' when the Script is removed
-		* @param remove
+		* Callback function when the script is removed.
 		*/
 	public function notifyOnRemove(remove:Void->Void) {
 		if(_remove == null) _remove = [];

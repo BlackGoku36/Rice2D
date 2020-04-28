@@ -14,7 +14,7 @@ class Assets {
 	public static var totalBlobs:Int = 0;
 
 	/**
-	 * Get names of assets of type
+	 * Get names of assets of type.
 	 * @param type type of assets
 	 * @return Array<String> list of names
 	 */
@@ -32,10 +32,10 @@ class Assets {
 	}
 
 	/**
-	 * Get asset
+	 * Get asset of name and type.
 	 * @param name Name of the asset
 	 * @param type Type of the asset
-	 * @return Dynamic
+	 * @return Dynamic kha.Image/Font/Sound/Blob
 	 */
 	public static function getAsset(name:String, type:AssetType): Dynamic {
 		var value:Dynamic = null;
@@ -48,7 +48,7 @@ class Assets {
 	}
 
 	/**
-	 * Get Asset's data
+	 * Get Asset's data of name and type
 	 * @param name Name of the asset
 	 * @param type Type of the asset
 	 * @return AssetData
@@ -60,9 +60,9 @@ class Assets {
 	}
 
 	/**
-	 * Load asset from path
-	 * @param path Path to asset (path start from `Assets` folder)
-	 * @param type Type of asset
+	 * Load asset from Asset folder.
+	 * @param data Assets's Data
+	 * @param done Callback function, when the asset is done loading.
 	 */
 	public static function loadAssets(data:AssetData, done:AssetData->Void = null) {
 		switch (data.type){

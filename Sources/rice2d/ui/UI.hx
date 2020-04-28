@@ -19,6 +19,10 @@ class UI {
 
 	var mouse = Input.getMouse();
 
+	/**
+	 * Create new UI from canvas's data
+	 * @param canvasData Canvas's data
+	 */
 	public function new(canvasData: rice2d.ui.Data.CanvasData) {
 		font = canvasData.font;
 		if(canvasData.x == null) canvasData.x = 0;
@@ -34,6 +38,9 @@ class UI {
 		Scene.uis.push(this);
 	}
 
+	/**
+	 * Update canvas
+	 */
 	public function update() {
 		if(canvasData.elements == null || canvasData.elements.length == 0) return;
 		if(!visible) return;
@@ -56,6 +63,10 @@ class UI {
 		}
 	}
 
+	/**
+	 * Render canvas
+	 * @param canvas 
+	 */
 	public function render (canvas:Canvas){
 		if(!loaded) return;
 		if(canvasData.elements == null || canvasData.elements.length == 0) return;
@@ -85,11 +96,17 @@ class UI {
 		g.color = col;
 	}
 
+	/**
+	 * Show canvas
+	 */
 	public function show(){
 		visible = true;
 		return this;
 	}
 
+	/**
+	 * Hide canvas
+	 */
 	public function hide(){
 		visible = false;
 		return this;
@@ -133,6 +150,10 @@ class UI {
 		g.fillRect(elem.x, elem.y, elem.width, elem.height);
 	}
 
+	/**
+	 * Get element of name.
+	 * @param name Name of element.
+	 */
 	public function getElement(name:String) {
 		for(elem in canvasData.elements)
 			if(elem.name == name)

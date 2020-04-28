@@ -76,6 +76,7 @@ class Tween {
 
 	/**
 	 * Restart tween
+	 * @param newTween With new tween data.
 	 */
 	public function restart(?newTween:TweenData) {
 		if(newTween != null) tween = newTween;
@@ -85,10 +86,16 @@ class Tween {
 
 	/**
 	 * Pause tween
-	 * @param pause
 	 */
-	public function pause(pause:Bool) {
-		tween.paused = pause;
+	public function pause() {
+		tween.paused = true;
+	}
+	
+	/**
+	 * Resume tween
+	 */
+	public function resume() {
+		tween.paused = false;
 	}
 
 	//Borrowed from Iron's tween (https://github.com/armory3d/iron/blob/master/Sources/iron/system/Tween.hx)

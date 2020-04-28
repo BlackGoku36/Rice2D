@@ -28,10 +28,11 @@ class Scene {
 	#end
 
 	/**
-		* Add object to scene
-		* @param data Object's data
-		* @return Object
-		*/
+	 * Adds object to scene
+	 * @param data Object's data
+	 * @param done Callback function when object is added.
+	 * @return Object
+	 */
 	public static function addObject(data:ObjectData, done:Object->Void = null):Object {
 		var obj = new Object();
 		obj.name = data.name;
@@ -51,7 +52,6 @@ class Scene {
 
 	/**
 	 * Add haxe or node script to scene
-	 * @param scriptData Script's data
 	 */
 	@:access(rice2d.Script)
 	public static function addScript(scriptData: ScriptData) {
@@ -73,9 +73,7 @@ class Scene {
 	}
 
 	/**
-		* Get object from scene
-		* @param name Name of object
-		* @return Object
+		* Get object of name from scene
 		*/
 	public static function getObject(name:String):Object {
 		var obj:Object = null;
@@ -111,10 +109,10 @@ class Scene {
 							scripts.push(newScript);
 						}
 					}
-					#if rice_ui
-					if(sceneData.canvasRef != null && sceneData.canvasRef != "") parseToCanvas(sceneData.canvasRef);
-					else trace("Warning! Canvas ref is not set in scene's json");
-					#end
+					// #if rice_ui
+					// if(sceneData.canvasRef != null && sceneData.canvasRef != "") parseToCanvas(sceneData.canvasRef);
+					// else trace("Warning! Canvas ref is not set in scene's json");
+					// #end
 					done();
 				});
 			});
@@ -124,20 +122,19 @@ class Scene {
 		});
 	}
 
-	#if rice_ui
-		static function parseToCanvas(canvasRef:String) {
-			kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
-				var newCanvas:TCanvas = haxe.Json.parse(b.toString());
-				canvases.push(newCanvas);
-			}, (err) -> {
-				trace(err.error+'. Make sure $canvasRef.json (Canvas) exist in "Assets" folder and there is not typo when referencing from scene.\n');
-			});
-		}
-	#end
+	// #if rice_ui
+	// 	static function parseToCanvas(canvasRef:String) {
+	// 		kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
+	// 			var newCanvas:TCanvas = haxe.Json.parse(b.toString());
+	// 			canvases.push(newCanvas);
+	// 		}, (err) -> {
+	// 			trace(err.error+'. Make sure $canvasRef.json (Canvas) exist in "Assets" folder and there is not typo when referencing from scene.\n');
+	// 		});
+	// 	}
+	// #end
 
 	/**
 		* Remove script from scene
-		* @param script
 		*/
 	@:access(rice2d.Script)
 	public function removeScript(script: Script) {
