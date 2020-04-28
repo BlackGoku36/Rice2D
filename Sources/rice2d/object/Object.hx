@@ -111,7 +111,10 @@ class Object {
 
 	static function createScriptInstance(script:String):Dynamic {
 		var scr = Type.resolveClass("scripts."+script);
-		if (scr == null) return null;
+		if (scr == null){
+			throw 'Can\'t find class $script (Object). Make sure it exist and there is not typo.\n';
+			return null;
+		}
 		return Type.createInstance(scr, []);
 	}
 
