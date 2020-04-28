@@ -1,14 +1,11 @@
 package rice2d;
 
-//Zui
-import rice2d.ui.UI;
-#if rice_ui
-import zui.Canvas.TCanvas;
-#end
-import rice2d.data.NodeData;
-
 //Engine
+#if rice_ui
+import rice2d.ui.UI;
+#end
 import rice2d.node.Logic;
+import rice2d.data.NodeData;
 import rice2d.object.Object;
 import rice2d.data.SceneData;
 import rice2d.data.ObjectData;
