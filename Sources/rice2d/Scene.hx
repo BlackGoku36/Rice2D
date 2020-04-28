@@ -112,10 +112,6 @@ class Scene {
 							scripts.push(newScript);
 						}
 					}
-					// #if rice_ui
-					// if(sceneData.canvasRef != null && sceneData.canvasRef != "") parseToCanvas(sceneData.canvasRef);
-					// else trace("Warning! Canvas ref is not set in scene's json");
-					// #end
 					done();
 				});
 			});
@@ -124,17 +120,6 @@ class Scene {
 			trace(err.error+'. Make sure $scene.json (Scene) exist in "Assets" folder and there is not typo.\n');
 		});
 	}
-
-	// #if rice_ui
-	// 	static function parseToCanvas(canvasRef:String) {
-	// 		kha.Assets.loadBlobFromPath(canvasRef+".json", function(b){
-	// 			var newCanvas:TCanvas = haxe.Json.parse(b.toString());
-	// 			canvases.push(newCanvas);
-	// 		}, (err) -> {
-	// 			trace(err.error+'. Make sure $canvasRef.json (Canvas) exist in "Assets" folder and there is not typo when referencing from scene.\n');
-	// 		});
-	// 	}
-	// #end
 
 	/**
 		* Remove script from scene
