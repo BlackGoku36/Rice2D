@@ -20,11 +20,9 @@ class Scene {
 	public static var objects: Array<Object> = [];
 
 	public static var scripts: Array<Script> = [];
-
-	public static var uis: Array<UI> = [];
-
+	
 	#if rice_ui
-		public static var canvases: Array<zui.Canvas.TCanvas> = [];
+		public static var uis: Array<UI> = [];
 	#end
 
 	/**
