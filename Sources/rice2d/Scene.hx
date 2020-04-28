@@ -90,7 +90,12 @@ class Scene {
 			sceneData = haxe.Json.parse(b.toString());
 			loadAllAssets(sceneData, () -> {
 				addAllObjects(sceneData, () -> {
-					if(sceneData.scripts.length != 0) for (script in sceneData.scripts){
+					if(sceneData.scripts == null || sceneData.scripts.length == 0){
+						trace('Warning: There aren\'t any scene\'scripts defined in scene ${sceneData.name}.');
+						done();
+						return;
+					}
+					for (script in sceneData.scripts){
 						if(StringTools.endsWith(script.scriptRef, ".json")){
 							kha.Assets.loadBlobFromPath(script.scriptRef, (blb) -> {
 								var nodes:TNodeCanvas = haxe.Json.parse(blb.toString());
@@ -164,6 +169,7 @@ class Scene {
 
 	static function loadAllAssets(sceneData:SceneData, done:Void->Void) {
 		if(sceneData.assets == null || sceneData.assets.length == 0){
+			trace('Warning: There aren\'t any assets defined in scene ${sceneData.name}.');
 			done();
 			return;
 		}
@@ -178,6 +184,11 @@ class Scene {
 	}
 
 	static function addAllObjects(sceneData:SceneData, done:Void->Void) {
+		if(sceneData.objects == null || sceneData.objects.length == 0){
+			trace('Warning: There aren\'t any objects defined in scene ${sceneData.name}.');
+			done();
+			return;
+		}
 		for (object in sceneData.objects){
 			addObject(object, (_) -> {
 				if(sceneData.objects.length == objects.length){
