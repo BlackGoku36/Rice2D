@@ -65,7 +65,7 @@ class App {
 	 * @param scene Name of json file that have scene data.
 	 */
 	public function new(name: String, width:Int, height:Int, clearColor: kha.Color = Color.White, windowMode:WindowMode = Windowed, scene:String) {
-
+		trace(' ~~~~~ Using Rice2D $version ~~~~~');
 		this.clearColor = clearColor;
 
 		html();
