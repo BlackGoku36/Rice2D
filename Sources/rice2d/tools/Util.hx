@@ -1,5 +1,7 @@
 package rice2d.tools;
 
+import kha.math.Random;
+
 class Util {
 
 	/**
@@ -20,7 +22,8 @@ class Util {
 		* @return Float Random Float value
 		*/
 	public static function randomRangeF(min:Float, max:Float):Float {
-		return Math.random() * (max - min) + min;
+		Random.init(324325);
+		return Random.getFloatIn(min, max);
 	}
 
 	/**
@@ -29,8 +32,9 @@ class Util {
 		* @param max maximum value of range
 		* @return Int Random Int value
 		*/
-	public static function randomRangeI(min:Float, max:Float):Int {
-		return Math.round( Math.random() * (max - min) + min);
+	public static function randomRangeI(min:Int, max:Int):Int {
+		Random.init(836204);
+		return Random.getIn(min, max);
 	}
 
 	/**
