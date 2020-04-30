@@ -16,7 +16,16 @@ class Transform{
 		y = object.props.y + (object.props.height / 2);
 		return { x : x, y : y}
 	}
-
+	
+	/**
+	 * Set object's center
+	 * @param x 
+	 * @param y 
+	 */
+	public function setCenter(x:Float, y:Float) {
+		object.props.x = x - (object.props.width / 2);
+		object.props.y = y - (object.props.height / 2);
+	}
 	/**
 		* Translate object
 		* @param x translate on x-axis

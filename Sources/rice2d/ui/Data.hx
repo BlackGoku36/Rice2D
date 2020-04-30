@@ -24,7 +24,7 @@ typedef ElementData = {
     var height: Int;
     var type: ElementType;
     var ?visible:Bool;
-    var ?style: StyleData;
+    var style: StyleData;
     var ?image: kha.Image;
     var ?state: ElementState;
     var ?onHover: ()->Void;
