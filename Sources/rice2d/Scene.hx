@@ -88,7 +88,7 @@ class Scene {
 			loadAllAssets(sceneData, () -> {
 				addAllObjects(sceneData, () -> {
 					if(sceneData.scripts == null || sceneData.scripts.length == 0){
-						trace('Warning: There aren\'t any scene\'scripts defined in scene ${sceneData.name}.');
+						Log.warn('There aren\'t any scene\'scripts defined in scene ${sceneData.name}.');
 						done();
 						return;
 					}
@@ -114,7 +114,7 @@ class Scene {
 			});
 
 		}, (err) -> {
-			trace(err.error+'. Make sure $scene.json (Scene) exist in "Assets" folder and there is not typo.\n');
+			Log.panic(err.error+'. Make sure $scene.json (Scene) exist in "Assets" folder and there is not typo.\n');
 		});
 	}
 
@@ -154,14 +154,15 @@ class Scene {
 
 	static function loadAllAssets(sceneData:SceneData, done:Void->Void) {
 		if(sceneData.assets == null || sceneData.assets.length == 0){
-			trace('Warning: There aren\'t any assets defined in scene ${sceneData.name}.');
+			Log.warn('There aren\'t any assets defined in scene ${sceneData.name}.');
 			done();
 			return;
 		}
 		for(asset in sceneData.assets){
 			Assets.loadAssets(asset, (_) -> {
-				trace('Asset ${sceneData.assets.indexOf(asset)+1} of ${sceneData.assets.length} loaded: ${asset.name} (${asset.type})');
+				Log.print('Asset ${sceneData.assets.indexOf(asset)+1} of ${sceneData.assets.length} loaded: ${asset.name} (${asset.type})');
 				if(sceneData.assets.length == Assets.totalAssets){
+					Log.success('All assets loaded!');
 					done();
 				}
 			});
@@ -170,13 +171,14 @@ class Scene {
 
 	static function addAllObjects(sceneData:SceneData, done:Void->Void) {
 		if(sceneData.objects == null || sceneData.objects.length == 0){
-			trace('Warning: There aren\'t any objects defined in scene ${sceneData.name}.');
+			Log.warn('There aren\'t any objects defined in scene ${sceneData.name}.');
 			done();
 			return;
 		}
 		for (object in sceneData.objects){
 			addObject(object, (_) -> {
 				if(sceneData.objects.length == objects.length){
+					Log.success('All objects create!');
 					done();
 				}
 			});

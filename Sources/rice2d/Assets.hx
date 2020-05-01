@@ -118,6 +118,6 @@ class Assets {
 	}
 
 	static function assetError(err:kha.AssetError) {
-		trace('Asset failed to load, \'${err}\'');
+		Log.error(err, 'Asset failed to load,');
 	}
 }
