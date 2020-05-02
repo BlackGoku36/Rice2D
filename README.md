@@ -25,7 +25,7 @@ Check out:
 
 * [VSCode snippet](https://gist.github.com/BlackGoku36/e97d500547be88b3b2de5f2ea560372c)
 
-*[empty rice project](https://github.com/BlackGoku36/Rice2D-Empty)
+* [empty rice project](https://github.com/BlackGoku36/Rice2D-Empty)
 
 ## Showcase
 
