@@ -10,6 +10,7 @@ class Log {
     public static final green = "\033[32m";
     public static final yellow = "\033[33m";
     public static final reset = "\033[0m";
+    public static final grey = "\033[2m";
 
     public static function init() {
         if (haxeTrace == null) {
@@ -26,7 +27,7 @@ class Log {
 	}
     
     public static function print(v:Dynamic) {
-        trace("\033[2m " + v + reset);
+        trace('$grey $v $reset');
     }
 
     public static function warn(v:Dynamic) {

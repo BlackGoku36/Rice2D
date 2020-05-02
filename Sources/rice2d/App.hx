@@ -23,7 +23,7 @@ import rice2d.Debug;
 
 class App {
 
-	static var version = "2020.2.0";
+	static var version = "2020.5.0";
 
 	public static var backbuffer:kha.Image;
 	static var background:kha.Image;
@@ -271,6 +271,5 @@ class App {
 		if (onEndFrames == null) onEndFrames = [];
 		onEndFrames.push(func);
 	}
-
 
 }

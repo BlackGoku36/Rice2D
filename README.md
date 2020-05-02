@@ -6,7 +6,7 @@
 
 # Rice2D 🌾
 
-![](https://img.shields.io/badge/Version-2020.1.0-blue)
+![](https://img.shields.io/badge/Version-2020.5.0-blue)
 ![GitHub](https://img.shields.io/github/license/BlackGoku36/Rice2D)
 ![Discord](https://img.shields.io/discord/664101262958133258?label=Discord)
 
@@ -18,11 +18,14 @@ Documentation is at [Rice2D-Docs (Web)](https://blackgoku36.github.io/Rice2D-Doc
 
 API Documentation is at [Rice2D-API (Web)](https://blackgoku36.github.io/Rice2D-API/rice2d/index.html), [Rice2D-API (Github)](https://github.com/BlackGoku36/Rice2D-API)
 
-Check [CHANGELOG](CHANGELOG.md)
+Check out:
+* [CHANGELOG](CHANGELOG.md)
 
-Check out [VSCode snippet](https://gist.github.com/BlackGoku36/e97d500547be88b3b2de5f2ea560372c)
+* [RicePong](https://github.com/BlackGoku36/RicePong) (Basic Pong Clone)
 
-Check out [empty rice project](https://github.com/BlackGoku36/Rice2D-Empty)
+* [VSCode snippet](https://gist.github.com/BlackGoku36/e97d500547be88b3b2de5f2ea560372c)
+
+*[empty rice project](https://github.com/BlackGoku36/Rice2D-Empty)
 
 ## Showcase
 
