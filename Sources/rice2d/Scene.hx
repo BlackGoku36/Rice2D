@@ -88,7 +88,7 @@ class Scene {
 			loadAllAssets(sceneData, () -> {
 				addAllObjects(sceneData, () -> {
 					if(sceneData.scripts == null || sceneData.scripts.length == 0){
-						Log.warn('There aren\'t any scene\'scripts defined in scene ${sceneData.name}.');
+						Log.warn('There aren\'t any scene scripts defined in scene ${sceneData.name}.');
 						done();
 						return;
 					}

@@ -2,12 +2,9 @@ package rice2d;
 
 //Kha
 import kha.Color;
-import kha.Framebuffer;
 import kha.Scheduler;
 import kha.System;
 import kha.WindowMode;
-import kha.graphics2.Graphics;
-import kha.math.FastMatrix3;
 
 #if kha_html5
 import js.html.CanvasElement;
@@ -17,7 +14,6 @@ import js.Browser.window;
 
 
 //Engine
-import rice2d.data.WindowData;
 import rice2d.system.Camera;
 import rice2d.Debug;
 
@@ -65,13 +61,21 @@ class App {
 	 * @param scene Name of json file that have scene data.
 	 */
 	public function new(name: String, width:Int, height:Int, clearColor: kha.Color = Color.White, windowMode:WindowMode = Windowed, scene:String) {
-		Log.init();
-		Log.print('${Log.green} ~~~~~ Using Rice2D $version ~~~~~ ${Log.reset}');
 		this.clearColor = clearColor;
 
 		html();
 
-		System.start({title: name, width: width, height: height, window: {mode: windowMode}}, (window) -> {
+		// Krom and native target it dpi-aware, so tempo fix rn.
+		#if kha_html5
+		var w = width;
+		var h = height;
+		#else
+		var w = width * 2;
+		var h = height * 2;
+		#end
+
+		System.start({title: name, width: w, height: h, window: {mode: windowMode}}, (window) -> {
+			Log.print('${Log.green} ~~~~~ Using Rice2D $version ~~~~~ ${Log.reset}');
 			backbuffer = kha.Image.createRenderTarget(width, height);
 			background = kha.Image.createRenderTarget(width, height);
 
@@ -193,7 +197,7 @@ class App {
 		#if rice_ui
 			for(ui in Scene.uis)ui.render(backbuffer);
 		#end
-	
+
 		g.end();
 
 		canvas.g2.begin();
