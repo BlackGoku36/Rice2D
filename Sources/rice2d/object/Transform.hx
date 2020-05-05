@@ -48,9 +48,9 @@ class Transform{
 	}
 
 	/**
-	 * Make object look at some point
-	 * @param x 
-	 * @param y 
+	 * Make object look at position
+	 * @param x position on x-axis
+	 * @param y position on y-axis
 	 */
 	public function lookAt(x:Float, y:Float) {
 		var center = getCenter();
