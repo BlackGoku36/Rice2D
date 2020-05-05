@@ -46,4 +46,16 @@ class Transform{
 		object.props.width += width;
 		object.props.height += height;
 	}
+
+	/**
+	 * Make object look at some point
+	 * @param x 
+	 * @param y 
+	 */
+	public function lookAt(x:Float, y:Float) {
+		var center = getCenter();
+		var rot = Math.atan2(y - center.y, x - center.x);
+		object.props.rotation = rot;
+		return rot;
+	}
 }
