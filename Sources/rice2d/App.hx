@@ -1,6 +1,7 @@
 package rice2d;
 
 //Kha
+import haxe.Timer;
 import kha.Color;
 import kha.Scheduler;
 import kha.System;
@@ -103,6 +104,9 @@ class App {
 	}
 
 	function update() {
+		#if rice_debug
+			startTime = kha.Scheduler.realTime();
+		#end
 		if(Scene.sceneData == null) return;
 
 		if(onInit.length > 0){
@@ -127,9 +131,11 @@ class App {
 
 	function render(canvas: kha.Canvas):Void {
 		if(Scene.sceneData == null) return;
+		var ww = System.windowWidth();
+		var wh = System.windowHeight();
 
-		backbuffer = kha.Image.createRenderTarget(System.windowWidth(), System.windowHeight());
-		background = kha.Image.createRenderTarget(System.windowWidth(), System.windowHeight());
+		backbuffer = kha.Image.createRenderTarget(ww, wh);
+		background = kha.Image.createRenderTarget(ww, wh);
 
 		#if rice_debug
 			startTime = kha.Scheduler.realTime();
