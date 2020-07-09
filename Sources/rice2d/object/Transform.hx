@@ -46,4 +46,16 @@ class Transform{
 		object.props.width += width;
 		object.props.height += height;
 	}
+
+	/**
+	 * Make object look at position
+	 * @param x position on x-axis
+	 * @param y position on y-axis
+	 */
+	public function lookAt(x:Float, y:Float) {
+		var center = getCenter();
+		var rot = Math.atan2(y - center.y, x - center.x);
+		object.props.rotation = rot;
+		return rot;
+	}
 }
