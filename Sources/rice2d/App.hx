@@ -87,13 +87,11 @@ class App {
 			Scene.parseToScene(scene, () -> {
 
 				#if rice_debug
-					for(i in Assets.assets){
-						if(i.type == Font){
-							font = i.value;
-							debug = new Debug(font);
-							break;
-						}
-					}
+				kha.Assets.loadFont("OpenSans_Regular", (font) -> {
+					debug = new Debug(font);
+				}, (err)->{
+					Log.error(err, "Default font for debug failed to load (OpenSans-Regular.ttf)");
+				});
 				#end
 
 				Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
