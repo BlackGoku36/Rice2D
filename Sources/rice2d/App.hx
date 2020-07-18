@@ -23,7 +23,6 @@ class App {
 	static var version = "2020.5.0";
 
 	public static var backbuffer:kha.Image;
-	static var background:kha.Image;
 	public var clearColor:kha.Color;
 
 	static var onInit: Array<Void->Void> = [];
@@ -77,8 +76,7 @@ class App {
 
 		System.start({title: name, width: w, height: h, window: {mode: windowMode}}, (window) -> {
 			Log.print('${Log.green} ~~~~~ Using Rice2D $version ~~~~~ ${Log.reset}');
-			backbuffer = kha.Image.createRenderTarget(width, height);
-			background = kha.Image.createRenderTarget(width, height);
+			backbuffer = kha.Image.createRenderTarget(w, h);
 
 			#if rice_postprocess
 				postprocess = new rice2d.shaders.Postprocess();
@@ -133,7 +131,6 @@ class App {
 		var wh = System.windowHeight();
 
 		backbuffer = kha.Image.createRenderTarget(ww, wh);
-		background = kha.Image.createRenderTarget(ww, wh);
 
 		#if rice_debug
 			startTime = kha.Scheduler.realTime();
@@ -152,14 +149,12 @@ class App {
 			totalFrames++;
 		#end
 
-		background.g2.begin();
-		background.g2.color = clearColor;
-		background.g2.fillRect(0, 0, background.width, background.height);
-		background.g2.end();
-
 		var g = backbuffer.g2;
 		g.begin();
-		g.drawImage(background, 0, 0);
+		var col = g.color;
+		g.color = clearColor;
+		g.fillRect(0, 0, ww, wh);
+		g.color = col;
 
 		camera.set(g);
 
@@ -225,7 +220,6 @@ class App {
 			renderTime = kha.Scheduler.realTime() - startTime;
 		#end
 
-		background.unload();
 		backbuffer.unload();
 	}
 
