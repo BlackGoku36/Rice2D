@@ -30,6 +30,7 @@ class App {
     public static var font:Font;
 
     public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed, done:Void->Void) {
+        html();
         System.start({title: title, width: width, height: height, window: {mode: window_mode}}, (window) -> {
             Assets.loadFont("OpenSans_Regular", (fnt)->{
                 font = fnt;
@@ -88,6 +89,27 @@ class App {
         previousTime = currentTime;
         renderTime = kha.Scheduler.realTime() - startTime;
     }
+
+    static function html(){
+		#if kha_html5
+		document.documentElement.style.padding = '0';
+		document.documentElement.style.margin = '0';
+		document.body.style.padding = '0';
+		document.body.style.margin = '0';
+
+		var canvas = cast(document.getElementById('khanvas'), CanvasElement);
+		canvas.style.display = 'block';
+
+		var resize = function(){
+		canvas.width = Std.int(window.innerWidth * window.devicePixelRatio);
+		canvas.height = Std.int(window.innerHeight * window.devicePixelRatio);
+		canvas.style.width = document.documentElement.clientWidth + 'px';
+		canvas.style.height = document.documentElement.clientHeight + 'px';
+		}
+		window.onresize = resize;
+		resize();
+		#end
+	}
 
     public static function notifyOnUpdate(update:Void->Void) {
         onUpdate.push(update);
