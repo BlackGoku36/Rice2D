@@ -24,7 +24,11 @@ class Shader {
 	 * Create new Shader from shader's data
 	 * @param shaderData Shader's data
 	 */
+<<<<<<< HEAD
 	public function new(shaderData: ShaderData) {
+=======
+	public function new(shaderData: rice2d.data.ShaderData) {
+>>>>>>> c2b7b1f0429fad1859ebe3353c080c43f56ed35e
 		fragmentShader = shaderData.fragmentShader;
 		pipeline = new PipelineState();
 		pipeline.fragmentShader = fragmentShader;
@@ -61,7 +65,11 @@ class Shader {
 	/**
 	 * Render the shader.
 	 * @param canvas
+<<<<<<< HEAD
 	 * @param render
+=======
+	 * @param render 
+>>>>>>> c2b7b1f0429fad1859ebe3353c080c43f56ed35e
 	 */
 	public function render(canvas:Canvas, render:Void->Void) {
 		begin(canvas);

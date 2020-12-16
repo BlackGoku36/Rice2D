@@ -10,9 +10,9 @@
 		"cross"
 	],
 	"description": "Cross-platform data-driven 2d game engine",
-	"version": "2019.12.0",
+	"version": "2020.5.0",
 	"classPath": "Sources",
-	"releasenote": "Bump version 2019.12.0",
+	"releasenote": "Check changelog",
 	"contributors": [
 		"BlackGoku36"
 	]

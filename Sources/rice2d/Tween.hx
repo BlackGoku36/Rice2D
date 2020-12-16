@@ -2,9 +2,15 @@ package rice2d;
 
 import kha.math.Vector2;
 
+import rice2d.data.TweenData;
+
 class Tween {
 
+<<<<<<< HEAD:Sources/rice2d/Tween.hx
 	public var tween: TweenData;
+=======
+	public var tween: rice2d.data.TweenData;
+>>>>>>> c2b7b1f0429fad1859ebe3353c080c43f56ed35e:Sources/rice2d/system/Tween.hx
 
 	static inline var DEFAULT_OVERSHOOT: Float = 1.70158;
 
@@ -35,6 +41,7 @@ class Tween {
 			tween.deltaTime += 1 / 60;
 			if (tween.deltaTime >= tween.duration){
 				tween.done = true;
+<<<<<<< HEAD:Sources/rice2d/Tween.hx
 				if(tween.onDone!=null) tween.onDone(this);
 			} else {
 				var t = tween.deltaTime / tween.duration;
@@ -53,6 +60,40 @@ class Tween {
 				xy.rot = (1 - eases[tween.ease](t)) * tween.rotS + eases[tween.ease](t) * tween.rotE;
         }
         
+=======
+				tween.onDone(this);
+			} else {
+				var t = tween.deltaTime / tween.duration;
+				xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
+				xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
+				if(tween.rotS != null || tween.rotE != null)
+					xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
+				if(tween.colourS != null || tween.colourE != null){
+					xy.col = [
+						Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
+						Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
+						Std.int(tween.colourS[2] + eases[tween.ease](t) * tween.colourE[2]),
+						Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
+					];
+				}
+			}
+		}
+		if(tween.paused){
+			var t = tween.deltaTime / tween.duration;
+			xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
+			xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
+			if(tween.rotS != null || tween.rotE != null)
+				xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
+			if(tween.colourS != null || tween.colourE != null){
+				xy.col = [
+					Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
+					Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
+					Std.int(tween.colourS[2] + eases[tween.ease](t) * tween.colourE[2]),
+					Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
+				];
+			}
+		}
+>>>>>>> c2b7b1f0429fad1859ebe3353c080c43f56ed35e:Sources/rice2d/system/Tween.hx
 		if(tween.done){
 			xy.x = tween.end.x;
 			xy.y = tween.end.y;

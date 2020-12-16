@@ -3,6 +3,32 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2020.5.0] - 2020-5-2
+
+# New
+* New UI (barebones right now)
+* Fullscreen for html5 export
+* Two finger for right click on Mobiles (Native export)
+* Logging. So, you know what is going on.
+
+# Improves
+* Improve Assets loading
+* Util.Random function
+
+# Bug Fixes
+* Fix nodes compile without zui
+* Fix window sizing
+* Fix compile when there is no assets
+* Fix compiling particles, when colors are not given
+* Fix compile on Mac/iOS native
+* Fix compiling tween, where not providing *optional* data.
+* Fix scene script loading, `notifyOnAdd()` now works.
+
+# Changes
+* Remove window data loading from `window.json`. Set window data in `new App()` parameter.
+* Debug console will take first font provided.
+* Remove Zui’s canvas.
+
 ## [2020.1.0] - 2020-1-7
 
 ### Added
