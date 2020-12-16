@@ -36,7 +36,7 @@ class App {
     public static var font:Font;
 
     public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed, done:Void->Void) {
-        html();
+        if(window_mode == Fullscreen) html();
         System.start({title: title, width: width, height: height, window: {mode: window_mode}}, (window) -> {
             Assets.loadFont("OpenSans_Regular", (fnt)->{
                 font = fnt;
