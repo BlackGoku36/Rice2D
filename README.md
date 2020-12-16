@@ -29,7 +29,7 @@ Check out:
 
 ## Showcase
 
-### Mr.Virus
+### Mr.Virus (2020 version)
 
 [LD-46](https://ldjam.com/events/ludum-dare/46/mr-virus)
 
