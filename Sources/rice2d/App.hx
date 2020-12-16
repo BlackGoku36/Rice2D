@@ -1,226 +1,109 @@
 package rice2d;
 
-//Kha
-import kha.Color;
-import kha.Framebuffer;
+import rice2d.tools.Debug;
+import kha.Assets;
+import kha.Font;
+import kha.Image;
+import haxe.ds.Option;
 import kha.Scheduler;
 import kha.System;
 import kha.WindowMode;
-import kha.graphics2.Graphics;
-import kha.math.FastMatrix3;
-
-
-//Engine
-import rice2d.data.WindowData;
-import rice2d.system.Camera;
-import rice2d.Debug;
+import kha.Color;
 
 class App {
 
-	static var version = "2019.12.0";
-
-	public static var backbuffer:kha.Image;
-	static var background:kha.Image;
-
-	static var onInit: Array<Void->Void> = [];
-	static var onUpdate: Array<Void->Void> = [];
-	static var onRender: Array<kha.Canvas->Void> = [];
-	static var onResets: Array<Void->Void> = null;
-	static var onEndFrames: Array<Void->Void> = null;
-
-	var font: kha.Font;
-
-	public static var camera: rice2d.system.Camera;
-
-	#if rice_postprocess
-	var postprocess: rice2d.shaders.Postprocess;
-	#end
-
-	#if rice_debug
-		static var debug: Debug;
-		static var startTime:Float;
-		public static var renderTime:Float;
-		public static var updateTime:Float;
-		var deltaTime: Float = 0.0;
-		var totalFrames: Int = 0;
-		var elapsedTime: Float = 0.0;
-		var previousTime: Float = 0.0;
-		public static var fps: Int = 0;
-	#end
-
-	public function new(scene:String) {
-		Window.loadWindow(function () {
-
-			kha.Assets.loadFontFromPath("mainfont.ttf", function (f) {
-				font = f;
-			});
-
-			var windowMode:WindowMode = WindowMode.Fullscreen;
-			Window.window.windowMode == 0 ? windowMode = WindowMode.Windowed : windowMode = WindowMode.Fullscreen;
-
-			System.start({title: Window.window.name, width: Window.window.width, height: Window.window.height, window: {mode: windowMode}}, function (window:kha.Window) {
-				backbuffer = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
-				background = kha.Image.createRenderTarget(Window.window.width, Window.window.height);
-				#if rice_postprocess
-				postprocess = new rice2d.shaders.Postprocess();
-				#end
-				Scene.parseToScene(scene, function (){
-					#if rice_debug
-						debug = new Debug(font);
-					#end
-					Scheduler.addTimeTask(function () { update(); }, 0, 1 / 60);
-					System.notifyOnFrames(function (frames) { render(frames[0]); });
-					camera = new Camera();
-				});
-			});
-		});
-	}
-
-	function update() {
-		if(Scene.sceneData == null) return;
-
-		if(onInit.length > 0){
-			for (init in onInit) init();
-			onInit.splice(0, onInit.length);
-		}
-		if(onUpdate.length > 0){
-			for (update in onUpdate) update();
-		}
-		if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
-
-		#if rice_debug
-		debug.update();
-		updateTime = kha.Scheduler.realTime() - startTime;
-		#end
-	}
-
-	function render(canvas: kha.Canvas):Void {
-		if(Scene.sceneData == null) return;
-
-		#if rice_debug
-		startTime = kha.Scheduler.realTime();
-		#end
-
-		#if rice_debug
-			var currentTime:Float = Scheduler.realTime();
-			deltaTime = (currentTime - previousTime);
-
-			elapsedTime += deltaTime;
-			if (elapsedTime >= 1.0) {
-				fps = totalFrames;
-				totalFrames = 0;
-				elapsedTime = 0;
-			}
-			totalFrames++;
-		#end
-
-		var clearColor = Window.window.clearColor;
-
-		background.g2.begin();
-		background.g2.color = Color.fromBytes(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
-		background.g2.fillRect(0, 0, background.width, background.height);
-		background.g2.end();
-
-		var g = backbuffer.g2;
-		g.begin();
-
-		g.drawScaledImage(background, 0, 0, backbuffer.width, backbuffer.height);
-
-		camera.set(g);
-
-		for (object in Scene.objects){
-			if(object.shader!=null) object.shader.begin(backbuffer);
-			var center = object.transform.getCenter();
-			if (object.props.rotation != 0){
-				g.pushRotation(object.props.rotation, center.x, center.y);
-			}
-
-			if(object.sprite != null){
-				if(object.visibile){
-					if(object.props.animate) g.drawScaledSubImage(object.sprite, Std.int(object.animation.get() * object.props.width) % object.sprite.width, Math.floor(object.animation.get() * object.props.width / object.sprite.width) * object.props.height, object.props.width, object.props.height, object.props.x, object.props.y, object.props.width, object.props.height);
-					else g.drawScaledImage(object.sprite, object.props.x, object.props.y, object.props.width, object.props.height);
-				}
-			}
-			if(object.shader!=null) object.shader.end(backbuffer);
-			#if rice_debug
-				if(object.selected){
-					g.font = font;
-					g.fontSize = 16;
-					g.color = Color.fromFloats(0.2, 0.2, 0.2);
-					g.fillRect(object.props.x, object.props.y, object.props.width, 20);
-					g.color = Color.White;
-					g.drawString(" X: " + Std.int(object.props.x)+", Y: "+Std.int(object.props.y)+", W: "+object.props.width+", H: "+object.props.height+", R: "+Math.round(object.props.rotation*180/Math.PI)+" Deg", object.props.x, object.props.y+3);
-					g.drawRect(object.props.x, object.props.y, object.props.width, object.props.height, 3);
-				}
-			#end
-
-			if (object.props.rotation != 0) g.popTransformation();
-		}
+    public static var backbuffer:kha.Image;
+    static var onUpdate: Array<Void->Void> = [];
+    static var onRender: Array<kha.Canvas->Void> = [];
+    static var onEndFrames: Array<Void->Void> = null;
 
 
-		for (render in onRender) render(backbuffer);
-		camera.unset(g);
-		#if rice_ui
-			var ui: zui.Zui = new zui.Zui({font: font});
-			if (Scene.canvases != null){
-				for (canvas in Scene.canvases){
-					var events = zui.Canvas.draw(ui, canvas, g);
-					for (e in events) {
-						var all = rice2d.system.Event.get(e);
-						if (all != null) for (entry in all) entry.onEvent();
-					}
-				}
-			}
-		#end
-		g.end();
+    static var startTime:Float;
+    public static var renderTime:Float = 0.0;
+    public static var updateTime:Float = 0.0;
+    public static var deltaTime: Float = 0.0;
+    static var totalFrames: Int = 0;
+    static var elapsedTime: Float = 0.0;
+    static var previousTime: Float = 0.0;
+    public static var fps: Int = 0;
+    public static var font:Font;
 
-		canvas.g2.begin();
-		#if rice_postprocess
-		postprocess.start(canvas);
-		#end
-		canvas.g2.color = 0xffffffff;
-		canvas.g2.drawScaledImage(backbuffer, 0, 0, kha.System.windowWidth(), kha.System.windowHeight());
-		#if rice_postprocess
-		postprocess.end(canvas);
-		#end
-		canvas.g2.end();
+    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed) {
+        System.start({title: title, width: width, height: height, window: {mode: window_mode}}, (window) -> {
+            Assets.loadFont("OpenSans_Regular", (fnt)->{font = fnt;});
+            Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
+            System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
+        });
+    }
 
-		#if rice_debug
-			debug.render(canvas.g2);
-			previousTime = currentTime;
-			renderTime = kha.Scheduler.realTime() - startTime;
-		#end
-	}
+    static function update() {
+        startTime = kha.Scheduler.realTime();
 
-	public static function notifyOnInit(init:Void->Void) {
-		onInit.push(init);
-	}
+        for (f in onUpdate) f();
 
-	public static function notifyOnUpdate(update:Void->Void) {
-		onUpdate.push(update);
-	}
+        if (onEndFrames != null) for (endFrames in onEndFrames) endFrames();
 
-	public static function removeUpdate(update:Void->Void) {
-		onUpdate.remove(update);
-	}
+        updateTime = kha.Scheduler.realTime() - startTime;
+    }
 
-	public static function notifyOnRender(render:kha.Canvas->Void) {
-		onRender.push(render);
-	}
+    static function render(canvas: kha.Canvas, clearColor:Color) {
 
-	public static function removeRender(render:kha.Canvas->Void) {
-		onRender.remove(render);
-	}
+        startTime = kha.Scheduler.realTime();
+        var currentTime:Float = Scheduler.realTime();
+        deltaTime = (currentTime - previousTime);
 
-	public static function notifyOnReset(func:Void->Void) {
-		if (onResets == null) onResets = [];
-		onResets.push(func);
-	}
+        elapsedTime += deltaTime;
+        if (elapsedTime >= 1.0) {
+            fps = totalFrames;
+            totalFrames = 0;
+            elapsedTime = 0;
+        }
+        totalFrames++;
 
-	public static function notifyOnEndFrame(func:Void->Void) {
-		if (onEndFrames == null) onEndFrames = [];
-		onEndFrames.push(func);
-	}
+        var windowSize = Window.getWindowSize();
 
+        backbuffer = Image.createRenderTarget(windowSize.width, windowSize.height);
+
+        var bg2 = backbuffer.g2;
+        bg2.begin();
+        var col = bg2.color;
+        bg2.color = clearColor;
+        bg2.fillRect(0, 0, windowSize.width, windowSize.height);
+        bg2.color = col;
+        for(f in onRender) f(backbuffer);
+        @:privateAccess Debug.render(backbuffer);
+        bg2.end();
+
+        var g2 = canvas.g2;
+        g2.begin();
+        g2.drawImage(backbuffer, 0, 0);
+        g2.end();
+
+        backbuffer.unload();
+
+        previousTime = currentTime;
+        renderTime = kha.Scheduler.realTime() - startTime;
+    }
+
+    public static function notifyOnUpdate(update:Void->Void) {
+        onUpdate.push(update);
+    }
+
+    public static function removeUpdate(update:Void->Void) {
+        onUpdate.remove(update);
+    }
+
+    public static function notifyOnRender(render:kha.Canvas->Void) {
+        onRender.push(render);
+    }
+
+    public static function removeRender(render:kha.Canvas->Void) {
+        onRender.remove(render);
+    }
+
+    public static function notifyOnEndFrame(func:Void->Void) {
+        if (onEndFrames == null) onEndFrames = [];
+        onEndFrames.push(func);
+    }
 
 }

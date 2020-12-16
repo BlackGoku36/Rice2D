@@ -1,8 +1,10 @@
-package rice2d.system;
+package rice2d;
+
+import kha.math.Vector2;
 
 class Tween {
 
-	var tween: rice2d.data.TweenData;
+	public var tween: TweenData;
 
 	static inline var DEFAULT_OVERSHOOT: Float = 1.70158;
 
@@ -16,7 +18,7 @@ class Tween {
 	 * Create new tween
 	 * @param tweenData Tween's data
 	 */
-	public function new(tweenData: rice2d.data.TweenData) {
+	public function new(tweenData: TweenData) {
 		tween = tweenData;
 		tween.deltaTime = 0;
 		tween.done = false;
@@ -26,60 +28,61 @@ class Tween {
 	 * Update tween
 	 */
 	public function update(){
-		var xy = { x: tween.start.x, y: tween.start.y, rot: tween.rotS, col:tween.colourS};
+
+        var xy = { x: tween.start.x, y: tween.start.y, rot: tween.rotS };
+        
 		if (!tween.done && !tween.paused){
 			tween.deltaTime += 1 / 60;
 			if (tween.deltaTime >= tween.duration){
 				tween.done = true;
-				tween.onDone();
+				if(tween.onDone!=null) tween.onDone(this);
 			} else {
 				var t = tween.deltaTime / tween.duration;
-				xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
-				xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
-				xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
-				xy.col = [
-					Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
-					Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
-					Std.int(tween.colourS[2] + eases[tween.ease](t) * tween.colourE[2]),
-					Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
-				];
+				xy.x = (1 - eases[tween.ease](t)) * tween.start.x + eases[tween.ease](t) * tween.end.x;
+				xy.y = (1 - eases[tween.ease](t)) * tween.start.y + eases[tween.ease](t) * tween.end.y;
+				if(tween.rotS != null || tween.rotE != null)
+					xy.rot = (1 - eases[tween.ease](t)) *tween.rotS + eases[tween.ease](t) * tween.rotE;
 			}
-		}
+        }
+        
 		if(tween.paused){
 			var t = tween.deltaTime / tween.duration;
-			xy.x = tween.start.x + eases[tween.ease](t) * tween.end.x;
-			xy.y = tween.start.y + eases[tween.ease](t) * tween.end.y;
-			xy.rot = tween.rotS + eases[tween.ease](t) * tween.rotE;
-			xy.col = [
-				Std.int(tween.colourS[0] + eases[tween.ease](t) * tween.colourE[0]),
-				Std.int(tween.colourS[1] + eases[tween.ease](t) * tween.colourE[1]),
-				Std.int(tween.colourS[2] + eases[tween.ease](t) * tween.colourE[2]),
-				Std.int(tween.colourS[3] + eases[tween.ease](t) * tween.colourE[3]),
-			];
-		}
+			xy.x = (1 - eases[tween.ease](t)) * tween.start.x + eases[tween.ease](t) * tween.end.x;
+			xy.y = (1 - eases[tween.ease](t)) * tween.start.y + eases[tween.ease](t) * tween.end.y;
+			if(tween.rotS != null || tween.rotE != null)
+				xy.rot = (1 - eases[tween.ease](t)) * tween.rotS + eases[tween.ease](t) * tween.rotE;
+        }
+        
 		if(tween.done){
 			xy.x = tween.end.x;
 			xy.y = tween.end.y;
 			xy.rot = tween.rotS;
-			xy.col = tween.colourE;
 		}
 		return xy;
 	}
 
 	/**
 	 * Restart tween
+	 * @param newTween With new tween data.
 	 */
-	public function restart() {
+	public function restart(?newTween:TweenData) {
+		if(newTween != null) tween = newTween;
 	  	tween.done = false;
 		tween.deltaTime = 0;
 	}
 
 	/**
 	 * Pause tween
-	 * @param pause
 	 */
-	public function pause(pause:Bool) {
-		tween.paused = pause;
+	public function pause() {
+		tween.paused = true;
+	}
+	
+	/**
+	 * Resume tween
+	 */
+	public function resume() {
+		tween.paused = false;
 	}
 
 	//Borrowed from Iron's tween (https://github.com/armory3d/iron/blob/master/Sources/iron/system/Tween.hx)
@@ -109,4 +112,45 @@ class Tween {
 	public static function easeBackIn(k:Float):Float { if (k == 0) { return 0; } else if (k == 1) { return 1; } else { return k * k * ((DEFAULT_OVERSHOOT + 1) * k - DEFAULT_OVERSHOOT); } }
 	public static function easeBackOut(k:Float):Float { if (k == 0) { return 0; } else if (k == 1) { return 1; } else { return ((k = k - 1) * k * ((DEFAULT_OVERSHOOT + 1) * k + DEFAULT_OVERSHOOT) + 1); } }
 	public static function easeBackInOut(k:Float):Float { if (k == 0) { return 0; } else if (k == 1) { return 1; } else if ((k *= 2) < 1) { return (0.5 * (k * k * (((DEFAULT_OVERSHOOT * 1.525) + 1) * k - DEFAULT_OVERSHOOT * 1.525))); } else { return (0.5 * ((k -= 2) * k * (((DEFAULT_OVERSHOOT * 1.525) + 1) * k + DEFAULT_OVERSHOOT * 1.525) + 2)); } }
+}
+
+typedef TweenData = {
+	var start: Vector2;
+	var end: Vector2;
+	var duration: Float;
+	var ease: Null<EaseType>;
+	var ?onDone: Tween->Void;
+	var ?rotS: Float;
+	var ?rotE: Float;
+	var ?paused:Bool;
+	var ?deltaTime: Float;
+	var ?done: Bool;
+}
+
+enum abstract EaseType(Int) from Int to Int {
+	var Linear;// = 0;
+	var SineIn;// = 1;
+	var SineOut;// = 2;
+	var SineInOut;// = 3;
+	var QuadIn;// = 4;
+	var QuadOut;// = 5;
+	var QuadInOut;// = 6;
+	var CubicIn;// = 7;
+	var CubicOut;// = 8;
+	var CubicInOut;// = 9;
+	var QuartIn;// = 10;
+	var QuartOut;// = 11;
+	var QuartInOut;// = 12;
+	var QuintIn;// = 13;
+	var QuintOut;// = 14;
+	var QuintInOut;// = 15;
+	var ExpoIn;// = 16;
+	var ExpoOut;// = 17;
+	var ExpoInOut;// = 18;
+	var CircIn;// = 19;
+	var CircOut;// = 20;
+	var CircInOut;// = 21;
+	var BackIn;// = 22;
+	var BackOut;// = 23;
+	var BackInOut;// = 24;
 }

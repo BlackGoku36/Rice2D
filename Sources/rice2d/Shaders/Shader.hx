@@ -13,10 +13,6 @@ import kha.graphics4.VertexData;
 import kha.graphics4.BlendingFactor;
 import kha.graphics4.ConstantLocation;
 
-//Engine
-import rice2d.data.ShaderData;
-import rice2d.data.ShaderData.ConstantData;
-
 class Shader {
 	var pipeline:PipelineState;
 	public var fragmentShader: FragmentShader;
@@ -24,7 +20,11 @@ class Shader {
 	public var constantsLocations:Array<Map<ConstantLocation, ConstantData>> = [];
 	public var textureUnits:Array<Map<TextureUnit, ConstantData>> = [];
 
-	public function new(shaderData: rice2d.data.ShaderData) {
+	/**
+	 * Create new Shader from shader's data
+	 * @param shaderData Shader's data
+	 */
+	public function new(shaderData: ShaderData) {
 		fragmentShader = shaderData.fragmentShader;
 		pipeline = new PipelineState();
 		pipeline.fragmentShader = fragmentShader;
@@ -49,20 +49,20 @@ class Shader {
 		pipeline.alphaBlendDestination = BlendingFactor.InverseSourceAlpha;
 
 		pipeline.compile();
-		constants = shaderData.constants;
-		for (constant in shaderData.constants){
-			if(constant.type == Texture){
-				textureUnits.push([ pipeline.getTextureUnit(constant.name) => constant]);
-			}else{
-				constantsLocations.push([ pipeline.getConstantLocation(constant.name) => constant]);
-			}
-		}
 	}
 
+	/**
+	 * Get pipeline of shader.
+	 */
 	public function getPipeline() {
 		return pipeline;
 	}
 
+	/**
+	 * Render the shader.
+	 * @param canvas
+	 * @param render
+	 */
 	public function render(canvas:Canvas, render:Void->Void) {
 		begin(canvas);
 		render();
@@ -72,25 +72,35 @@ class Shader {
 	public function begin(canvas:Canvas){
 		canvas.g2.pipeline = pipeline;
 		pipeline.set();
-		for (map in constantsLocations) {
-			for (cl => cd in map) {
-				switch (cd.type){
-					case Int: canvas.g4.setInt(cl, Std.int(cd.val[0]));
-					case Float: canvas.g4.setFloat(cl, cd.val[0]);
-					case Bool: canvas.g4.setBool(cl, cd.bool);
-					case Vec2: canvas.g4.setVector2(cl, new FastVector2(cd.val[0], cd.val[1]));
-					case _:
-				}
-			}
-		}
-		for (map in textureUnits){
-			for (texUnit => value in map) {
-				canvas.g4.setTexture(texUnit, value.tex);
-			}
-		}
 	}
 
 	public function end(canvas:Canvas){
 		canvas.g2.pipeline = null;
 	}
+}
+
+@:structInit class ShaderData {
+	public var fragmentShader: kha.graphics4.FragmentShader;
+	public var type: ShaderType;
+}
+
+enum abstract ShaderType(Int) from Int to Int {
+	var Texture;
+	var Color;
+}
+
+@:structInit class ConstantData {
+	public var name:String;
+	public var type:ConstantType;
+	@:optional public var val:Array<Float>;
+	@:optional public var bool:Bool;
+	@:optional public var tex:kha.Image;
+}
+
+enum abstract ConstantType(Int) from Int to Int {
+	var Int;
+	var Float;
+	var Bool;
+	var Vec2;
+	var Texture;
 }
