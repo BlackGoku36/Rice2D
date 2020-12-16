@@ -11,6 +11,12 @@ import kha.System;
 import kha.WindowMode;
 import kha.Color;
 
+#if kha_html5
+import js.html.CanvasElement;
+import js.Browser.document;
+import js.Browser.window;
+#end
+
 class App {
 
     public static var backbuffer:kha.Image;
