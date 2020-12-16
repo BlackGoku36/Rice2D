@@ -1,5 +1,6 @@
 package rice2d;
 
+import kha.Canvas;
 import rice2d.tools.Debug;
 import kha.Assets;
 import kha.Font;
@@ -28,11 +29,14 @@ class App {
     public static var fps: Int = 0;
     public static var font:Font;
 
-    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed) {
+    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed, done:Void->Void) {
         System.start({title: title, width: width, height: height, window: {mode: window_mode}}, (window) -> {
-            Assets.loadFont("OpenSans_Regular", (fnt)->{font = fnt;});
-            Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
-            System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
+            Assets.loadFont("OpenSans_Regular", (fnt)->{
+                font = fnt;
+                done();
+                Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
+                System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
+            });
         });
     }
 
