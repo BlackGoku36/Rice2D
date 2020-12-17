@@ -77,25 +77,28 @@ class App {
         backbuffer = Image.createRenderTarget(windowSize.width, windowSize.height);
 
         var bg2 = backbuffer.g2;
-        bg2.begin();
-        var col = bg2.color;
-        bg2.color = clearColor;
-        bg2.fillRect(0, 0, windowSize.width, windowSize.height);
-        bg2.color = col;
+        bg2.begin(false);
         for(f in onRenderG2) f(backbuffer);
         @:privateAccess Debug.render(backbuffer);
         bg2.end();
 
         var g2 = canvas.g2;
         g2.begin();
-        g2.drawImage(backbuffer, 0, 0);
+        var col = bg2.color;
+        g2.color = clearColor;
+        g2.fillRect(0, 0, windowSize.width, windowSize.height);
+        g2.color = col;
         g2.end();
 
         var bg4 = canvas.g4;
         bg4.begin();
         for(f in onRenderG4) f(canvas);
         bg4.end();
-
+        
+        var g2 = canvas.g2;
+        g2.begin(false);
+        g2.drawImage(backbuffer, 0, 0);
+        g2.end();
 
         backbuffer.unload();
 
