@@ -133,8 +133,8 @@ class Mouse {
             lastX = x;
             lastY = y;
         }
-        this.movementX += x-lastX;
-        this.movementY += y-lastY;
+        this.movementX = movementX;
+        this.movementY = movementY;
 
         lastX = x;
         lastY = y;

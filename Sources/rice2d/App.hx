@@ -21,7 +21,8 @@ class App {
 
     public static var backbuffer:kha.Image;
     static var onUpdate: Array<Void->Void> = [];
-    static var onRender: Array<kha.Canvas->Void> = [];
+    static var onRenderG2: Array<kha.Canvas->Void> = [];
+    static var onRenderG4: Array<kha.Canvas->Void> = [];
     static var onEndFrames: Array<Void->Void> = null;
 
 
@@ -81,7 +82,7 @@ class App {
         bg2.color = clearColor;
         bg2.fillRect(0, 0, windowSize.width, windowSize.height);
         bg2.color = col;
-        for(f in onRender) f(backbuffer);
+        for(f in onRenderG2) f(backbuffer);
         @:privateAccess Debug.render(backbuffer);
         bg2.end();
 
@@ -89,6 +90,12 @@ class App {
         g2.begin();
         g2.drawImage(backbuffer, 0, 0);
         g2.end();
+
+        var bg4 = canvas.g4;
+        bg4.begin();
+        for(f in onRenderG4) f(canvas);
+        bg4.end();
+
 
         backbuffer.unload();
 
@@ -125,12 +132,20 @@ class App {
         onUpdate.remove(update);
     }
 
-    public static function notifyOnRender(render:kha.Canvas->Void) {
-        onRender.push(render);
+    public static function notifyOnRenderG2(render:kha.Canvas->Void) {
+        onRenderG2.push(render);
     }
 
-    public static function removeRender(render:kha.Canvas->Void) {
-        onRender.remove(render);
+    public static function notifyOnRenderG4(render:kha.Canvas->Void) {
+        onRenderG4.push(render);
+    }
+
+    public static function removeRenderG2(render:kha.Canvas->Void) {
+        onRenderG2.remove(render);
+    }
+
+    public static function removeRenderG4(render:kha.Canvas->Void) {
+        onRenderG4.remove(render);
     }
 
     public static function notifyOnEndFrame(func:Void->Void) {
