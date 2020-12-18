@@ -19,7 +19,7 @@ import js.Browser.window;
 
 class App {
 
-    public static var backbuffer:kha.Image;
+    // public static var backbuffer:kha.Image;
     static var onUpdate: Array<Void->Void> = [];
     static var onRenderG2: Array<kha.Canvas->Void> = [];
     static var onRenderG4: Array<kha.Canvas->Void> = [];
@@ -74,33 +74,28 @@ class App {
 
         var windowSize = Window.getWindowSize();
 
-        backbuffer = Image.createRenderTarget(windowSize.width, windowSize.height);
-
-        var bg2 = backbuffer.g2;
-        bg2.begin(false);
-        for(f in onRenderG2) f(backbuffer);
-        @:privateAccess Debug.render(backbuffer);
-        bg2.end();
+        // backbuffer = Image.createRenderTarget(windowSize.width, windowSize.height);
 
         var g2 = canvas.g2;
+        var g4 = canvas.g4;
+
         g2.begin();
-        var col = bg2.color;
-        g2.color = clearColor;
-        g2.fillRect(0, 0, windowSize.width, windowSize.height);
-        g2.color = col;
+            var col = g2.color;
+            g2.color = clearColor;
+            g2.fillRect(0, 0, windowSize.width, windowSize.height);
+            g2.color = col;
         g2.end();
 
-        var bg4 = canvas.g4;
-        bg4.begin();
-        for(f in onRenderG4) f(canvas);
-        bg4.end();
+        g4.begin();
+            for(f in onRenderG4) f(canvas);
+        g4.end();
         
-        var g2 = canvas.g2;
-        g2.begin(false);
-        g2.drawImage(backbuffer, 0, 0);
+        g2.begin();
+            for(f in onRenderG2) f(canvas);
+            @:privateAccess Debug.render(canvas);
         g2.end();
 
-        backbuffer.unload();
+        // backbuffer.unload();
 
         previousTime = currentTime;
         renderTime = kha.Scheduler.realTime() - startTime;
