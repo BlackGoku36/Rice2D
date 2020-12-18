@@ -25,51 +25,71 @@ class Assets {
         for (data in assetList){
             switch (data.type){
                 case Image:
-                    kha.Assets.loadImage(data.name, (image) -> {
-                        var asset:AssetData = {
-                            name: data.name,
-                            type: Image,
-                            value: image
-                        };
-                        assets.push(asset);
+                    loadImage(data.name, ()->{
                         preloadAssetsLoaded += 1;
-                        // if(done != null) done(asset);
                     });
                 case Font:
-                    kha.Assets.loadFont(data.name, (font) -> {
-                        var asset:AssetData = {
-                            name: data.name,
-                            type: Font,
-                            value: font
-                        };
-                        assets.push(asset);
+                    loadFont(data.name, ()->{
                         preloadAssetsLoaded += 1;
-                        // if(done != null) done(asset);
                     });
                 case Sound:
-                    kha.Assets.loadSound(data.name, (sound) -> {
-                        var asset:AssetData = {
-                            name: data.name,
-                            type: Sound,
-                            value: sound
-                        };
-                        assets.push(asset);
+                    loadSound(data.name, ()->{
                         preloadAssetsLoaded += 1;
-                        // if(done != null) done(asset);
                     });
                 case Blob:
-                    kha.Assets.loadBlob(data.name, (blob) -> {
-                        var asset:AssetData = {
-                            name: data.name,
-                            type: Blob,
-                            value: blob
-                        };
-                        assets.push(asset);
+                    loadBlob(data.name, ()->{
                         preloadAssetsLoaded += 1;
-                        // if(done != null) done(asset);
                     });
             }
 		}
+    }
+
+    public static function loadImage(name:String, done:Void->Void) {
+        if(isLoaded(name)) return;
+        kha.Assets.loadImage(name, (image) -> {
+            assets.push({
+                name: name,
+                type: Image,
+                value: image
+            });
+            done();
+        });
+    }
+
+    public static function loadFont(name:String, done:Void->Void) {
+        if(isLoaded(name)) return;
+        kha.Assets.loadFont(name, (font) -> {
+            assets.push({
+                name: name,
+                type: Font,
+                value: font
+            });
+            done();
+        });
+    }
+
+    public static function loadSound(name:String, done:Void->Void) {
+        if(isLoaded(name)) return;
+        kha.Assets.loadSound(name, (sound) -> {
+            assets.push({
+                name: name,
+                type: Sound,
+                value: sound
+            });
+            done();
+        });
+    }
+
+    public static function loadBlob(name:String, done:Void->Void) {
+        if(isLoaded(name)) return;
+        kha.Assets.loadBlob(name, (blob) -> {
+            assets.push({
+                name: name,
+                type: Blob,
+                value: blob
+            });
+            done();
+        });
     }
     
     public static function getAsset(name:String, type:AssetType): Any {
@@ -80,6 +100,14 @@ class Assets {
 			}
 		}
 		return value;
-	}
+    }
+    
+    static function isLoaded(name:String) {
+        for(asset in assets) if(asset.name == name) {
+            trace('Asset of name: ${asset.name} is already loaded. Aborting..');
+            return true;
+        }
+        return false;
+    }
 
 }

@@ -35,11 +35,18 @@ class App {
     public static var font:Font;
     public static var ready = false;
 
-    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed/*, done:Void->Void*/) {
+    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed, done:Void->Void) {
         if(window_mode == Fullscreen) html();
         System.start({title: title, width: width, height: height, window: {mode: window_mode}}, (window) -> {
-            Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
-            System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
+            Assets.loadFont("OpenSans_Regular", ()->{
+                font = Assets.assets[0].value;
+                Assets.loadImage("logo", ()->{
+                    LoadingScreen.logo = Assets.assets[1].value;
+                    Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
+                    System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
+                    done();
+                });
+            });
         });
     }
 
