@@ -2,9 +2,6 @@
 
 package rice2d;
 
-import kha.System;
-import kha.ScreenCanvas;
-import kha.Scaler;
 import kha.input.KeyCode;
 
 class Input {

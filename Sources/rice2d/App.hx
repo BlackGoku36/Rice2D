@@ -2,10 +2,7 @@ package rice2d;
 
 import kha.Canvas;
 import rice2d.tools.Debug;
-import kha.Assets;
 import kha.Font;
-import kha.Image;
-import haxe.ds.Option;
 import kha.Scheduler;
 import kha.System;
 import kha.WindowMode;
@@ -20,6 +17,7 @@ import js.Browser.window;
 class App {
 
     // public static var backbuffer:kha.Image;
+    static var onInit: Array<Void->Void> = [];
     static var onUpdate: Array<Void->Void> = [];
     static var onRenderG2: Array<kha.Canvas->Void> = [];
     static var onRenderG4: Array<kha.Canvas->Void> = [];
@@ -35,20 +33,25 @@ class App {
     static var previousTime: Float = 0.0;
     public static var fps: Int = 0;
     public static var font:Font;
+    public static var ready = false;
 
-    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed, done:Void->Void) {
+    public static function init(title:String = "Rice2D", width:Int = 1280, height:Int=720, clearColor:Color = Color.White, window_mode:WindowMode = Windowed/*, done:Void->Void*/) {
         if(window_mode == Fullscreen) html();
         System.start({title: title, width: width, height: height, window: {mode: window_mode}}, (window) -> {
-            Assets.loadFont("OpenSans_Regular", (fnt)->{
-                font = fnt;
-                done();
-                Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
-                System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
-            });
+            Scheduler.addTimeTask(() -> { update(); }, 0, 1 / 60);
+            System.notifyOnFrames((frames) -> { render(frames[0], clearColor); });
         });
     }
 
     static function update() {
+        if(!ready){
+            if(rice2d.Assets.preloadAssetsLoaded == rice2d.Assets.preloadTotalAssets){
+                for (f in onInit) f();
+                ready = true;
+            }
+            else return;
+        }
+
         startTime = kha.Scheduler.realTime();
 
         for (f in onUpdate) f();
@@ -59,6 +62,10 @@ class App {
     }
 
     static function render(canvas: kha.Canvas, clearColor:Color) {
+        if(!ready){
+            LoadingScreen.render(canvas.g2, rice2d.Assets.preloadAssetsLoaded,rice2d.Assets.preloadTotalAssets);
+            return;
+        }
 
         startTime = kha.Scheduler.realTime();
         var currentTime:Float = Scheduler.realTime();
@@ -121,6 +128,10 @@ class App {
 		resize();
 		#end
 	}
+
+    public static function notifyOnInit(init:Void->Void) {
+        onInit.push(init);
+    }
 
     public static function notifyOnUpdate(update:Void->Void) {
         onUpdate.push(update);
