@@ -90,7 +90,7 @@ class App {
             for(f in onRenderG4) f(canvas);
         g4.end();
         
-        g2.begin();
+        g2.begin(false);
             for(f in onRenderG2) f(canvas);
             @:privateAccess Debug.render(canvas);
         g2.end();
