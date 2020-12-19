@@ -10,15 +10,15 @@ class Vec2Extension {
     }
 
     public static function getCenter(_: Class<Vector2>, pos:Vector2, width:Float, height:Float) {
-        return new Vector2(pos.x - (width/2), pos.y - (height/2));
+        return new Vector2(pos.x + (width/2), pos.y + (height/2));
     }
 
     // public static function setCenter(_: Class<Vector2>, center:Vector2, width:Float, height:Float) {
     //     return new Vector2(center.x + (width/2), center.y + (height/2));
     // }
 
-    public static function lookAt(_:Class<Vector2>, from:Vector2, to:Vector2) {
-        return from.sub(to).normalized();
+    public static function getDirection(_:Class<Vector2>, from:Vector2, to:Vector2) {
+        return to.sub(from).normalized();
     }
 
     public static function clamp(_:Class<Vector2>, value:Vector2, min:Vector2, max:Vector2) {
