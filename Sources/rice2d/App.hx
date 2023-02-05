@@ -9,9 +9,10 @@ import kha.WindowMode;
 import kha.Color;
 
 #if kha_html5
-import js.html.CanvasElement;
 import js.Browser.document;
 import js.Browser.window;
+import js.html.CanvasElement;
+import kha.Macros;
 #end
 
 class App {
@@ -116,25 +117,32 @@ class App {
     }
 
     static function html(){
-		#if kha_html5
-		document.documentElement.style.padding = '0';
-		document.documentElement.style.margin = '0';
-		document.body.style.padding = '0';
-		document.body.style.margin = '0';
-
-		var canvas = cast(document.getElementById('khanvas'), CanvasElement);
-		canvas.style.display = 'block';
-
-		var resize = function(){
-		canvas.width = Std.int(window.innerWidth * window.devicePixelRatio);
-		canvas.height = Std.int(window.innerHeight * window.devicePixelRatio);
-		canvas.style.width = document.documentElement.clientWidth + 'px';
-		canvas.style.height = document.documentElement.clientHeight + 'px';
-		}
-		window.onresize = resize;
-		resize();
-		#end
-	}
+        // For fullscreen canvas add this to khafile.js `project.addDefine('kha_html5_disable_automatic_size_adjust');`
+        #if kha_html5
+        document.documentElement.style.padding = "0";
+        document.documentElement.style.margin = "0";
+        document.body.style.padding = "0";
+        document.body.style.margin = "0";
+        final canvas:CanvasElement = cast document.getElementById(Macros.canvasId());
+        canvas.style.display = "block";
+        final resize = function() {
+            var w = document.documentElement.clientWidth;
+            var h = document.documentElement.clientHeight;
+            if (w == 0 || h == 0) {
+                w = window.innerWidth;
+                h = window.innerHeight;
+            }
+            canvas.width = Std.int(w * window.devicePixelRatio);
+            canvas.height = Std.int(h * window.devicePixelRatio);
+            if (canvas.style.width == "") {
+                canvas.style.width = "100%";
+                canvas.style.height = "100%";
+            }
+        }
+        window.onresize = resize;
+        resize();
+        #end
+    }
 
     public static function notifyOnInit(init:Void->Void) {
         onInit.push(init);
@@ -170,3 +178,4 @@ class App {
     }
 
 }
+
